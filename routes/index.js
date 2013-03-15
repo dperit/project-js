@@ -3,11 +3,12 @@
 var passport = require('passport');
 
 module.exports = function(app) {
-  app.get("/", function(req, res) {
+  var prefix = app.get('apiPrefix');
+  app.get(prefix + "/", function(req, res) {
     res.json({message: "Hello!"});
   });
 
-  app.post('/login',
+  app.post(prefix + '/login',
            passport.authenticate('local'),
            function(req, res){
              res.end('You did it.');

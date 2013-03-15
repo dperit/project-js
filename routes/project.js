@@ -6,8 +6,9 @@ var mongoose = require('mongoose'),
   passport = require('passport');
 
 module.exports = function(app) {
+  var prefix = app.get('apiPrefix');
   // GET /project: get all projects
-  app.get("/project", function(req, res) {
+  app.get(prefix + "/project", function(req, res) {
     Project.find({}).exec(function(err, projects) {
       if(err) {
         res.send(500);
@@ -18,12 +19,12 @@ module.exports = function(app) {
   });
 
   // GET /project/:project: get specific project
-  app.get("/project/:project", function(req, res) {
+  app.get(prefix + "/project/:project", function(req, res) {
     res.json(req.project);
   });
 
   // PUT /project/:project: update specified project
-  app.put("/project/:project", function(req, res) {
+  app.put(prefix + "/project/:project", function(req, res) {
     var project = req.project;
     if (req.body.title) project.title = req.body.title;
     if (req.body.clientName) project.clientName = req.body.clientName;
@@ -41,7 +42,7 @@ module.exports = function(app) {
   });
 
   // POST /project: create a new project
-  app.post("/project", function(req, res, next) {
+  app.post(prefix + "/project", function(req, res, next) {
     if(!(req.body.title &&
       req.body.clientName,
       req.body.projectDueDate)){
@@ -66,7 +67,7 @@ module.exports = function(app) {
   });
 
   // POST /project/:project/close: close a project
-  app.post("/project/:project/close", function(req, res) {
+  app.post(prefix + "/project/:project/close", function(req, res) {
     var project = req.project;
     project.status = 'closed';
     project.save(function(err) {
@@ -80,7 +81,7 @@ module.exports = function(app) {
   });
 
   // POST /project/:project/open: open a project
-  app.post("/project/:project/open", function(req, res) {
+  app.post(prefix + "/project/:project/open", function(req, res) {
     var project = req.project;
     project.status = 'open';
     project.save(function(err) {
@@ -95,13 +96,13 @@ module.exports = function(app) {
 
 
   // GET /project/:project/user: get all users in project
-  app.get("/project/:project/user", function(req, res, next){
+  app.get(prefix + "/project/:project/user", function(req, res, next){
     res.send(req.project.projectUsers);
     res.end();
   });
 
   // POST /project/:project/user: adds user to project
-  app.post("/project/:project/user", function(req, res,next) {
+  app.post(prefix + "/project/:project/user", function(req, res,next) {
     if(!req.body.userId){
       res.send(500, "Not enough information");
       res.end();
@@ -127,7 +128,7 @@ module.exports = function(app) {
   });
 
   // PUT /project/:project/user: updates user within project
-  app.put("/project/:project/user", function(req, res,next) {
+  app.put(prefix + "/project/:project/user", function(req, res,next) {
     if(!req.body.userId || !req.body.roleId){
       res.send(500, "Not enough information to make query (requires userId and roleId)");
       res.end();
@@ -157,7 +158,7 @@ module.exports = function(app) {
   });
 
   // DELETE /project/:project/user: removes user from project
-  app.delete("/project/:project/user", function(req, res,next) {
+  app.delete(prefix + "/project/:project/user", function(req, res,next) {
     if(!req.body.userId){
       res.send(500, "Not enough information");
       res.end();

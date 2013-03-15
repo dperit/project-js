@@ -6,8 +6,9 @@ var mongoose = require('mongoose'),
   passport = require('passport');
 
 module.exports = function(app) {
+  var prefix = app.get('apiPrefix');
   // GET /role: get all roles
-  app.get("/role", function(req, res) {
+  app.get(prefix + "/role", function(req, res) {
     Role.find({}, function(err, roles) {
      if(err) {
        res.send(500, err);
@@ -18,7 +19,7 @@ module.exports = function(app) {
   });
 
   // GET /role/:role: get specific roles
-  app.get("/role/:role", function(req, res) {
+  app.get(prefix + "/role/:role", function(req, res) {
     res.json(req.role);
   });
 
@@ -27,7 +28,7 @@ module.exports = function(app) {
   // title: Role name
   // permissions: an Array of Permission objects:
   // (eg: [{"title": "canEat"}, {"title": "canSleep"}]
-  app.post("/role", function(req, res, next) {
+  app.post(prefix + "/role", function(req, res, next) {
     if(!(req.body.title)){
         res.send(404);
         res.end('Not enough data to create a new role.');
@@ -55,7 +56,7 @@ module.exports = function(app) {
   });
 
   // POST /role/:role: add new permissions to role
-  app.post("/role/:role", function(req, res, next) {
+  app.post(prefix + "/role/:role", function(req, res, next) {
     if(!req.role) {
       res.send(404);
       res.end();
@@ -73,7 +74,7 @@ module.exports = function(app) {
   });
 
   // PUT /role/:role: update role information
-  app.put("/role/:role", function(req, res) {
+  app.put(prefix + "/role/:role", function(req, res) {
     if(!req.role) {
       res.send(404);
       res.end();
@@ -90,7 +91,7 @@ module.exports = function(app) {
   // if a param 'permission' is given with
   // a permission id, only that permission
   // is deleted from the role
-  app.delete("/role/:role", function(req, res) {
+  app.delete(prefix + "/role/:role", function(req, res) {
     // if permissions to delete were sent,
     // only delete those...
     if(req.body.permissions) {
