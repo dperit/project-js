@@ -1,0 +1,18 @@
+<div ng-include src="'partials/project-nav.html'"></div>
+
+<div class="row">
+  <div class="well well-small span11 project">
+    <h3>Your Project at a Glance:</h3>
+    <h4>Project Manager: <a href="#/users/{{project.projectManager}}">{{project.projectManager}}</a></h4>
+    <h4>Current Status: <span class="label {{project.status.labelType}}">{{project.status.text}}</span></h4>
+    <h4>Overall Progress:</h4> <div class="progress"><div class="bar" style="width: {{project.progress}}%;"></div></div>
+  </div>
+  <div class="span4 milestones">
+    <h4>Upcoming Milestones</h4>
+    ...
+  </div>
+  <div class="span4 issues">
+    <h4>Latest Issues</h4>
+    ...
+  </div>
+</div>

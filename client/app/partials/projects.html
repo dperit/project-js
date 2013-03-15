@@ -1,0 +1,27 @@
+<h2>Your Projects</h2>
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="pull-left">
+      <span class="brand">Projects sorted by name</span>
+      <a class="btn" href="#/add-project">Add Project</a>
+    </div>
+    <ul class="nav pull-right">
+      <form class="navbar-search">
+        <input type="text" class="search-query" placeholder="Search for Project">
+      </form>
+      <li><a href="#/projects?sort=name">Name</a></li>
+      <li><a href="#/projects?sort=due">Due Date</a></li>
+      <li><a href="#/projects?sort=priority">Priority</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="row projects">
+  <div class="well span5 project" id="{{project.name}}" ng-repeat="project in projects">
+    <h3><a href="#/projects/{{project.name}}">{{project.name}}</a></h3>
+    <p><b>Project Manager:</b> <a href="#/users/{{project.projectManager}}">{{project.projectManager}}</a></p>
+    <p><b>Current Status:</b> <span class="label {{project.status.labelType}}">{{project.status.text}}</span></p>
+    <b>Overall Progress:</b> <div class="progress"><div class="bar" style="width: {{project.progress}}%;"></div></div>
+  </div>
+</div>
