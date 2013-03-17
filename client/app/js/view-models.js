@@ -5,7 +5,7 @@
 PJS.ViewModels = {
   Project: function(project) {
     project = PJS.ViewModels.all(project);
-    if (project.projectUsers) {
+    if (project.projectUsers && project.projectUsers.length) {
       project.projectManager = findFirstUserByRole(project.projectUsers, 'projectmanager').user;
     }
     project.progress = 50; // TODO: Calculate this
