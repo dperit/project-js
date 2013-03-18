@@ -114,7 +114,6 @@ var projectSchema = new Schema({
 
 projectSchema.methods.hasUser = function(id, cb) {
   for (var i = 0; i < this.projectUsers.length; i += 1) {
-    console.log(i);
     if (this.projectUsers[i].user._id == id) {
       return true;
     }
@@ -124,7 +123,6 @@ projectSchema.methods.hasUser = function(id, cb) {
 
 projectSchema.methods.hasUserAndRetrieve = function(id, cb) {
   for (var i = 0; i < this.projectUsers.length; i += 1) {
-    console.log(i);
     if (this.projectUsers[i].user._id == id) {
       return this.projectUsers[i];
     }
@@ -134,7 +132,6 @@ projectSchema.methods.hasUserAndRetrieve = function(id, cb) {
 
 projectSchema.methods.hasUserAndRetrieveIndex = function(id, cb) {
   for (var i = 0; i < this.projectUsers.length; i += 1) {
-    console.log(i);
     if (this.projectUsers[i].user._id == id) {
       return i;
     }
@@ -142,6 +139,32 @@ projectSchema.methods.hasUserAndRetrieveIndex = function(id, cb) {
   return false;
 };
 
+projectSchema.methods.hasMilestoneAndRetrieve = function(id, cb) {
+  for (var i = 0; i < this.milestones.length; i += 1) {
+    if (this.milestones[i]._id == id) {
+      return i;
+    }
+  }
+  return false;
+};
+
+projectSchema.methods.hasWorkPackageAndRetrieve = function(id, cb) {
+  for (var i = 0; i < this.workPackages.length; i += 1) {
+    if (this.workPackages[i]._id == id) {
+      return i;
+    }
+  }
+  return false;
+};
+
+projectSchema.methods.hasWorkItemAndRetrieve = function(id, cb) {
+  for (var i = 0; i < this.workItems.length; i += 1) {
+    if (this.workItems[i]._id == id) {
+      return i;
+    }
+  }
+  return false;
+};
 projectSchema.pre('save', function(next) {
   var project = this;
   project.lastModifiedDate = new Date();

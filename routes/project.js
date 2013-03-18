@@ -202,6 +202,50 @@ module.exports = function(app) {
     });
   }); // app.param('project')
 
+  // :milestone parameter route: finds a milestone &
+  // passes it to next route, handles errors
+  app.param('milestone', function(req, res, next, id){
+    var project = req.project;
+    var ms = project.hasMilestoneAndRetrieve(id);
+    if(ms){
+      req.ms = ms;
+      next();
+    }
+    else {
+      res.send(404, 'Milestone not found');
+      res.end();
+    }
+  }); // app.param('milestone')
+
+  // :milestone parameter route: finds a milestone &
+  // passes it to next route, handles errors
+  app.param('workpackage', function(req, res, next, id){
+    var project = req.project;
+    var wp = project.hasWorkPackageAndRetrieve(id);
+    if(wp){
+      req.wp = wp;
+      next();
+    }
+    else {
+      res.send(404, 'Work Package not found');
+      res.end();
+    }
+  }); // app.param('workpackage')
+
+  // :workitem parameter route: finds a work item &
+  // passes it to next route, handles errors
+  app.param('workitem', function(req, res, next, id){
+    var project = req.project;
+    var wi = project.hasWorkItemAndRetrieve(id);
+    if(wi){
+      req.wi = wi;
+      next();
+    }
+    else {
+      res.send(404, 'Work Item not found');
+      res.end();
+    }
+  }); // app.param('workitem')
   /////////////////////////////////////////////////
   // EXTRA SHIT - NEEDS TO BE MOVED INTO OWN FILES
   /////////////////////////////////////////////////
@@ -236,34 +280,36 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/api/projects/:projectId/milestones/:milestoneId', function(req, res) {
-    var project = findInArray(dummyDB.projects, req.params.projectId);
-    res.send(findInArray(project.milestones, req.params.milestoneId));
+  // GET /project/:project/milestones/:milestone: get a project's specific milestone
+  app.get('/project/:project/milestones/:milestone', function(req, res) {
+    res.send(req.ms);
   });
 
-  app.get('/api/projects/:projectId/workpackages', function(req, res) {
-    var project = findInArray(dummyDB.projects, req.params.projectId);
+  // GET /project/:project/workpackage: get a project's work packages
+  app.get('/project/:project/workpackages', function(req, res) {
+    var project = req.project;
     res.send(project.workPackages);
   });
 
-  app.get('/api/projects/:projectId/workpackages/:workPackageId', function(req, res) {
-    var project = findInArray(dummyDB.projects, req.params.projectId);
-    res.send(findInArray(project.workPackages, req.params.workPackageId));
+  // GET /project/:project/workpackages/:workpackage: get a project's specific work package
+  app.get('/project/:project/workpackages/:workpackage', function(req, res) {
+    res.send(req.wp);
   });
 
-  app.get('/api/projects/:projectId/workitems', function(req, res) {
-    var project = findInArray(dummyDB.projects, req.params.projectId);
+  // GET /project/:project/workitem: get a project's work items
+  app.get('/project/:project/workitem', function(req, res) {
+    var project = req.project;
     res.send(project.workItems);
   });
 
-  app.get('/api/projects/:projectId/workbreakdown', function(req, res) {
-    var project = findInArray(dummyDB.projects, req.params.projectId);
+  // GET /project/:project/workitem/:workitem: get a project's specific work items
+  app.get('/project/:project/workitem/:workitem', function(req, res) {
+    res.send(req.wi);
+  });
+
+  // GET /project/:project/workbreakdown: get a project's WBS
+  app.get('/project/:project/workbreakdown', function(req, res) {
+    var project = req.project;
     res.send(project.workBreakdownStructure);
   });
-
-  app.get('/api/projects/:projectId/workitems/:workItemId', function(req, res) {
-    var project = findInArray(dummyDB.projects, req.params.projectId);
-    res.send(findInArray(project.workItems, req.params.workItemId));
-  });
-
 }; //end of exports
