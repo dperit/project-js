@@ -15,22 +15,11 @@ Install Node-specific dependencies:
 $ npm install
 ```
 
-[MongoDB Database Dump (March 17 2013)](https://www.dropbox.com/s/245eqdb67auofyk/dump.zip)
-To import the above database dump:
-
-1. Unzip the contents of the file somewhere
-2. Open up a terminal window to the same directory that **contains** the `dump` directory
-
-There are two different ways to import the data: directly into the filesystem or into
-a running instance of MongoDB.
-
-The filesystem way:
-`mongorestore --dbpath <path/to/mongo/db/folder>`
-
-The MongoD is running way:
-`mongorestore --host localhost --port <your-local-mongo-port>`
-
-Start hacking!
+Database sample data installion (instructions created by Jennifer)
+1.  Load up the mongo shell in the console from within the project-js directory
+2.  Type in the following command in your mongo client shell:  load("dummydbMar17.js")
+3.  To check for success, you can type:  show collections  [the result should be: projects, roles, users]
+4.  To check that all the data is there, type: db.users.find()  ...or db.roles.find() or db.projects.find()  which will display all the data in the collection.
 
 ### Using pjs-api
 First, make sure MongoDB is running:
