@@ -200,5 +200,116 @@ module.exports = function(app) {
         res.end();
       }
     });
+  }); // app.param('project')
+
+  // :milestone parameter route: finds a milestone &
+  // passes it to next route, handles errors
+  app.param('milestone', function(req, res, next, id){
+    var project = req.project;
+    var ms = project.hasMilestoneAndRetrieve(id);
+    if(ms){
+      req.ms = ms;
+      next();
+    }
+    else {
+      res.send(404, 'Milestone not found');
+      res.end();
+    }
+  }); // app.param('milestone')
+
+  // :milestone parameter route: finds a milestone &
+  // passes it to next route, handles errors
+  app.param('workpackage', function(req, res, next, id){
+    var project = req.project;
+    var wp = project.hasWorkPackageAndRetrieve(id);
+    if(wp){
+      req.wp = wp;
+      next();
+    }
+    else {
+      res.send(404, 'Work Package not found');
+      res.end();
+    }
+  }); // app.param('workpackage')
+
+  // :workitem parameter route: finds a work item &
+  // passes it to next route, handles errors
+  app.param('workitem', function(req, res, next, id){
+    var project = req.project;
+    var wi = project.hasWorkItemAndRetrieve(id);
+    if(wi){
+      req.wi = wi;
+      next();
+    }
+    else {
+      res.send(404, 'Work Item not found');
+      res.end();
+    }
+  }); // app.param('workitem')
+  /////////////////////////////////////////////////
+  // EXTRA SHIT - NEEDS TO BE MOVED INTO OWN FILES
+  /////////////////////////////////////////////////
+
+  // GET /project/:project/milestones: get project milestones
+  app.get(prefix + "/project/:project/milestones", function(req, res) {
+    res.json(req.project.milestones);
+    res.end();
+  });
+
+  // POST /project/:project/milestones: create project milestones
+  app.post(prefix + "/project/:project/milestones", function(req, res) {
+    var project = req.project;
+    var milestone = {
+      title: req.body.name,
+      description: req.body.description,
+      msNumber: req.body.msNumber,
+      wpDependencies: [],
+      msDependencies: [],
+      priority: 'high',
+      status: 'late',
+      completionPercentage: 50
+    };
+    project.milestones.push(milestone);
+    project.save(function(err){
+      if(err) {
+        res.send(500, err);
+        res.end();
+      }
+      res.json(req.project.milestones);
+      res.end();
+    });
+  });
+
+  // GET /project/:project/milestones/:milestone: get a project's specific milestone
+  app.get('/project/:project/milestones/:milestone', function(req, res) {
+    res.send(req.ms);
+  });
+
+  // GET /project/:project/workpackage: get a project's work packages
+  app.get('/project/:project/workpackages', function(req, res) {
+    var project = req.project;
+    res.send(project.workPackages);
+  });
+
+  // GET /project/:project/workpackages/:workpackage: get a project's specific work package
+  app.get('/project/:project/workpackages/:workpackage', function(req, res) {
+    res.send(req.wp);
+  });
+
+  // GET /project/:project/workitem: get a project's work items
+  app.get('/project/:project/workitem', function(req, res) {
+    var project = req.project;
+    res.send(project.workItems);
+  });
+
+  // GET /project/:project/workitem/:workitem: get a project's specific work items
+  app.get('/project/:project/workitem/:workitem', function(req, res) {
+    res.send(req.wi);
+  });
+
+  // GET /project/:project/workbreakdown: get a project's WBS
+  app.get('/project/:project/workbreakdown', function(req, res) {
+    var project = req.project;
+    res.send(project.workBreakdownStructure);
   });
 }; //end of exports
