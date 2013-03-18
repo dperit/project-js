@@ -236,5 +236,34 @@ module.exports = function(app) {
     });
   });
 
+  app.get('/api/projects/:projectId/milestones/:milestoneId', function(req, res) {
+    var project = findInArray(dummyDB.projects, req.params.projectId);
+    res.send(findInArray(project.milestones, req.params.milestoneId));
+  });
+
+  app.get('/api/projects/:projectId/workpackages', function(req, res) {
+    var project = findInArray(dummyDB.projects, req.params.projectId);
+    res.send(project.workPackages);
+  });
+
+  app.get('/api/projects/:projectId/workpackages/:workPackageId', function(req, res) {
+    var project = findInArray(dummyDB.projects, req.params.projectId);
+    res.send(findInArray(project.workPackages, req.params.workPackageId));
+  });
+
+  app.get('/api/projects/:projectId/workitems', function(req, res) {
+    var project = findInArray(dummyDB.projects, req.params.projectId);
+    res.send(project.workItems);
+  });
+
+  app.get('/api/projects/:projectId/workbreakdown', function(req, res) {
+    var project = findInArray(dummyDB.projects, req.params.projectId);
+    res.send(project.workBreakdownStructure);
+  });
+
+  app.get('/api/projects/:projectId/workitems/:workItemId', function(req, res) {
+    var project = findInArray(dummyDB.projects, req.params.projectId);
+    res.send(findInArray(project.workItems, req.params.workItemId));
+  });
 
 }; //end of exports
