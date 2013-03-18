@@ -200,5 +200,41 @@ module.exports = function(app) {
         res.end();
       }
     });
+  }); // app.param('project')
+
+  /////////////////////////////////////////////////
+  // EXTRA SHIT - NEEDS TO BE MOVED INTO OWN FILES
+  /////////////////////////////////////////////////
+
+  // GET /project/:project/milestones: get project milestones
+  app.get(prefix + "/project/:project/milestones", function(req, res) {
+    res.json(req.project.milestones);
+    res.end();
   });
+
+  // POST /project/:project/milestones: create project milestones
+  app.post(prefix + "/project/:project/milestones", function(req, res) {
+    var project = req.project;
+    var milestone = {
+      title: req.body.name,
+      description: req.body.description,
+      msNumber: req.body.msNumber,
+      wpDependencies: [],
+      msDependencies: [],
+      priority: 'high',
+      status: 'late',
+      completionPercentage: 50
+    };
+    project.milestones.push(milestone);
+    project.save(function(err){
+      if(err) {
+        res.send(500, err);
+        res.end();
+      }
+      res.json(req.project.milestones);
+      res.end();
+    });
+  });
+
+
 }; //end of exports
