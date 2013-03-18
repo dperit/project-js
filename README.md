@@ -42,6 +42,6 @@ You can then start the server by typing:
 ```
 $ node app
 ```
-The client is accessible at `localhost:&lt;port&gt;`
-The API is accessible at `localhost:&lt;port&gt;/api/`
+The client is accessible at `localhost:<port>`
+The API is accessible at `localhost:<port>/api/`
 The API prefix can be configured in `config/project.js`.
