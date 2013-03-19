@@ -188,7 +188,7 @@ module.exports = function(app) {
   // :project parameter route: finds a project &
   // passes it to next route, handles errors
   app.param('project', function(req, res, next, id){
-    Project.findOne({"_id" : id}).populate('projectUsers.user').exec(function(err, project){
+    Project.findOne({"_id" : id})/*.populate('projectUsers.user')*/.exec(function(err, project){
       if (err) {
         res.send(500, "Error while finding project");
         res.end();
@@ -251,13 +251,13 @@ module.exports = function(app) {
   /////////////////////////////////////////////////
 
   // GET /project/:project/milestones: get project milestones
-  app.get(prefix + "/project/:project/milestones", function(req, res) {
+  app.get(prefix + "/project/:project/milestone", function(req, res) {
     res.json(req.project.milestones);
     res.end();
   });
 
   // POST /project/:project/milestones: create project milestones
-  app.post(prefix + "/project/:project/milestones", function(req, res) {
+  app.post(prefix + "/project/:project/milestone", function(req, res) {
     var project = req.project;
     var milestone = {
       title: req.body.name,
@@ -281,34 +281,34 @@ module.exports = function(app) {
   });
 
   // GET /project/:project/milestones/:milestone: get a project's specific milestone
-  app.get('/project/:project/milestones/:milestone', function(req, res) {
+  app.get(prefix + '/project/:project/milestone/:milestone', function(req, res) {
     res.send(req.ms);
   });
 
   // GET /project/:project/workpackage: get a project's work packages
-  app.get('/project/:project/workpackages', function(req, res) {
+  app.get(prefix + '/project/:project/workpackage', function(req, res) {
     var project = req.project;
     res.send(project.workPackages);
   });
 
   // GET /project/:project/workpackages/:workpackage: get a project's specific work package
-  app.get('/project/:project/workpackages/:workpackage', function(req, res) {
+  app.get(prefix + '/project/:project/workpackages/:workpackage', function(req, res) {
     res.send(req.wp);
   });
 
   // GET /project/:project/workitem: get a project's work items
-  app.get('/project/:project/workitem', function(req, res) {
+  app.get(prefix + '/project/:project/workitem', function(req, res) {
     var project = req.project;
     res.send(project.workItems);
   });
 
   // GET /project/:project/workitem/:workitem: get a project's specific work items
-  app.get('/project/:project/workitem/:workitem', function(req, res) {
+  app.get(prefix + '/project/:project/workitem/:workitem', function(req, res) {
     res.send(req.wi);
   });
 
   // GET /project/:project/workbreakdown: get a project's WBS
-  app.get('/project/:project/workbreakdown', function(req, res) {
+  app.get(prefix + '/project/:project/workbreakdown', function(req, res) {
     var project = req.project;
     res.send(project.workBreakdownStructure);
   });
