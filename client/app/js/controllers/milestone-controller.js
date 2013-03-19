@@ -32,10 +32,10 @@ PJS.Controllers.Milestone = {
   add: function($scope, $routeParams, Milestone, Project) {
     var projectId = $routeParams.projectId.toLowerCase();
     $scope.addMilestone = function() {
-      var milestone = new Milestone({name: $scope.title, description: $scope.description});
+      var milestone = new Milestone({title: $scope.title, description: $scope.description});
       milestone.projectId = projectId;
       milestone.$save(milestone);
-      window.location = '/#/projects/' + projectId + '/milestones/' + milestone.title;
+      window.location = '/#/projects/' + projectId + '/milestones/' + PJS.Utilities.dashed(milestone.title);
     };
   },
 
@@ -49,7 +49,7 @@ PJS.Controllers.Milestone = {
           milestone.description = $scope.description;
           milestone.projectId = projectId;
           milestone.$save(milestone);
-          window.location = '/#/projects/' + projectId + '/milestones/' + milestone._id;
+          window.location = '/#/projects/' + projectId + '/milestones/' + PJS.Utilities.dashed(milestone.title);
         };
       });
     });

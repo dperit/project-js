@@ -20,4 +20,8 @@ PJS.Utilities.toCamelCase = function(str) {
   });
 };
 
+PJS.Utilities.dashed = function(str) {
+  return str.replace(/\s/g, '-');
+};
+
 })();

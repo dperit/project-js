@@ -15,7 +15,8 @@ var WorkBreakdown = new Schema({
 });
 
 var WorkBreakdownItem = new Schema({
-  id: { type: Number, required: true, unique: true, sparse: true }, // index start?
+  id: { type: String, required: true, unique: true, sparse: true },
+  index: { type: Number, required: true, unique: true, sparse: true },
   title: { type: String, required: true, trim: true },
   description: { type: String, trim: true },
   ancestors: [String], // itemNumber instead?
@@ -36,16 +37,17 @@ var Completion = new Schema({
 });
 
 var Milestone = new Schema({
-  id: { type: Number, required: true, unique: true, sparse: true }, // index start?
+  id: { type: String, required: true, unique: true, sparse: true },
+  index: { type: Number, required: true, unique: true, sparse: true },
   title: { type: String, required: true, trim: true },
   description: { type: String, trim: true },
-  dueDate: { type: Date, required: true },
+  dueDate: { type: Date },
   priority: { type: String, trim: true }, //required?
   completionPercentage: { type: Number, min: 0, max: 100, default: 0 },
   status: { type: String, trim: true },
   wpDependencies: [String], // use wpNumber instead?
   msDependencies: [String], // use msNumber instead?
-  requiredCompletion: [Completion],
+  //requiredCompletion: [Completion],
   lastModifiedDate: {type: Date, default: Date.now },
   lastModifiedBy: String // use userId instead?
 });
@@ -57,7 +59,8 @@ var WorkPackageListEntry = new Schema({
 });
 
 var WorkPackage = new Schema({
-  id: { type: Number, required: true, unique: true, sparse: true }, // index start?
+  id: { type: String, required: true, unique: true, sparse: true },
+  index: { type: Number, required: true, unique: true, sparse: true },
   title: { type: String, required: true, trim: true },
   description: { type: String, trim: true },
   priority: { type: String, trim: true },
@@ -76,7 +79,7 @@ var WorkItemListEntry = new Schema({
 });
 
 var Comment = new Schema({
-  id: { type: Number, required: true, unique: true, sparse: true }, //unique?
+  index: { type: Number, required: true, unique: true, sparse: true },
   title: { type: String, trim: true },
   text: { type: String, required: true },
   postedBy: String, // use userId instead?
@@ -84,7 +87,8 @@ var Comment = new Schema({
 });
 
 var WorkItem = new Schema({
-  id: { type: Number, required: true, unique: true, sparse: true }, // index start?
+  id: { type: String, required: true, unique: true, sparse: true },
+  index: { type: Number, required: true, unique: true, sparse: true },
   title: { type: String, required: true, trim: true },
   description: { type: String, trim: true },
   workPackages: [String], // use wpNumber instead?
@@ -119,7 +123,7 @@ var projectSchema = new Schema({
 
 projectSchema.methods.hasUser = function(id, cb) {
   for (var i = 0; i < this.projectUsers.length; i += 1) {
-    if (this.projectUsers[i].user._id == id) {
+    if (this.projectUsers[i].user._id === id) {
       return true;
     }
   }
@@ -128,7 +132,7 @@ projectSchema.methods.hasUser = function(id, cb) {
 
 projectSchema.methods.hasUserAndRetrieve = function(id, cb) {
   for (var i = 0; i < this.projectUsers.length; i += 1) {
-    if (this.projectUsers[i].user._id == id) {
+    if (this.projectUsers[i].user._id === id) {
       return this.projectUsers[i];
     }
   }
@@ -137,7 +141,7 @@ projectSchema.methods.hasUserAndRetrieve = function(id, cb) {
 
 projectSchema.methods.hasUserAndRetrieveIndex = function(id, cb) {
   for (var i = 0; i < this.projectUsers.length; i += 1) {
-    if (this.projectUsers[i].user._id == id) {
+    if (this.projectUsers[i].user._id === id) {
       return i;
     }
   }
@@ -146,7 +150,7 @@ projectSchema.methods.hasUserAndRetrieveIndex = function(id, cb) {
 
 projectSchema.methods.hasMilestoneAndRetrieve = function(id, cb) {
   for (var i = 0; i < this.milestones.length; i += 1) {
-    if (this.milestones[i].id == id) {
+    if (this.milestones[i].id.toLowerCase() === id.toLowerCase()) {
       return this.milestones[i];
     }
   }
@@ -155,7 +159,7 @@ projectSchema.methods.hasMilestoneAndRetrieve = function(id, cb) {
 
 projectSchema.methods.hasWorkPackageAndRetrieve = function(id, cb) {
   for (var i = 0; i < this.workPackages.length; i += 1) {
-    if (this.workPackages[i].id == id) {
+    if (this.workPackages[i].id.toLowerCase() === id.toLowerCase()) {
       return this.workPackages[i];
     }
   }
@@ -164,7 +168,7 @@ projectSchema.methods.hasWorkPackageAndRetrieve = function(id, cb) {
 
 projectSchema.methods.hasWorkItemAndRetrieve = function(id, cb) {
   for (var i = 0; i < this.workItems.length; i += 1) {
-    if (this.workItems[i].id == id) {
+    if (this.workItems[i].id.toLowerCase() === id.toLowerCase()) {
       return this.workItems[i];
     }
   }

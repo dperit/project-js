@@ -6,7 +6,7 @@ PJS.Controllers.WorkItem = {
   },
   get: function($scope, $routeParams, WorkItem, Project) {
     Project.get({id: $routeParams.projectId.toLowerCase()}, function(project) {
-      $scope.workItem = WorkItem.get({projectId: PJS.ViewModels.project(project)._id, workItemId: $routeParams.workItemId});
+      $scope.workItem = WorkItem.get({projectId: project._id, workItemId: $routeParams.workItemId});
       $scope.mode = $routeParams.mode;
     });
   },
@@ -15,14 +15,14 @@ PJS.Controllers.WorkItem = {
     $scope.addWorkItem = function() {
       var workItem = new WorkItem($scope.workItem);
       workItem.$save(workItem);
-      window.location = '/#/projects/' + projectId + '/workitem/' + workItem._id + '/edit';
+      window.location = '/#/projects/' + projectId + '/workitem/' + PJS.Utilities.dashed(workItem.title) + '/edit';
     };
   },
   update: function($scope, $routeParams, WorkItem, Project){
     var projectId = $routeParams.projectId.toLowerCase();
     var workItemId = $routeParams.workItemId.toLowerCase();
     Project.get({id: projectId}, function(project) {
-      $scope.project = PJS.ViewModels.project(project);
+      $scope.project = project;
       WorkItem.get({projectId: projectId, id: workItemId}, function(workItem) {
         $scope.updateWorkItem = function() {
           workItem.title = $scope.workItem.title;
@@ -43,7 +43,7 @@ PJS.Controllers.WorkItem = {
     var projectId = $routeParams.projectId.toLowerCase();
     var workItemId = $routeParams.workItemId.toLowerCase();
     Project.get({id: projectId}, function(project) {
-      $scope.project = PJS.ViewModels.project(project);
+      $scope.project = project;
       WorkItem.get({projectId: projectId, id: workItemId}, function(workItem) {
         $scope.addComment = function() {
           //TODO: Update these attributes for new comments or change around so that the API handles it

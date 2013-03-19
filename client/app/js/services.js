@@ -128,13 +128,14 @@ PJS.factories = {
         var type = relationObj.type;
         var ResourceType = this.items[type]($resource);
         data[relation] = data[relation] || [];
+        delete options.params.id;
         ResourceType.query(options.params, function(relatedResource) {
           relatedResource.forEach(function(related) {
             if (related[relationObj.relation] instanceof Array) {
-              if (related[relationObj.relation].indexOf(data._id) !== -1) {
+              if (related[relationObj.relation].indexOf(data.id) !== -1) {
                 data[relation].push(related);
               }
-            } else if (related[relationObj.relation] === data._id) {
+            } else if (related[relationObj.relation] === data.id) {
               data[relation].push(related);
             }
           });

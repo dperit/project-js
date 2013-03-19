@@ -254,7 +254,6 @@ module.exports = function(app) {
 
   // GET /project/:project/milestones: get project milestones
   app.get(prefix + "/projects/:project/milestones", function(req, res) {
-    console.log(req.project.milestones)
     res.json(req.project.milestones);
     res.end();
   });
@@ -263,13 +262,14 @@ module.exports = function(app) {
   app.post(prefix + "/projects/:project/milestones", function(req, res) {
     var project = req.project;
     var milestone = {
-      title: req.body.name,
+      title: req.body.title,
       description: req.body.description,
-      id: project.milestones.length,
+      index: project.milestones.length,
+      id: req.body.title.replace(/\s/g, '-').toLowerCase(),
       wpDependencies: [],
       msDependencies: [],
       priority: 'high',
-      status: 'late',
+      status: 'open',
       completionPercentage: 50
     };
     project.milestones.push(milestone);
