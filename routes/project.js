@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
 module.exports = function(app) {
   var prefix = app.get('apiPrefix');
   // GET /project: get all projects
-  app.get(prefix + "/project", function(req, res) {
+  app.get(prefix + "/projects", function(req, res) {
     Project.find({}).exec(function(err, projects) {
       if(err) {
         res.send(500);
@@ -19,12 +19,12 @@ module.exports = function(app) {
   });
 
   // GET /project/:project: get specific project
-  app.get(prefix + "/project/:project", function(req, res) {
+  app.get(prefix + "/projects/:project", function(req, res) {
     res.json(req.project);
   });
 
   // PUT /project/:project: update specified project
-  app.put(prefix + "/project/:project", function(req, res) {
+  app.put(prefix + "/projects/:project", function(req, res) {
     var project = req.project;
     if (req.body.title) project.title = req.body.title;
     if (req.body.clientName) project.clientName = req.body.clientName;
@@ -42,7 +42,7 @@ module.exports = function(app) {
   });
 
   // POST /project: create a new project
-  app.post(prefix + "/project", function(req, res, next) {
+  app.post(prefix + "/projects", function(req, res, next) {
     if(!(req.body.title &&
       req.body.clientName &&
       req.body.projectDueDate)){
@@ -52,6 +52,7 @@ module.exports = function(app) {
 
     var newproject = new Project();
     newproject.title = req.body.title;
+    newproject.description = req.body.description;
     newproject.clientName = req.body.clientName;
     newproject.projectDueDate = new Date(); //TODO: real date
     newproject.status = 'open';
@@ -67,7 +68,7 @@ module.exports = function(app) {
   });
 
   // POST /project/:project/close: close a project
-  app.post(prefix + "/project/:project/close", function(req, res) {
+  app.post(prefix + "/projects/:project/close", function(req, res) {
     var project = req.project;
     project.status = 'closed';
     project.save(function(err) {
@@ -81,7 +82,7 @@ module.exports = function(app) {
   });
 
   // POST /project/:project/open: open a project
-  app.post(prefix + "/project/:project/open", function(req, res) {
+  app.post(prefix + "/projects/:project/open", function(req, res) {
     var project = req.project;
     project.status = 'open';
     project.save(function(err) {
@@ -96,13 +97,13 @@ module.exports = function(app) {
 
 
   // GET /project/:project/user: get all users in project
-  app.get(prefix + "/project/:project/user", function(req, res, next){
+  app.get(prefix + "/projects/:project/user", function(req, res, next){
     res.send(req.project.projectUsers);
     res.end();
   });
 
   // POST /project/:project/user: adds user to project
-  app.post(prefix + "/project/:project/user", function(req, res,next) {
+  app.post(prefix + "/projects/:project/user", function(req, res,next) {
     if(!req.body.userId){
       res.send(500, "Not enough information");
       res.end();
@@ -128,7 +129,7 @@ module.exports = function(app) {
   });
 
   // PUT /project/:project/user: updates user within project
-  app.put(prefix + "/project/:project/user", function(req, res,next) {
+  app.put(prefix + "/projects/:project/user", function(req, res,next) {
     if(!req.body.userId || !req.body.roleId){
       res.send(500, "Not enough information to make query (requires userId and roleId)");
       res.end();
@@ -158,7 +159,7 @@ module.exports = function(app) {
   });
 
   // DELETE /project/:project/user: removes user from project
-  app.delete(prefix + "/project/:project/user", function(req, res,next) {
+  app.delete(prefix + "/projects/:project/user", function(req, res,next) {
     if(!req.body.userId){
       res.send(500, "Not enough information");
       res.end();
@@ -208,7 +209,7 @@ module.exports = function(app) {
     var project = req.project;
     var ms = project.hasMilestoneAndRetrieve(id);
     if(ms){
-      req.ms = ms;
+      req.milestone = ms;
       next();
     }
     else {
@@ -223,7 +224,7 @@ module.exports = function(app) {
     var project = req.project;
     var wp = project.hasWorkPackageAndRetrieve(id);
     if(wp){
-      req.wp = wp;
+      req.workPackage = wp;
       next();
     }
     else {
@@ -238,7 +239,7 @@ module.exports = function(app) {
     var project = req.project;
     var wi = project.hasWorkItemAndRetrieve(id);
     if(wi){
-      req.wi = wi;
+      req.workItem = wi;
       next();
     }
     else {
@@ -251,27 +252,29 @@ module.exports = function(app) {
   /////////////////////////////////////////////////
 
   // GET /project/:project/milestones: get project milestones
-  app.get(prefix + "/project/:project/milestone", function(req, res) {
+  app.get(prefix + "/projects/:project/milestones", function(req, res) {
     res.json(req.project.milestones);
     res.end();
   });
 
   // POST /project/:project/milestones: create project milestones
-  app.post(prefix + "/project/:project/milestone", function(req, res) {
+  app.post(prefix + "/projects/:project/milestones", function(req, res) {
     var project = req.project;
     var milestone = {
-      title: req.body.name,
+      title: req.body.title,
       description: req.body.description,
-      msNumber: req.body.msNumber,
+      index: project.milestones.length,
+      id: req.body.title.replace(/\s/g, '-').toLowerCase(),
       wpDependencies: [],
       msDependencies: [],
       priority: 'high',
-      status: 'late',
+      status: 'open',
       completionPercentage: 50
     };
     project.milestones.push(milestone);
     project.save(function(err){
       if(err) {
+        console.log(err);
         res.send(500, err);
         res.end();
       }
@@ -281,34 +284,34 @@ module.exports = function(app) {
   });
 
   // GET /project/:project/milestones/:milestone: get a project's specific milestone
-  app.get(prefix + '/project/:project/milestone/:milestone', function(req, res) {
-    res.send(req.ms);
+  app.get(prefix + '/projects/:project/milestones/:milestone', function(req, res) {
+    res.send(req.milestone);
   });
 
   // GET /project/:project/workpackage: get a project's work packages
-  app.get(prefix + '/project/:project/workpackage', function(req, res) {
+  app.get(prefix + '/projects/:project/workpackages', function(req, res) {
     var project = req.project;
     res.send(project.workPackages);
   });
 
   // GET /project/:project/workpackages/:workpackage: get a project's specific work package
-  app.get(prefix + '/project/:project/workpackages/:workpackage', function(req, res) {
-    res.send(req.wp);
+  app.get(prefix + '/projects/:project/workpackages/:workpackage', function(req, res) {
+    res.send(req.workPackage);
   });
 
   // GET /project/:project/workitem: get a project's work items
-  app.get(prefix + '/project/:project/workitems', function(req, res) {
+  app.get(prefix + '/projects/:project/workitems', function(req, res) {
     var project = req.project;
     res.send(project.workItems);
   });
 
   // GET /project/:project/workitem/:workitem: get a project's specific work items
-  app.get(prefix + '/project/:project/workitems/:workitem', function(req, res) {
-    res.send(req.wi);
+  app.get(prefix + '/projects/:project/workitems/:workitem', function(req, res) {
+    res.send(req.workItem);
   });
 
   // GET /project/:project/workbreakdown: get a project's WBS
-  app.get(prefix + '/project/:project/workbreakdown', function(req, res) {
+  app.get(prefix + '/projects/:project/workbreakdown', function(req, res) {
     var project = req.project;
     res.send(project.workBreakdownStructure);
   });

@@ -7,9 +7,15 @@ PJS.Controllers.Milestone = {
   list: function($scope, $routeParams, Milestone, Project, WorkPackage) {
     var projectId = $routeParams.projectId.toLowerCase();
     $scope.project = Project.get({id: projectId}, function(project) {
-      $scope.milestones = Milestone.query({projectId: projectId}, function(milestones) {
-        $scope.milestones = milestones;
+      var milestones = [];
+      project.milestones.forEach(function(ms) {
+        milestones.push(PJS.ViewModels.Milestone(ms));
       });
+      $scope.milestones = milestones;
+      // milestone query isn't working?
+      /*$scope.milestones = Milestone.query({projectId: projectId}, function(milestones) {
+        $scope.milestones = milestones;
+      });*/
     });
   },
 
@@ -26,10 +32,10 @@ PJS.Controllers.Milestone = {
   add: function($scope, $routeParams, Milestone, Project) {
     var projectId = $routeParams.projectId.toLowerCase();
     $scope.addMilestone = function() {
-      var milestone = new Milestone({name: $scope.title, description: $scope.description});
+      var milestone = new Milestone({title: $scope.title, description: $scope.description});
       milestone.projectId = projectId;
       milestone.$save(milestone);
-      window.location = '/#/projects/' + projectId + '/milestones/' + milestone.title;
+      window.location = '/#/projects/' + projectId + '/milestones/' + PJS.Utilities.dashed(milestone.title);
     };
   },
 
@@ -43,7 +49,7 @@ PJS.Controllers.Milestone = {
           milestone.description = $scope.description;
           milestone.projectId = projectId;
           milestone.$save(milestone);
-          window.location = '/#/projects/' + projectId + '/milestones/' + milestone._id;
+          window.location = '/#/projects/' + projectId + '/milestones/' + PJS.Utilities.dashed(milestone.title);
         };
       });
     });

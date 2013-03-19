@@ -8,13 +8,13 @@ PJS.factories = {
   dir: 'api/',
 
   resourceUrls: {
-    'Project': 'project/:id',
-    'User': 'user/:id',
+    'Project': 'projects/:id',
+    'User': 'users/:id',
     'Login': 'login',
-    'WorkBreakdown': 'project/:projectId/workbreakdown/:id',
-    'WorkPackage': 'project/:projectId/workpackage/:id',
-    'Milestone': 'project/:projectId/milestone/:id',
-    'WorkItem': 'project/:projectId/workitem/:id'
+    'WorkBreakdown': 'projects/:projectId/workbreakdown/:id',
+    'WorkPackage': 'projects/:projectId/workpackages/:id',
+    'Milestone': 'projects/:projectId/milestones/:id',
+    'WorkItem': 'projects/:projectId/workitems/:id'
   },
 
   init: function() {
@@ -128,13 +128,14 @@ PJS.factories = {
         var type = relationObj.type;
         var ResourceType = this.items[type]($resource);
         data[relation] = data[relation] || [];
+        delete options.params.id;
         ResourceType.query(options.params, function(relatedResource) {
           relatedResource.forEach(function(related) {
             if (related[relationObj.relation] instanceof Array) {
-              if (related[relationObj.relation].indexOf(data._id) !== -1) {
+              if (related[relationObj.relation].indexOf(data.id) !== -1) {
                 data[relation].push(related);
               }
-            } else if (related[relationObj.relation] === data._id) {
+            } else if (related[relationObj.relation] === data.id) {
               data[relation].push(related);
             }
           });
