@@ -202,7 +202,7 @@ db.projects.insert ([
                           ],
                           lastModifiedDate: new Date("Jan 30, 2013"), lastModifiedBy: "jmcdonald" }
     ],
-    workItem: [
+    workItems: [
                 { _id: "PJ1WkItem1", itemNumber: 1, description: "Project1 Work Item 1", workPackages: [ "PJ1Theory" ], assignedUsers: [ "ncovello", "dnesbitt" ], dependencies: [ ], startDate: new Date("Jan 31, 2013"), timeEstimate: 2, timeSpent: 0, completionPercentage: 0, status: "open",
                   comments: [
                     { commentNumber: 1, title: "1st comment Work Item 1", text: "This is work item 1 first comment", postedBy: "jmcdonald", datePosted: new Date("Jan 30, 2013") }

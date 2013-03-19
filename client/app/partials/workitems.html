@@ -42,8 +42,8 @@
     <tbody>
     <tr ng-repeat="workItem in workItems | filter:wkFilter | orderBy:predicate:reverse">
       <td>
-        <a href="#/projects/{{project._id}}/work-items/{{workItem._id}}/view">View</a>
-        <a href="#/projects/{{project._id}}/work-items/{{workItem._id}}/edit">Edit</a>
+        <a href="#/projects/{{project._id}}/workitems/{{workItem._id}}/view">View</a>
+        <a href="#/projects/{{project._id}}/workitems/{{workItem._id}}/edit">Edit</a>
       </td>
       <td>{{workItem._id}}</td>
       <td>{{workItem.itemNumber}}</td>

@@ -15,7 +15,7 @@ PJS.Controllers.WorkItem = {
     $scope.addWorkItem = function() {
       var workItem = new WorkItem($scope.workItem);
       workItem.$save(workItem);
-      window.location = '/#/projects/' + projectId + '/workitem/' + workItem._id + '/edit';
+      window.location = '/#/projects/' + projectId + '/workitems/' + workItem._id + '/edit';
     };
   },
   update: function($scope, $routeParams, WorkItem, Project){

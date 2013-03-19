@@ -297,13 +297,13 @@ module.exports = function(app) {
   });
 
   // GET /project/:project/workitem: get a project's work items
-  app.get(prefix + '/project/:project/workitem', function(req, res) {
+  app.get(prefix + '/project/:project/workitems', function(req, res) {
     var project = req.project;
     res.send(project.workItems);
   });
 
   // GET /project/:project/workitem/:workitem: get a project's specific work items
-  app.get(prefix + '/project/:project/workitem/:workitem', function(req, res) {
+  app.get(prefix + '/project/:project/workitems/:workitem', function(req, res) {
     res.send(req.wi);
   });
 
