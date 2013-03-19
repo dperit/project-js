@@ -7,7 +7,8 @@ PJS.ViewModels = {
     project = PJS.ViewModels.all(project);
 
     if (project.projectUsers && project.projectUsers.length) {
-      //project.projectManager = findFirstUserByRole(project.projectUsers, 'projectmanager').user;
+      var projectManager = findFirstUserByRole(project.projectUsers, 'projectmanager');
+      if (projectManager) project.projectManager = projectManager.user;
     }
     project.progress = 50; // TODO: Calculate this
     return project;
@@ -23,6 +24,9 @@ PJS.ViewModels = {
 
   all: function(resource) {
     resource = angular.extend({}, resource);
+    if (resource.id === undefined) {
+      resource.id = resource._id;
+    }
     if (resource.status) {
       resource.status = statuses[resource.status];
       resource.status.labelType = labelTypes[resource.status.level];
@@ -46,7 +50,7 @@ var labelTypes = {
 var findFirstUserByRole = function(users, role) {
   var user = null;
   for (var i=0; i<users.length && !user; ++i) {
-    if (users[i].role === role) {
+    if (users[i].role.replace(' ', '').toLowerCase() === role) {
       user = users[i];
     }
   }

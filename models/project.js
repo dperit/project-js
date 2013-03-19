@@ -4,8 +4,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ProjectUser = new Schema({
-  user: { type: Schema.Types.ObjectId, ref: 'User'},
-  role: { type: Schema.Types.ObjectId, ref: 'Role'}
+  user: { type: String },
+  role: { type: String }
 });
 
 var WorkBreakdown = new Schema({
@@ -15,7 +15,7 @@ var WorkBreakdown = new Schema({
 });
 
 var WorkBreakdownItem = new Schema({
-  itemNumber: { type: Number, required: true, unique: true }, // index start?
+  id: { type: Number, required: true, unique: true }, // index start?
   description: { type: String, required: true, unique: true, trim: true },
   ancestors: [Schema.Types.ObjectId], // itemNumber instead?
   parent: Schema.Types.ObjectId, // itemNumber instead?
@@ -35,7 +35,7 @@ var Completion = new Schema({
 });
 
 var Milestone = new Schema({
-  msNumber: { type: Number, required: true, unique: true }, // index start?
+  id: { type: Number, required: true, unique: true }, // index start?
   description: { type: String, required: true, unique: true, trim: true }, // unique necessary?
   dueDate: { type: Date, required: true },
   priority: { type: String, trim: true }, //required?
@@ -55,7 +55,7 @@ var WorkPackageListEntry = new Schema({
 });
 
 var WorkPackage = new Schema({
-  wpNumber: { type: Number, required: true, unique: true }, // index start?
+  id: { type: Number, required: true, unique: true }, // index start?
   description: { type: String, required: true, unique: true, trim: true },
   priority: { type: String, trim: true },
   timeEstimate: { type: Number, required: true },
@@ -73,7 +73,7 @@ var WorkItemListEntry = new Schema({
 });
 
 var Comment = new Schema({
-  commentNumber: { type: Number, required: true }, //unique?
+  id: { type: Number, required: true }, //unique?
   title: { type: String, trim: true },
   text: { type: String, required: true },
   postedBy: Schema.Types.ObjectId, // use userId instead?
@@ -81,7 +81,7 @@ var Comment = new Schema({
 });
 
 var WorkItem = new Schema({
-  itemNumber: { type: Number, required: true, unique: true }, // index start?
+  id: { type: Number, required: true, unique: true }, // index start?
   description: { type: String, required: true, unique: true, trim: true },
   workPackages: [Schema.Types.ObjectId], // use wpNumber instead?
   assignedUsers: [Schema.Types.ObjectId], // use userId instead?
@@ -141,8 +141,8 @@ projectSchema.methods.hasUserAndRetrieveIndex = function(id, cb) {
 
 projectSchema.methods.hasMilestoneAndRetrieve = function(id, cb) {
   for (var i = 0; i < this.milestones.length; i += 1) {
-    if (this.milestones[i]._id == id) {
-      return i;
+    if (this.milestones[i].id == id) {
+      return this.milestones[i];
     }
   }
   return false;
@@ -150,8 +150,8 @@ projectSchema.methods.hasMilestoneAndRetrieve = function(id, cb) {
 
 projectSchema.methods.hasWorkPackageAndRetrieve = function(id, cb) {
   for (var i = 0; i < this.workPackages.length; i += 1) {
-    if (this.workPackages[i]._id == id) {
-      return i;
+    if (this.workPackages[i].id == id) {
+      return this.workPackages[i];
     }
   }
   return false;
@@ -159,8 +159,8 @@ projectSchema.methods.hasWorkPackageAndRetrieve = function(id, cb) {
 
 projectSchema.methods.hasWorkItemAndRetrieve = function(id, cb) {
   for (var i = 0; i < this.workItems.length; i += 1) {
-    if (this.workItems[i]._id == id) {
-      return i;
+    if (this.workItems[i].id == id) {
+      return this.workItems[i];
     }
   }
   return false;
