@@ -44,7 +44,7 @@ module.exports = function(app) {
   // POST /project: create a new project
   app.post(prefix + "/projects", function(req, res, next) {
     if(!(req.body.title &&
-      req.body.clientName,
+      req.body.clientName &&
       req.body.projectDueDate)){
         res.send(404, 'Not enough data to create a project');
         res.end();
@@ -52,12 +52,14 @@ module.exports = function(app) {
 
     var newproject = new Project();
     newproject.title = req.body.title;
+    newproject.description = req.body.description;
     newproject.clientName = req.body.clientName;
     newproject.projectDueDate = new Date(); //TODO: real date
-    newproject.staus = 'open';
+    newproject.status = 'open';
 
     newproject.save(function(err){
       if(err) {
+        console.log(err);
         res.send(500, err);
         res.end('Something went wrong');
       }
@@ -252,6 +254,7 @@ module.exports = function(app) {
 
   // GET /project/:project/milestones: get project milestones
   app.get(prefix + "/projects/:project/milestones", function(req, res) {
+    console.log(req.project.milestones)
     res.json(req.project.milestones);
     res.end();
   });
@@ -262,7 +265,7 @@ module.exports = function(app) {
     var milestone = {
       title: req.body.name,
       description: req.body.description,
-      msNumber: req.body.msNumber,
+      id: project.milestones.length,
       wpDependencies: [],
       msDependencies: [],
       priority: 'high',
@@ -272,6 +275,7 @@ module.exports = function(app) {
     project.milestones.push(milestone);
     project.save(function(err){
       if(err) {
+        console.log(err);
         res.send(500, err);
         res.end();
       }

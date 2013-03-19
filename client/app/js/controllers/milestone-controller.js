@@ -7,9 +7,15 @@ PJS.Controllers.Milestone = {
   list: function($scope, $routeParams, Milestone, Project, WorkPackage) {
     var projectId = $routeParams.projectId.toLowerCase();
     $scope.project = Project.get({id: projectId}, function(project) {
-      $scope.milestones = Milestone.query({projectId: projectId}, function(milestones) {
-        $scope.milestones = milestones;
+      var milestones = [];
+      project.milestones.forEach(function(ms) {
+        milestones.push(PJS.ViewModels.Milestone(ms));
       });
+      $scope.milestones = milestones;
+      // milestone query isn't working?
+      /*$scope.milestones = Milestone.query({projectId: projectId}, function(milestones) {
+        $scope.milestones = milestones;
+      });*/
     });
   },
 

@@ -17,6 +17,7 @@ PJS.Controllers.Project = {
       var project = new Project({title: $scope.title, description: $scope.description, 
         clientName: 'testing', projectDueDate: new Date()});
       project.$save(project);
+      window.location = '/#/projects/';
     };
   },
   
@@ -26,6 +27,7 @@ PJS.Controllers.Project = {
         project.name = $scope.title;
         project.description = $scope.description;
         project.$save(project);
+        window.location = '/#/projects/';
       };
     });
   },
