@@ -44,7 +44,7 @@ module.exports = function(app) {
   // POST /project: create a new project
   app.post(prefix + "/project", function(req, res, next) {
     if(!(req.body.title &&
-      req.body.clientName,
+      req.body.clientName &&
       req.body.projectDueDate)){
         res.send(404, 'Not enough data to create a project');
         res.end();
@@ -54,7 +54,7 @@ module.exports = function(app) {
     newproject.title = req.body.title;
     newproject.clientName = req.body.clientName;
     newproject.projectDueDate = new Date(); //TODO: real date
-    newproject.staus = 'open';
+    newproject.status = 'open';
 
     newproject.save(function(err){
       if(err) {
