@@ -2,6 +2,7 @@
 
 ### Getting Started
 Make sure you have the required tools:
+
 * [Node.js](http://nodejs.org/)
 * [MongoDB](http://www.mongodb.org/)
 
@@ -16,6 +17,7 @@ $ npm install
 ```
 
 Database sample data installion (instructions created by Jennifer)
+
 1.  Load up the mongo shell in the console from within the project-js directory
 2.  Type in the following command in your mongo client shell:  load("dummydbMar17.js")
 3.  To check for success, you can type:  show collections  [the result should be: projects, roles, users]
@@ -34,3 +36,20 @@ $ node app
 The client is accessible at `localhost:<port>`
 The API is accessible at `localhost:<port>/api/`
 The API prefix can be configured in `config/project.js`.
+
+### Server setup
+
+transfer files over (not db or node_modules, though)
+
+* run npm install
+* mkdir db
+* run nohup mongod --dbpath db
+* open a new terminal into the server
+* run mongo
+* load("dummydbMar17.js")
+* CTRL-C to exit mongo console
+* nohup node app
+
+Should be accessible at http://zenit.senecac.on.ca:9078
+
+To remove database, kill the mongod process and the node process, delete everything in the DB folder, then follow rest of steps

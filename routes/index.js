@@ -12,13 +12,15 @@ module.exports = function(app) {
            passport.authenticate('local'),
            function(req, res){
              req.session.user = {};
-           });
+           }
+  );
 
   app.get('/api/login', function(req, res) {
     if (req.session.user) {
       res.send(req.session.user);
     }
-  });
+  }
+  );
 
   app.get('/api/logout', function(req, res) {
     req.session.user = null;

@@ -4,11 +4,12 @@
 
 PJS.Controllers = {
   all: function($scope, $routeParams, Login) {
-    Login.get(function(user) {
-      $scope.user = user;
-      $scope.user.name = $scope.user._id;
-      $scope.loggedIn = !!$scope.user;
-    });
+//    Login.get(function(user) {
+//      $scope.user = user;
+//      $scope.user.name = $scope.user._id;
+//      $scope.loggedIn = !!$scope.user;
+    $scope.loggedIn = false;
+//    });
   },
 
   nav: function($scope, $routeParams, Login) {
