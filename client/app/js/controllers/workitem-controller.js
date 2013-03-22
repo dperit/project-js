@@ -6,7 +6,9 @@ PJS.Controllers.WorkItem = {
   },
   get: function($scope, $routeParams, WorkItem, Project) {
     Project.get({id: $routeParams.projectId.toLowerCase()}, function(project) {
-      $scope.workItem = WorkItem.get({projectId: project._id, workItemId: $routeParams.workItemId});
+      $scope.workItem = WorkItem.get({projectId: project._id, id: $routeParams.workItemId}, function(workItem){
+        $scope.workItem = workItem;
+      });
       $scope.mode = $routeParams.mode;
     });
   },
