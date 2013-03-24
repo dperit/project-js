@@ -5,8 +5,8 @@ var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var ProjectUser = new Schema({
-  user: { type: String, ref: 'User'}, // use String or ObjectId ?
-  role: { type: String, ref: 'Role'}  // use String or ObjectId ?
+  user: { type: OjbectId, ref: 'User'},
+  role: { type: ObjectId, ref: 'Role'} 
 });
 
 var WorkBreakdownItem = new Schema({
@@ -22,7 +22,7 @@ var WorkBreakdownItem = new Schema({
 var WorkBreakdown = new Schema({
   items: [{ type: ObjectId }],
   lastModifiedDate: { type: Date, default: Date.now },
-  lastModifiedBy: { type: ObjectId, ref: 'User' } // use userId instead?
+  lastModifiedBy: { type: ObjectId, ref: 'User' }
 });
 
 var WorkPackage = new Schema({
@@ -30,7 +30,7 @@ var WorkPackage = new Schema({
   title: { type: String, required: true, unique: true, trim: true },
   description: { type: String, trim: true },
   priority: { type: String, trim: true }, //required?
-  timeEstimate: { type: Number, required: true }, // timeEstimate is an integer value representing number of days
+  timeEstimate: { type: Number, required: true }, // timeEstimate is a value representing number of days
   completionPercentage: { type: Number, min: 0, max: 100, default: 0 },
   status: { type: String, trim: true, default: 'open' }, 
   dependencies: [{ type: ObjectId }],
@@ -53,14 +53,15 @@ var Comment = new Schema({
 });
 
 var WorkItem = new Schema({
- //itemNumber: { type: Number, required: true, unique: true }, 
-  description: { type: String, required: true, unique: true, trim: true },
+  //itemNumber: { type: Number, required: true, unique: true }, 
+  title: { type: String, required: true, unique: true, trim: true },
+  description: { type: String, trim: true },
   workPackages: [{ type: ObjectId }], 
   assignedUsers: [{ type: ObjectId, ref: 'User' }], 
   dependencies: [{ type: ObjectId }],
   startDate: { type: Date, required: true },
-  timeEstimate: { type: Number, required: true }, // timeEstimate is an integer value representing number of days
-  timeSpent: { type: Number, min: 0 }, // timeSpent is an integer value representing number of days
+  timeEstimate: { type: Number, required: true }, // timeEstimate is a value representing number of days
+  timeSpent: { type: Number, min: 0 }, // timeSpent is a value representing number of days
   completionPercentage: { type: Number, min: 0, max: 100, default: 0 },
   status: { type: String, trim: true, default: 'open' },
   comments: [Comment],
@@ -102,7 +103,7 @@ var MilestoneListing = new Schema({
 
 var projectSchema = new Schema({
   title: { type: String, required: true, unique: true, trim: true },
-  clientName: { type: String, required: true, unique: true, trim: true },
+  clientName: { type: String, required: true, trim: true },
   projectDueDate: { type: Date, required: true },
   completionPercentage: { type: Number, min: 0, max: 100, default: 0 },
   status: { type: String, trim: true, default: 'open' }, 
