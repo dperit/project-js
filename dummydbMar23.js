@@ -234,7 +234,7 @@ db.projects.insert ([
                         "514e4a18002fb0e90331a857",
                         "514e4a47002fb0e90331a858",
                         "514e4a70002fb0e90331a859",
-                        "514e4a98002fb0e90331a85a ",
+                        "514e4a98002fb0e90331a85a",
                         "514e4b7d002fb0e90331a85d"
                       ],
                       lastModifiedDate: new Date("Jan 30, 2013"), lastModifiedBy: "jmcdonald" }
