@@ -9,7 +9,7 @@ var UserSchema = mongoose.Schema({
   firstName: { type: String, required: true, trim: true },
   lastName: { type: String, required: true, trim: true },
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
-  //resetMode: { type: Boolean, default: false ), DO WE STILL NEED THIS DALE?
+  resetMode: { type: Boolean, default: false ),
   siteAdmin: { type: Boolean, default: false },
   registrationDate: { type: Date, default: Date.now },
   currentProject: { type: Schema.Types.ObjectId, ref: 'Project' },
