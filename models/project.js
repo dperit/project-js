@@ -5,14 +5,14 @@ var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var ProjectUser = new Schema({
-  user: { type: OjbectId, ref: 'User'},
+  user: { type: ObjectId, ref: 'User'},
   role: { type: ObjectId, ref: 'Role'} 
 });
 
 var WorkBreakdownItem = new Schema({
   //itemNumber: { type: Number, required: true, unique: true },
   title: { type: String, required: true, unique: true, trime: true },
-  description: { type: String, required: true, unique: true, trim: true },
+  description: { type: String, trim: true },
   children: [{ type: ObjectId }],
   status: { type: String, trim: true, default: 'open' },
   lastModifiedDate: { type: Date, default: Date.now },
