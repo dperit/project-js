@@ -4,14 +4,7 @@
 
 PJS.ViewModels = {
   Project: function(project) {
-    project = PJS.ViewModels.all(project);
-
-    if (project.projectUsers && project.projectUsers.length) {
-      var projectManager = findFirstUserByRole(project.projectUsers, 'projectmanager');
-      if (projectManager) project.projectManager = projectManager.user;
-    }
-    
-    return project;
+    return PJS.ViewModels.all(project);
   },
   
   Milestone: function(milestone) {
@@ -63,16 +56,6 @@ var labelTypes = {
   0: 'label-success',
   1: 'label-warning',
   2: 'label-important'
-};
-
-var findFirstUserByRole = function(users, role) {
-  var user = null;
-  for (var i=0; i<users.length && !user; ++i) {
-    if (users[i].role.replace(' ', '').toLowerCase() === role) {
-      user = users[i];
-    }
-  }
-  return user;
 };
 
 })();

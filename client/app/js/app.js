@@ -16,7 +16,7 @@ angular.module('ProjectJS', ['ProjectJS.filters', 'ProjectJS.services', 'Project
     $routeProvider.when('/users/logout', {templateUrl: 'partials/logout.html', controller: PJS.Controllers.logout});
     $routeProvider.when('/users/register', {templateUrl: 'partials/register.html', controller: PJS.Controllers.register});
     $routeProvider.when('/projects', {templateUrl: 'partials/projects.html', controller: PJS.Controllers.Project.list});
-    $routeProvider.when('/projects/:projectId', {templateUrl: 'partials/project.html', controller: PJS.Controllers.Project.get});
+    $routeProvider.when('/projects/:projectId', {templateUrl: 'partials/project.html', controller: PJS.Controllers.Project.getMain});
     $routeProvider.when('/add-project', {templateUrl: 'partials/add-project.html', controller: PJS.Controllers.Project.add});
     $routeProvider.when('/projects/:projectId/work-breakdown', {templateUrl: 'partials/workbreakdown.html', controller: PJS.Controllers.WorkBreakdown.list});
     $routeProvider.when('/projects/:projectId/add-work-breakdown', {templateUrl: 'partials/add-workbreakdown.html', controller: PJS.Controllers.WorkBreakdown.add});

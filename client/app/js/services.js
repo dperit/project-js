@@ -10,6 +10,7 @@ PJS.factories = {
   resourceUrls: {
     'Project': 'projects/:id',
     'User': 'users/:id',
+    'Role': 'roles/:id',
     'Login': 'login',
     'WorkBreakdown': 'projects/:projectId/workbreakdown/:id',
     'WorkPackage': 'projects/:projectId/workpackages/:id',

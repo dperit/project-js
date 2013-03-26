@@ -1,8 +1,26 @@
+(function() {
+
 PJS.Controllers.Project = {
-  list: function($scope, $routeParams, Project) {
+  list: function($scope, $routeParams, Project, User, Role) {
     $scope.projects = Project.query(function(projects) {
       var sortingMethod = PJS.Controllers.Project.sortingMethods[$routeParams.sort] ? $routeParams.sort : 'name';
+      $scope.projects.forEach(function(project) {
+        PJS.Controllers.Project.users(project, User, Role);
+      });
       $scope.projects = PJS.Controllers.Project.sortingMethods[sortingMethod]($scope.projects);
+    });
+  },
+  
+  getMain: function($scope, $routeParams, Project, User, Role) {
+    Project.get({id: $routeParams.projectId.toLowerCase()}, function(project) {
+      $scope.project = project;
+      PJS.Controllers.Project.users(project, User, Role);
+      $scope.upcomingMilestones = project.milestones.sort(function(a, b) {
+        return a.dueDate > b.dueDate ? -1 : 1;
+      }).splice(0, 5);
+      $scope.latestIssues = project.workItems.sort(function(a, b) {
+        return a.lastModifiedDate > b.lastModifiedDate ? -1 : 1;
+      }).splice(0, 5);
     });
   },
   
@@ -37,6 +55,18 @@ PJS.Controllers.Project = {
       project.$remove(project);
     });
   },
+
+  users: function(project, User, Role) {
+    project.projectUsers.forEach(function(userObj, index) {
+      User.get({id: userObj.user}, function(user) {
+        project.projectUsers[index].user = user;
+        Role.get({id: userObj.role}, function(role) {
+          project.projectUsers[index].role = role;
+          project.projectManager = findFirstUserByRole(project.projectUsers, 'project manager');
+        });
+      });
+    });
+  },
   
   sortingMethods: {
     priority: function(projects) {
@@ -46,7 +76,9 @@ PJS.Controllers.Project = {
     },
     
     due: function(projects) {
-      return projects; // TODO: Implement this.
+      return projects.sort(function(a, b) {
+        return a.projectDueDate > b.projectDueDate ? 1 : -1;
+      });
     },
     
     name: function(projects) {
@@ -56,3 +88,15 @@ PJS.Controllers.Project = {
     }
   }
 };
+
+var findFirstUserByRole = function(users, role) {
+  var user = null;
+  for (var i=0; i<users.length && !user; ++i) {
+    if (users[i].role.title.toLowerCase() === role) {
+      user = users[i].user;
+    }
+  }
+  return user;
+};
+
+})();

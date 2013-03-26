@@ -131,6 +131,10 @@ module.exports = function(app) {
         res.send(500, "Error while finding role");
         res.end()
       } else if (role) {
+        // Hack, find out why it's an array?!
+        if (role instanceof Array && role.length === 1) {
+          role = role[0];
+        }
         req.role = role;
         next();
       } else {
