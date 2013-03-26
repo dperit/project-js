@@ -344,6 +344,3 @@ module.exports = function(app) {
     res.end();
   });
 }; //end of exports
-
-
-
