@@ -7,15 +7,7 @@ PJS.Controllers.Milestone = {
   list: function($scope, $routeParams, Milestone, Project, WorkPackage) {
     var projectId = $routeParams.projectId.toLowerCase();
     $scope.project = Project.get({id: projectId}, function(project) {
-      var milestones = [];
-      project.milestones.forEach(function(ms) {
-        milestones.push(PJS.ViewModels.Milestone(ms));
-      });
-      $scope.milestones = milestones;
-      // milestone query isn't working?
-      /*$scope.milestones = Milestone.query({projectId: projectId}, function(milestones) {
-        $scope.milestones = milestones;
-      });*/
+      $scope.milestones = PJS.ViewModels.each('Milestone', project.milestones);
     });
   },
 
@@ -23,9 +15,8 @@ PJS.Controllers.Milestone = {
     var projectId = $routeParams.projectId.toLowerCase();
     var milestoneId = $routeParams.milestoneId.toLowerCase();
     $scope.project = Project.get({id: projectId}, function(project) {
-      Milestone.get({projectId: projectId, id: milestoneId}, function(milestone) {
-        $scope.milestone = milestone;
-      });
+      var milestone = PJS.Utilities.findInArray(project.milestones, milestoneId);
+      $scope.milestone = PJS.ViewModels.Milestone(milestone);
     });
   },
 
