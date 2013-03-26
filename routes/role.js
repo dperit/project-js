@@ -2,7 +2,6 @@
 // Project.JS
 var mongoose = require('mongoose'),
   Role = mongoose.model('Role'),
-  Permission = mongoose.model('Permission'),
   passport = require('passport');
 
 module.exports = function(app) {
@@ -38,10 +37,9 @@ module.exports = function(app) {
 
     // if permissions were included, add them
     if(req.body.permissions){
-      var permissionObj = JSON.parse(req.body.permissions);
-      for (var i = 0; i < permissionObj.length; i += 1) {
-        var perm = new Permission(permissionObj[i]);
-        newrole.permissions.push(perm);
+      var permissions = req.body.permissions;
+      for (var i = 0; i < permissions.length; i += 1) {
+        newrole.permissions.push(permissions[i]);
       }
     }
 
