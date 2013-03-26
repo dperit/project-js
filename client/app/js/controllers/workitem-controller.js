@@ -9,7 +9,7 @@ PJS.Controllers.WorkItem = {
     Project.get({id: $routeParams.projectId.toLowerCase()}, function(project) {
       var workItem = PJS.Utilities.findInArray(project.workItems, $routeParams.workItemId.toLowerCase());
       $scope.workItem = PJS.ViewModels.WorkItem(workItem);
-      $scope.mode = $routeParams.mode;
+      $scope.mode = $routeParams.mode || 'view';
     });
   },
 

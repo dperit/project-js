@@ -1,12 +1,13 @@
 PJS.Controllers.Milestone = {
   relations: {
-    'wpDependencies': 'WorkPackage',
-    'msDependencies': 'Milestone'
+    'wpDependencies': {list: 'workPackages', type: 'WorkPackage'},
+    'msDependencies': {list: 'milestones', type: 'Milestone'}
   },
 
   list: function($scope, $routeParams, Milestone, Project, WorkPackage) {
     var projectId = $routeParams.projectId.toLowerCase();
     $scope.project = Project.get({id: projectId}, function(project) {
+      PJS.Controllers.allRelations('Milestone', project, project.milestones);
       $scope.milestones = PJS.ViewModels.each('Milestone', project.milestones);
     });
   },
@@ -16,6 +17,7 @@ PJS.Controllers.Milestone = {
     var milestoneId = $routeParams.milestoneId.toLowerCase();
     $scope.project = Project.get({id: projectId}, function(project) {
       var milestone = PJS.Utilities.findInArray(project.milestones, milestoneId);
+      PJS.Controllers.relations('Milestone', project, milestone);
       $scope.milestone = PJS.ViewModels.Milestone(milestone);
     });
   },
