@@ -315,4 +315,35 @@ module.exports = function(app) {
     var project = req.project;
     res.send(project.workBreakdownStructure);
   });
+  
+  // POST /projects/:project/workbreakdownitems: create project work breakdown items
+  app.post(prefix + "/projects/:project/workbreakdownitems", function(req, res, next) {
+    if (!(req.body.title)) {
+      res.send(404, 'Title is required');
+      res.end();
+    }
+    var project = req.project;
+    var item = {
+      title: req.body.title,
+      description: req.body.description,
+      children: [],
+      status: 'open',
+      lastModifiedDate: new Date(),
+      //lastModifiedBy: 
+    };
+    if (!(req.body.children.length === 0)) {
+      for (var i = 0; i < req.body.children.lengh; i++) {
+        item.children.push(req.body.children[i]);
+      }
+    }
+    project.workBreakdownItems.push(item);
+    project.save(function(err) {
+      if (err) {
+        res.send(500, err);
+        res.end()
+      }
+    });
+    res.json(req.project.item);
+    res.end();
+  });
 }; //end of exports
