@@ -307,8 +307,8 @@ WorkBreakdownItem.methods.deleteItem = function(id, userId) {
     if (err) {
       console.log(err);
       res.send(500, err);
-      res.end()
-    }  
+      res.end();
+    }
   });
   res.json(req.project.item);
   res.end();
@@ -338,7 +338,7 @@ MilestoneListing.methods.addToList = function(id, userId){
     if (err) {
       console.log(err);
       res.send(500, err);
-      res.end()
+      res.end();
     }  
   });
   res.json(req.project.listing);
