@@ -329,20 +329,20 @@ MilestoneListing.methods.addToList = function(id, userId){
   listing.items.push(id);
   listing.lastModifiedDate = new Date();
   listing.lastModifiedBy = userId;
-  
+
   // add new milestone listing to project milestoneList
   project.milestoneList.push(newListing);
-  
+
   //save
   project.save(function(err) {
     if (err) {
       console.log(err);
       res.send(500, err);
       res.end();
-    }  
+    }
+    res.json(req.project.listing);
+    res.end();
   });
-  res.json(req.project.listing);
-  res.end();
 }; // end addToList (milestone)
 
 // editMilestone - updates a project milestone with changes user has made
