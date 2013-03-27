@@ -24,4 +24,13 @@ PJS.Utilities.dashed = function(str) {
   return str.replace(/\s/g, '-');
 };
 
+PJS.Utilities.findInArray = function(list, id) {
+  for (var i = 0; i < list.length; ++i) {
+    if (list[i]._id == id) {
+      return list[i];
+    }
+  }
+  return false;
+};
+
 })();

@@ -10,6 +10,7 @@ PJS.factories = {
   resourceUrls: {
     'Project': 'projects/:id',
     'User': 'users/:id',
+    'Role': 'roles/:id',
     'Login': 'login',
     'WorkBreakdown': 'projects/:projectId/workbreakdown/:id',
     'WorkPackage': 'projects/:projectId/workpackages/:id',
@@ -72,7 +73,6 @@ PJS.factories = {
       if (PJS.ViewModels[resourceName]) {
         data = PJS.ViewModels[resourceName](data);
       }
-      if (!options.light) that.handleRelations($resource, resourceName, options, resource, data);
       handleDeferred(resource, deferredResource, data);
       if (options.success) return options.success(deferredResource);
     };
@@ -86,62 +86,10 @@ PJS.factories = {
       data.forEach(function(resource) {
         var newResource = hasViewModel ? PJS.ViewModels[resourceName](resource) : resource;
         newData.push(newResource);
-        if (!options.light) that.handleRelations($resource, resourceName, options, resource, newResource);
       });
       handleDeferred(resource, deferredResource, newData);
       if (options.success) return options.success(deferredResource);
     };
-  },
-
-  handleRelations: function($resource, resourceName, options, resource, data) {
-    if (PJS.Controllers[resourceName] && PJS.Controllers[resourceName].relations) {
-      var camelResourceName = PJS.Utilities.toCamelCase(resourceName);
-      for (var relation in PJS.Controllers[resourceName].relations) {
-        var type = PJS.Controllers[resourceName].relations[relation];
-        var ResourceType = this.items[type]($resource);
-        var relations = data[relation];
-        if (typeof relations === 'object') {
-          var newRelations = relations instanceof Array ? [] : {};
-          for (var key in relations) {
-            if (relations.hasOwnProperty(key)) {
-              var attrs = angular.extend({}, options.params, {id: relations[key]});
-              attrs[camelResourceName + 'Id'] = options.params ? options.params.id : '';
-              if (!options.tree) attrs.light = true;
-              data[relation] = ResourceType.get(attrs);
-            }
-          }
-        } else {
-          var attrs = angular.extend({}, options.params, {id: data[relation]});
-          attrs[camelResourceName + 'Id'] = options.params ? options.params.id : '';
-          if (!options.tree) attrs.light = true;
-          data[relation] = ResourceType.get(attrs);
-        }
-      }
-    }
-    this.handleReverseRelations($resource, resourceName, options, resource, data);
-  },
-
-  handleReverseRelations: function($resource, resourceName, options, resource, data) {
-    if (PJS.Controllers[resourceName] && PJS.Controllers[resourceName].reverseRelations) {
-      for (var relation in PJS.Controllers[resourceName].reverseRelations) {
-        var relationObj = PJS.Controllers[resourceName].reverseRelations[relation];
-        var type = relationObj.type;
-        var ResourceType = this.items[type]($resource);
-        data[relation] = data[relation] || [];
-        delete options.params.id;
-        ResourceType.query(options.params, function(relatedResource) {
-          relatedResource.forEach(function(related) {
-            if (related[relationObj.relation] instanceof Array) {
-              if (related[relationObj.relation].indexOf(data.id) !== -1) {
-                data[relation].push(related);
-              }
-            } else if (related[relationObj.relation] === data.id) {
-              data[relation].push(related);
-            }
-          });
-        });
-      }
-    }
   }
 };
 

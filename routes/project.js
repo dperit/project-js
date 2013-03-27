@@ -14,7 +14,7 @@ module.exports = function(app) {
         res.send(500);
         res.end('Something bad happened');
       }
-      res.json(projects);
+      res.json(req.query.list ? lightList(projects) : projects);
     });
   });
 
@@ -253,7 +253,7 @@ module.exports = function(app) {
 
   // GET /project/:project/milestones: get project milestones
   app.get(prefix + "/projects/:project/milestones", function(req, res) {
-    res.json(req.project.milestones);
+    res.send(req.query.list ? lightList(req.project.milestones) : req.project.milestones);
     res.end();
   });
 
@@ -291,7 +291,7 @@ module.exports = function(app) {
   // GET /project/:project/workpackage: get a project's work packages
   app.get(prefix + '/projects/:project/workpackages', function(req, res) {
     var project = req.project;
-    res.send(project.workPackages);
+    res.send(req.query.list ? lightList(project.workPackages) : project.workPackages);
   });
 
   // GET /project/:project/workpackages/:workpackage: get a project's specific work package
@@ -302,7 +302,7 @@ module.exports = function(app) {
   // GET /project/:project/workitem: get a project's work items
   app.get(prefix + '/projects/:project/workitems', function(req, res) {
     var project = req.project;
-    res.send(project.workItems);
+    res.send(req.query.list ? lightList(project.workItems) : project.workItems);
   });
 
   // GET /project/:project/workitem/:workitem: get a project's specific work items
@@ -346,4 +346,15 @@ module.exports = function(app) {
     res.json(req.project.item);
     res.end();
   });
+
+  var lightList = function(list) {
+    var newList = [];
+    list.forEach(function(item, index) {
+      newList.push({
+        _id: item.id,
+        title: item.title
+      });
+    });
+    return newList;
+  };
 }; //end of exports
