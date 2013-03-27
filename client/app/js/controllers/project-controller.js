@@ -1,6 +1,10 @@
 (function() {
 
 PJS.Controllers.Project = {
+  lightList: function($scope, $routeParams, Project, User, Role) {
+    $scope.projectsList = Project.query({list: true});
+  },
+
   list: function($scope, $routeParams, Project, User, Role) {
     $scope.projects = Project.query(function(projects) {
       var sortingMethod = PJS.Controllers.Project.sortingMethods[$routeParams.sort] ? $routeParams.sort : 'name';

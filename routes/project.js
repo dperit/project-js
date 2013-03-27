@@ -14,7 +14,7 @@ module.exports = function(app) {
         res.send(500);
         res.end('Something bad happened');
       }
-      res.json(projects);
+      res.json(req.body.list ? lightList(projects) : projects);
     });
   });
 
@@ -346,4 +346,15 @@ module.exports = function(app) {
     res.json(req.project.item);
     res.end();
   });
+
+  var lightList = function(list) {
+    var newList = [];
+    list.forEach(function(item, index) {
+      list[index] = {
+        _id: item.id,
+        title: item.title
+      };
+    });
+    return newList;
+  };
 }; //end of exports

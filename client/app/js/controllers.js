@@ -12,8 +12,15 @@ PJS.Controllers = {
 //    });
   },
 
-  nav: function($scope, $routeParams, Login) {
+  nav: function($scope, $routeParams, Login, Project) {
     PJS.Controllers.all($scope, $routeParams, Login);
+    $scope.projectsList = Project.query({list: true});
+
+    $scope.changeProject = function() {
+      if ($scope.projectChosen) {
+        window.location = '/#/projects/' + $scope.projectChosen._id;
+      }
+    };
   },
 
   login: function($scope, $routeParams, $location, Login) {
