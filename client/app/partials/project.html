@@ -10,13 +10,13 @@
   <div class="span5 milestones">
     <h4>Upcoming Milestones</h4>
     <div id="{{milestone.id}}" ng-repeat="milestone in upcomingMilestones">
-      <a href="#/projects/{{project.id}}/milestones/{{milestone.id}}">{{milestone.dueDate | date:'yy/MM/dd'}} {{milestone.title}}</a>
+      <a href="#/projects/{{project.id}}/milestones/{{milestone._id}}">{{milestone.dueDate | date:'yy/MM/dd'}} {{milestone.title}}</a>
     </div>
   </div>
   <div class="span5 issues">
     <h4>Latest Issues</h4>
     <div id="{{issue.id}}" ng-repeat="issue in latestIssues">
-      <a href="#/projects/{{project.id}}/issues/{{issue.id}}">{{issue.lastModifiedDate | date:'yy/MM/dd'}} {{issue.title}}</a>
+      <a href="#/projects/{{project.id}}/work-items/{{issue._id}}/view">{{issue.lastModifiedDate | date:'yy/MM/dd'}} {{issue.title}}</a>
     </div>
   </div>
 </div>
