@@ -17,6 +17,7 @@ PJS.Controllers.WorkBreakdown = {
   },
   treeInit: function($scope){
     $scope.mode = "view";
+    $scope.showDescription = false;
     $scope.newItem = {};
   }
 };
