@@ -351,7 +351,7 @@ module.exports = function(app) {
       //lastModifiedBy: 
     };
     if (!(req.body.children.length === 0)) {
-      for (var i = 0; i < req.body.children.lengh; i++) {
+      for (var i = 0; i < req.body.children.length; i++) {
         item.children.push(req.body.children[i]);
       }
     }
