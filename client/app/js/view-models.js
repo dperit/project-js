@@ -23,6 +23,18 @@ PJS.ViewModels = {
     return PJS.ViewModels.all(workPackage);
   },
 
+  ProjectUser: function(user) {
+    return PJS.ViewModels.all(user);
+  },
+
+  User: function(user) {
+    return PJS.ViewModels.all(user);
+  },
+
+  Role: function(user) {
+    return PJS.ViewModels.all(user);
+  },
+
   each: function(viewModelName, list) {
     var ViewModel = PJS.ViewModels[viewModelName];
     var newList = [];

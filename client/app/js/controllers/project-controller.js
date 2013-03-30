@@ -9,7 +9,7 @@ PJS.Controllers.Project = {
     $scope.projects = Project.query(function(projects) {
       var sortingMethod = PJS.Controllers.Project.sortingMethods[$routeParams.sort] ? $routeParams.sort : 'name';
       $scope.projects.forEach(function(project) {
-        PJS.Controllers.Project.users(project, User, Role);
+        PJS.Controllers.ProjectUser.populate(project, User, Project, Role);
       });
       $scope.projects = PJS.Controllers.Project.sortingMethods[sortingMethod]($scope.projects);
     });
@@ -18,7 +18,7 @@ PJS.Controllers.Project = {
   getMain: function($scope, $routeParams, Project, User, Role) {
     Project.get({id: $routeParams.projectId.toLowerCase()}, function(project) {
       $scope.project = project;
-      PJS.Controllers.Project.users(project, User, Role);
+      PJS.Controllers.ProjectUser.populate(project, User, Project, Role);
       $scope.upcomingMilestones = project.milestones.sort(function(a, b) {
         return a.dueDate > b.dueDate ? -1 : 1;
       }).splice(0, 5);
@@ -38,8 +38,9 @@ PJS.Controllers.Project = {
     $scope.addProject = function() {
       var project = new Project({title: $scope.title, description: $scope.description, 
         clientName: 'testing', projectDueDate: new Date()});
-      project.$save(project);
-      window.location = '/#/projects/';
+      project.$save(project, function(project) {
+        window.location = '/#/projects/' + project._id;
+      });
     };
   },
   
@@ -48,8 +49,9 @@ PJS.Controllers.Project = {
       $scope.updateProject = function() {
         project.name = $scope.title;
         project.description = $scope.description;
-        project.$save(project);
-        window.location = '/#/projects/';
+        project.$save(project, function(project) {
+          window.location = '/#/projects/' + project._id;
+        });
       };
     });
   },
@@ -57,18 +59,7 @@ PJS.Controllers.Project = {
   remove: function($scope, $routeParams, Project) {
     Project.get({id: $routeParams.projectId.toLowerCase()}, function(project) {
       project.$remove(project);
-    });
-  },
-
-  users: function(project, User, Role) {
-    project.projectUsers.forEach(function(userObj, index) {
-      User.get({id: userObj.user}, function(user) {
-        project.projectUsers[index].user = user;
-        Role.get({id: userObj.role}, function(role) {
-          project.projectUsers[index].role = role;
-          project.projectManager = findFirstUserByRole(project.projectUsers, 'project manager');
-        });
-      });
+      window.location = '/#/projects/';
     });
   },
   
@@ -91,16 +82,6 @@ PJS.Controllers.Project = {
       });
     }
   }
-};
-
-var findFirstUserByRole = function(users, role) {
-  var user = null;
-  for (var i=0; i<users.length && !user; ++i) {
-    if (users[i].role.title.toLowerCase() === role) {
-      user = users[i].user;
-    }
-  }
-  return user;
 };
 
 })();

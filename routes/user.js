@@ -50,8 +50,8 @@ module.exports = function(app) {
     res.json(req.user);
   });
 
-  // PUT /user/:user: update user information
-  app.put(prefix + "/users/:user", function(req, res) {
+  // POST /user/:user: update user information
+  app.post(prefix + "/users/:user", function(req, res) {
     var user = req.user[0];
     if(req.body.firstName) user.firstName = req.body.firstName;
     if(req.body.lastName) user.lastName = req.body.lastName;

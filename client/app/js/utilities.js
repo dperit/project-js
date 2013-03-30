@@ -33,4 +33,13 @@ PJS.Utilities.findInArray = function(list, id) {
   return false;
 };
 
+PJS.Utilities.findIndexInArray = function(list, id) {
+  for (var i = 0; i < list.length; ++i) {
+    if (list[i]._id == id) {
+      return i;
+    }
+  }
+  return -1;
+};
+
 })();

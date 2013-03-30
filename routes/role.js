@@ -71,8 +71,8 @@ module.exports = function(app) {
     res.end();
   });
 
-  // PUT /role/:role: update role information
-  app.put(prefix + "/roles/:role", function(req, res) {
+  // POST /role/:role: update role information
+  app.post(prefix + "/roles/:role", function(req, res) {
     if(!req.role) {
       res.send(404);
       res.end();
