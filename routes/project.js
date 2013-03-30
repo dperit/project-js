@@ -332,6 +332,30 @@ module.exports = function(app) {
     });
   });
 
+  // PUT /project/:project/workitem: update a project's work items
+  app.put(prefix + '/projects/:project/workitems/:workitem', function(req, res) {
+    var project = req.project;
+    var wi = req.workItem;
+
+    // update attributes
+    if(req.body.title) wi.title = req.body.title;
+    if(req.body.description) wi.description = req.body.description;
+    if(req.body.timeEstimate) wi.timeEstimate = req.body.timeEstimate;
+    if(req.body.status) wi.status = req.body.status;
+    if(req.body.completionPercentage) wi.completionPercentage = req.body.completionPercentage;
+    // add dependencies TODO
+    // add assigned users TODO
+    // add work packages TODO
+    project.save(function(err){
+      if(err) {
+        res.send(500, err);
+        res.end();
+      }
+      res.send(wi);
+      res.end();
+    });
+  });
+
   // GET /project/:project/workitem/:workitem: get a project's specific work items
   app.get(prefix + '/projects/:project/workitems/:workitem', function(req, res) {
     res.send(req.workItem);
