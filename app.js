@@ -2,8 +2,7 @@
 var express = require("express"), 
     mongoose = require("mongoose"),
     passport = require("passport"),
-    app = express(),
-    MemoryStore = express.session.MemoryStore;
+    app = express();
 
 // configuration
 require('./config/project')(app);
@@ -13,11 +12,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/client/app'));
 
-app.use(express.cookieParser());
-app.use(express.session({
-  store: new MemoryStore(), 
-  secret: 'thisisagreatsecretdontyouthink'
-}));
 app.use(app.router);
 
 // connect to mongoDB

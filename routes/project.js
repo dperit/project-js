@@ -3,7 +3,6 @@
 var mongoose = require('mongoose'),
   Project = mongoose.model('Project'),
   User = mongoose.model('User'),
-  WorkItem = mongoose.model('WorkItem'),
   passport = require('passport');
 
 module.exports = function(app) {
@@ -312,25 +311,24 @@ module.exports = function(app) {
     if (!(req.body.title
          && req.body.description
          && req.body.timeEstimate)) {
-           res.send(404);
+           res.send(500, 'Not enough data to create a new work item');
            res.end();
     }
 
-    // create new work item
-    var wi = new WorkItem();
+    var wi = {};
     // add attributes
     wi.title = req.body.title;
     wi.description = req.body.description;
     wi.timeEstimate = req.body.timeEstimate;
-    /*wi.save(function(err){
+    project.workItems.push(wi);
+    project.save(function(err){
       if(err) {
         res.send(500, err);
         res.end();
       }
       res.end(wi);
-    });*/
-   res.send();
-   res.end();
+      res.end();
+    });
   });
 
   // GET /project/:project/workitem/:workitem: get a project's specific work items

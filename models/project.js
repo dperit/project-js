@@ -490,4 +490,3 @@ Milestone.methods.enableDeletedItem = function(id) {
 }; // end enableDeletedItem (milestone)
 
 var Project = mongoose.model('Project', projectSchema);
-var WorkItem = mongoose.model('WorkItem', workItemSchema);
