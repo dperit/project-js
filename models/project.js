@@ -11,7 +11,7 @@ var ProjectUser = new Schema({
 
 var WorkBreakdownItem = new Schema({
   //itemNumber: { type: Number, required: true, unique: true },
-  title: { type: String, required: true, unique: true, trime: true },
+  title: { type: String, required: true, unique: true, trim: true, sparse: true },
   description: { type: String, trim: true },
   children: [{ type: ObjectId }],
   status: { type: String, trim: true, default: 'open' },
@@ -27,7 +27,7 @@ var WorkBreakdown = new Schema({
 
 var WorkPackage = new Schema({
   //wpNumber: { type: Number, required: true, unique: true }, 
-  title: { type: String, required: true, unique: true, trim: true },
+  title: { type: String, required: true, unique: true, trim: true, sparse: true },
   description: { type: String, trim: true },
   priority: { type: String, trim: true }, //required?
   timeEstimate: { type: Number, required: true }, // timeEstimate is a value representing number of days
@@ -54,7 +54,7 @@ var Comment = new Schema({
 
 var workItemSchema = new Schema({
   //itemNumber: { type: Number, required: true, unique: true }, 
-  title: { type: String, required: true, unique: true, trim: true },
+  title: { type: String, required: true, unique: true, trim: true, sparse: true },
   description: { type: String, trim: true },
   workPackages: [{ type: ObjectId }], 
   assignedUsers: [{ type: ObjectId, ref: 'User' }], 
@@ -82,7 +82,7 @@ var Completion = new Schema({
 
 var Milestone = new Schema({
   //msNumber: { type: Number, required: true, unique: true }, 
-  title: { type: String, required: true, unique: true, trim: true },
+  title: { type: String, required: true, unique: true, trim: true, sparse: true },
   description: { type: String, trim: true }, 
   dueDate: { type: Date, required: true },
   priority: { type: String, trim: true }, //required?
@@ -102,7 +102,7 @@ var MilestoneListing = new Schema({
 });
 
 var projectSchema = new Schema({
-  title: { type: String, required: true, unique: true, trim: true },
+  title: { type: String, required: true, unique: true, trim: true, sparse: true },
   clientName: { type: String, required: true, trim: true },
   projectDueDate: { type: Date, required: true },
   completionPercentage: { type: Number, min: 0, max: 100, default: 0 },
