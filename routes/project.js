@@ -346,7 +346,7 @@ module.exports = function(app) {
     if(req.body.status) wi.status = req.body.status;
     if(req.body.completionPercentage) wi.completionPercentage = req.body.completionPercentage;
 
-    // add dependencies TODO
+    // add dependencies
     if(req.body.dependencies){
       for (var i = 0, l = req.body.dependencies.length; i < l; i ++) {
         var v = req.body.dependencies[i];
