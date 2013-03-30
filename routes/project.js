@@ -309,28 +309,19 @@ module.exports = function(app) {
   // POST /project/:project/workitem: create a project's work items
   app.post(prefix + '/projects/:project/workitems', function(req, res) {
     var project = req.project;
-    if (!(req.body.title
-         && req.body.description
-         && req.body.timeEstimate)) {
-           res.send(404);
-           res.end();
-    }
 
     // create new work item
-    var wi = new WorkItem();
+    var wi = {};
     // add attributes
     wi.title = req.body.title;
     wi.description = req.body.description;
     wi.timeEstimate = req.body.timeEstimate;
-    /*wi.save(function(err){
-      if(err) {
-        res.send(500, err);
-        res.end();
-      }
-      res.end(wi);
-    });*/
-   res.send();
-   res.end();
+    wi.startDate = new Date();
+    project.workItems.push(wi);
+    project.save(function(err){
+      res.json(wi);
+      res.end();
+    });
   });
 
   // GET /project/:project/workitem/:workitem: get a project's specific work items
