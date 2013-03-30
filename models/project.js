@@ -52,7 +52,7 @@ var Comment = new Schema({
   datePosted: { type: Date, default: Date.now }
 });
 
-var WorkItem = new Schema({
+var workItemSchema = new Schema({
   //itemNumber: { type: Number, required: true, unique: true }, 
   title: { type: String, required: true, unique: true, trim: true },
   description: { type: String, trim: true },
@@ -118,7 +118,7 @@ var projectSchema = new Schema({
   workPackageList: [WorkPackageListing],
   workPackages: [WorkPackage],
   workItemList: [WorkItemListing],
-  workItems: [WorkItem]
+  workItems: [workItemSchema]
 });
 
 projectSchema.methods.hasUser = function(id, cb) {
@@ -490,3 +490,4 @@ Milestone.methods.enableDeletedItem = function(id) {
 }; // end enableDeletedItem (milestone)
 
 var Project = mongoose.model('Project', projectSchema);
+var WorkItem = mongoose.model('WorkItem', workItemSchema);

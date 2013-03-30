@@ -3,6 +3,7 @@
 var mongoose = require('mongoose'),
   Project = mongoose.model('Project'),
   User = mongoose.model('User'),
+  WorkItem = mongoose.model('WorkItem'),
   passport = require('passport');
 
 module.exports = function(app) {
@@ -303,6 +304,33 @@ module.exports = function(app) {
   app.get(prefix + '/projects/:project/workitems', function(req, res) {
     var project = req.project;
     res.send(req.query.list ? lightList(project.workItems) : project.workItems);
+  });
+
+  // POST /project/:project/workitem: create a project's work items
+  app.post(prefix + '/projects/:project/workitems', function(req, res) {
+    var project = req.project;
+    if (!(req.body.title
+         && req.body.description
+         && req.body.timeEstimate)) {
+           res.send(404);
+           res.end();
+    }
+
+    // create new work item
+    var wi = new WorkItem();
+    // add attributes
+    wi.title = req.body.title;
+    wi.description = req.body.description;
+    wi.timeEstimate = req.body.timeEstimate;
+    /*wi.save(function(err){
+      if(err) {
+        res.send(500, err);
+        res.end();
+      }
+      res.end(wi);
+    });*/
+   res.send();
+   res.end();
   });
 
   // GET /project/:project/workitem/:workitem: get a project's specific work items
