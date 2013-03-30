@@ -320,13 +320,14 @@ module.exports = function(app) {
     wi.title = req.body.title;
     wi.description = req.body.description;
     wi.timeEstimate = req.body.timeEstimate;
+    wi.startDate = new Date();
     project.workItems.push(wi);
     project.save(function(err){
       if(err) {
         res.send(500, err);
         res.end();
       }
-      res.end(wi);
+      res.send(wi);
       res.end();
     });
   });

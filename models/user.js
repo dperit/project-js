@@ -9,7 +9,7 @@ var mongoose = require('mongoose')
 var UserSchema = mongoose.Schema({
   firstName: { type: String, required: true, trim: true },
   lastName: { type: String, required: true, trim: true },
-  email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+  email: { type: String, required: true, unique: true, lowercase: true, trim: true, sparse: true },
   resetMode: { type: Boolean, default: false },
   siteAdmin: { type: Boolean, default: false },
   registrationDate: { type: Date, default: Date.now },

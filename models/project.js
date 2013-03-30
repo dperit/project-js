@@ -11,7 +11,7 @@ var ProjectUser = new Schema({
 
 var WorkBreakdownItem = new Schema({
   //itemNumber: { type: Number, required: true, unique: true },
-  title: { type: String, required: true, unique: true, trime: true },
+  title: { type: String, required: true, unique: true, trim: true, sparse: true },
   description: { type: String, trim: true },
   children: [{ type: ObjectId }],
   status: { type: String, trim: true, default: 'open' },
@@ -27,7 +27,7 @@ var WorkBreakdown = new Schema({
 
 var WorkPackage = new Schema({
   //wpNumber: { type: Number, required: true, unique: true }, 
-  title: { type: String, required: true, unique: true, trim: true },
+  title: { type: String, required: true, unique: true, trim: true, sparse: true },
   description: { type: String, trim: true },
   priority: { type: String, trim: true }, //required?
   timeEstimate: { type: Number, required: true }, // timeEstimate is a value representing number of days
@@ -38,11 +38,11 @@ var WorkPackage = new Schema({
   lastModifiedBy: { type: ObjectId, ref: 'User' }
 });
 
-var WorkPackageListing = new Schema({
+/*var WorkPackageListing = new Schema({
   items: [{ type: ObjectId }],
   lastModifiedDate: { type: Date, default: Date.now },
   lastModifiedBy: { type: ObjectId, ref: 'User' }
-});
+});*/
 
 var Comment = new Schema({
   //commentNumber: { type: Number, required: true }, //unique?
@@ -54,7 +54,7 @@ var Comment = new Schema({
 
 var workItemSchema = new Schema({
   //itemNumber: { type: Number, required: true, unique: true }, 
-  title: { type: String, required: true, unique: true, trim: true },
+  title: { type: String, required: true, unique: true, trim: true, sparse: true },
   description: { type: String, trim: true },
   workPackages: [{ type: ObjectId }], 
   assignedUsers: [{ type: ObjectId, ref: 'User' }], 
@@ -69,11 +69,11 @@ var workItemSchema = new Schema({
   lastModifiedBy: { type: ObjectId, ref: 'User' }
 });
 
-var WorkItemListing = new Schema({
+/*var WorkItemListing = new Schema({
   items: [{ type: ObjectId }],
   lastModifiedDate: {type: Date, default: Date.now },
   lastModifiedBy: { type: ObjectId, ref: 'User' } 
-});
+});*/
 
 var Completion = new Schema({
   wkPackage: { type: ObjectId, required: true },
@@ -82,7 +82,7 @@ var Completion = new Schema({
 
 var Milestone = new Schema({
   //msNumber: { type: Number, required: true, unique: true }, 
-  title: { type: String, required: true, unique: true, trim: true },
+  title: { type: String, required: true, unique: true, trim: true, sparse: true },
   description: { type: String, trim: true }, 
   dueDate: { type: Date, required: true },
   priority: { type: String, trim: true }, //required?
@@ -95,14 +95,14 @@ var Milestone = new Schema({
   lastModifiedBy: { type: ObjectId, ref: 'User' }
 });
 
-var MilestoneListing = new Schema({
+/*var MilestoneListing = new Schema({
   items: [{ type: ObjectId }],
   lastModifiedDate: { type: Date, default: Date.now },
   lastModifiedBy: { type: ObjectId, ref: 'User' } 
-});
+});*/
 
 var projectSchema = new Schema({
-  title: { type: String, required: true, unique: true, trim: true },
+  title: { type: String, required: true, unique: true, trim: true, sparse: true },
   clientName: { type: String, required: true, trim: true },
   projectDueDate: { type: Date, required: true },
   completionPercentage: { type: Number, min: 0, max: 100, default: 0 },
@@ -113,11 +113,11 @@ var projectSchema = new Schema({
   projectUsers: [ProjectUser],  
   workBreakdownStructure: [WorkBreakdown],
   workBreakdownItems: [WorkBreakdownItem],
-  milestoneList: [MilestoneListing],
+  // milestoneList: [MilestoneListing],
   milestones: [Milestone],
-  workPackageList: [WorkPackageListing],
+  // workPackageList: [WorkPackageListing],
   workPackages: [WorkPackage],
-  workItemList: [WorkItemListing],
+  // workItemList: [WorkItemListing],
   workItems: [workItemSchema]
 });
 
@@ -332,7 +332,7 @@ WorkBreakdown.methods.copyStructure = function(params) {
 
 // addToList adds the newly-created milestone to the MilestoneList
 // QUESTION: is a milestone always added to the end of the list or can it be added to the middle?
-MilestoneListing.methods.addToList = function(id, userId){
+/*MilestoneListing.methods.addToList = function(id, userId){
   var project = new Project();
   var listing = new MilestoneListing();
   listing.items.push(id);
@@ -353,7 +353,7 @@ MilestoneListing.methods.addToList = function(id, userId){
     res.end();
   });
 }; // end addToList (milestone)
-
+*/
 // editMilestone - updates a project milestone with changes user has made
 Milestone.methods.editMilestone = function(id, newTitle, newDesc, newPriority, newStatus, wpDep, msDep, reqComp, userId){
   var project = new Project();
