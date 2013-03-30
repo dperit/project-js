@@ -11,7 +11,7 @@ module.exports = function(app) {
   app.get(prefix + "/projects", function(req, res) {
     Project.find({}).exec(function(err, projects) {
       if(err) {
-        res.send(500);
+        res.send(500, err);
         res.end('Something bad happened');
       }
       res.json(req.query.list ? lightList(projects) : projects);
@@ -23,8 +23,8 @@ module.exports = function(app) {
     res.json(req.project);
   });
 
-  // PUT /project/:project: update specified project
-  app.put(prefix + "/projects/:project", function(req, res) {
+  // POST /project/:project: update specified project
+  app.post(prefix + "/projects/:project", function(req, res) {
     var project = req.project;
     if (req.body.title) project.title = req.body.title;
     if (req.body.clientName) project.clientName = req.body.clientName;
@@ -33,6 +33,7 @@ module.exports = function(app) {
 
     project.save(function(err){
       if(err) {
+        console.log(err);
         res.send(500, err);
         res.end();
       }
@@ -59,6 +60,7 @@ module.exports = function(app) {
 
     newproject.save(function(err){
       if(err) {
+        console.log(err);
         res.send(500, err);
         res.end('Something went wrong');
       }
@@ -128,8 +130,8 @@ module.exports = function(app) {
     });
   });
 
-  // PUT /project/:project/user: updates user within project
-  app.put(prefix + "/projects/:project/user", function(req, res,next) {
+  // POST /project/:project/user: updates user within project
+  app.post(prefix + "/projects/:project/user", function(req, res,next) {
     if(!req.body.userId || !req.body.roleId){
       res.send(500, "Not enough information to make query (requires userId and roleId)");
       res.end();

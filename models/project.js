@@ -10,7 +10,6 @@ var ProjectUser = new Schema({
 });
 
 var WorkBreakdownItem = new Schema({
-  //itemNumber: { type: Number, required: true, unique: true },
   title: { type: String, required: true, unique: true, trim: true, sparse: true },
   description: { type: String, trim: true },
   children: [{ type: ObjectId }],
@@ -26,7 +25,6 @@ var WorkBreakdown = new Schema({
 });
 
 var WorkPackage = new Schema({
-  //wpNumber: { type: Number, required: true, unique: true }, 
   title: { type: String, required: true, unique: true, trim: true, sparse: true },
   description: { type: String, trim: true },
   priority: { type: String, trim: true }, //required?
@@ -38,14 +36,7 @@ var WorkPackage = new Schema({
   lastModifiedBy: { type: ObjectId, ref: 'User' }
 });
 
-/*var WorkPackageListing = new Schema({
-  items: [{ type: ObjectId }],
-  lastModifiedDate: { type: Date, default: Date.now },
-  lastModifiedBy: { type: ObjectId, ref: 'User' }
-});*/
-
 var Comment = new Schema({
-  //commentNumber: { type: Number, required: true }, //unique?
   title: { type: String, trim: true },
   text: { type: String, required: true },
   postedBy: { type: ObjectId, ref: 'User' }, 
@@ -53,7 +44,6 @@ var Comment = new Schema({
 });
 
 var workItemSchema = new Schema({
-  //itemNumber: { type: Number, required: true, unique: true }, 
   title: { type: String, required: true, unique: true, trim: true, sparse: true },
   description: { type: String, trim: true },
   workPackages: [{ type: ObjectId }], 
@@ -69,37 +59,23 @@ var workItemSchema = new Schema({
   lastModifiedBy: { type: ObjectId, ref: 'User' }
 });
 
-/*var WorkItemListing = new Schema({
-  items: [{ type: ObjectId }],
-  lastModifiedDate: {type: Date, default: Date.now },
-  lastModifiedBy: { type: ObjectId, ref: 'User' } 
-});*/
-
 var Completion = new Schema({
-  wkPackage: { type: ObjectId, required: true },
-  percentage: { type: Number, required: true, min: 0, max: 100, default: 100 }
+  wkPackage: { type: ObjectId, required: true, sparse: true },
+  percentage: { type: Number, min: 0, max: 100, default: 100 }
 });
 
 var Milestone = new Schema({
-  //msNumber: { type: Number, required: true, unique: true }, 
   title: { type: String, required: true, unique: true, trim: true, sparse: true },
   description: { type: String, trim: true }, 
   dueDate: { type: Date, required: true },
   priority: { type: String, trim: true }, //required?
   completionPercentage: { type: Number, min: 0, max: 100, default: 0 },
   status: { type: String, trim: true, default: 'open' }, 
-  wpDependencies: [{ type: ObjectId }], 
+  wpDependencies: [Completion], 
   msDependencies: [{ type: ObjectId }],
-  requiredCompletion: [Completion],
   lastModifiedDate: {type: Date, default: Date.now },
   lastModifiedBy: { type: ObjectId, ref: 'User' }
 });
-
-/*var MilestoneListing = new Schema({
-  items: [{ type: ObjectId }],
-  lastModifiedDate: { type: Date, default: Date.now },
-  lastModifiedBy: { type: ObjectId, ref: 'User' } 
-});*/
 
 var projectSchema = new Schema({
   title: { type: String, required: true, unique: true, trim: true, sparse: true },
@@ -113,11 +89,8 @@ var projectSchema = new Schema({
   projectUsers: [ProjectUser],  
   workBreakdownStructure: [WorkBreakdown],
   workBreakdownItems: [WorkBreakdownItem],
-  // milestoneList: [MilestoneListing],
   milestones: [Milestone],
-  // workPackageList: [WorkPackageListing],
   workPackages: [WorkPackage],
-  // workItemList: [WorkItemListing],
   workItems: [workItemSchema]
 });
 

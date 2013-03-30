@@ -17,8 +17,9 @@ PJS.Controllers.WorkItem = {
     var projectId = $routeParams.projectId.toLowerCase();
     $scope.addWorkItem = function() {
       var workItem = new WorkItem($scope.workItem);
-      workItem.$save(workItem);
-      window.location = '/#/projects/' + projectId + '/work-items/' + PJS.Utilities.dashed(workItem.title) + '/edit';
+      workItem.$save(workItem, function(workItem) {
+        window.location = '/#/projects/' + projectId + '/work-items/' + workItem._id + '/edit';
+      });
     };
   },
 
@@ -38,7 +39,9 @@ PJS.Controllers.WorkItem = {
           workItem.timeSpent = $scope.workItem.timeSpent;
           workItem.completionPercentage = $scope.workItem.completionPercentage;
           workItem.status = $scope.workItem.status;
-          workItem.$save(workItem);
+          workItem.$save(workItem, function(workItem) {
+            window.location = '/#/projects/' + projectId + '/work-items/' + workItem._id + '/edit';
+          });
         };
       });
     })
