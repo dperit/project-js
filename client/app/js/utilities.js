@@ -47,11 +47,37 @@ PJS.Utilities.isDefined = function(val) {
 };
 
 PJS.Utilities.setSelectedOption = function(selectMenu, expected) {
-  for (var i=0, length=selectMenu.children.length; i<length; ++i) {
+  var anySelected = false;
+  var length = selectMenu.children.length;
+  for (var i=0; i<length; ++i) {
     var child = selectMenu.children[i];
-    if (!child.textContent) selectMenu.removeChild(child);
-    child.selected = child.textContent === expected ? 'selected' : '';
+    if (child) {
+      if (!child.textContent) {
+        selectMenu.removeChild(child);
+        --i;
+      } else {
+        child.selected = child.textContent === expected ? 'selected' : '';
+        if (child.selected) anySelected = true;
+      }
+    }
   }
+  if (!anySelected && selectMenu.children.length) {
+    selectMenu.children[0].selected = true;
+  }
+};
+
+PJS.Utilities.filterByStatus = function(items, status) {
+  var newItems = [];
+
+  items.forEach(function(item) {
+    if (item.status) {
+      if (item.status === status || item.status.type === status) {
+        newItems.push(item);
+      }
+    }
+  });
+
+  return newItems;
 };
 
 })();

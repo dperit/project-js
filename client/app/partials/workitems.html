@@ -8,37 +8,47 @@
     Search: <input class="input-medium" ng-model="wkFilter.title"></input>
   </form>
 
-  <div class="pull-right span4 sorting">
+  <div ng-init="predicate = 'lastModifiedBy'; reverse=!reverse" class="pull-right span4 sorting">
     <span class="sorting-title">Sort:</span> 
     <button class="btn" href="" ng-click="predicate = 'title'; reverse=!reverse">Title</button>
     <button class="btn" href="" ng-click="predicate = 'completionPercentage'; reverse=!reverse">Completed</button>
     <button class="btn" href="" ng-click="predicate = 'lastModifiedBy'; reverse=!reverse">Modified</button>
   </div>
 
-  <table class="table table-condensed table-striped table-bordered">
-    <tbody>
-    <tr ng-repeat="workItem in workItems | filter:wkFilter | orderBy:predicate:reverse">
-      <td>
-        <a href="#/projects/{{project.id}}/work-items/{{workItem.id}}/view"><b>{{workItem.title}}</b></a>
-        <a href="#/projects/{{project.id}}/work-items/{{workItem.id}}/edit"><i class="icon icon-edit"></i></a>
-        <div>{{workItem.description}}</div>
-        <p class="pull-left info-small">by: 
-          <a href="#/users/{{workItem.lastModifiedBy}}">Username</a> on {{workItem.lastModifiedDate | date:'yy/MM/dd'}} 
-        </p>
-        <table class="span10">
-          <tr>
-            <td class="span1">
-              <span class="label {{workItem.status.labelType}}">{{workItem.status.text}}</span>
-            </td>
-            <td class="span10">
-              <div class="span10 progress"><div class="bar" style="width: {{workItem.completionPercentage}}%;"></div></div>
-            </td>
-          </tr>
-        </table>
+  <ul class="above-table nav nav-tabs">
+    <li class="active"><a ng-click="changeMode('open')" href="#open" data-toggle="tab">Open</a></li>
+    <li><a href="#closed" ng-click="changeMode('closed')" data-toggle="tab">Closed</a></li>
+  </ul>
 
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="work-items tab-content">
+
+    <div class="tab-pane active" id="{{status}}">
+      <table class="table table-condensed table-striped table-bordered">
+        <tbody>
+        <tr ng-repeat="workItem in workItems | filter:wkFilter | orderBy:predicate:reverse">
+          <td>
+            <a href="#/projects/{{project.id}}/work-items/{{workItem.id}}/view"><b>{{workItem.title}}</b></a>
+            <a href="#/projects/{{project.id}}/work-items/{{workItem.id}}/edit"><i class="icon icon-edit"></i></a>
+            <div>{{workItem.description}}</div>
+            <p class="pull-left info-small">by: 
+              <a href="#/users/{{workItem.lastModifiedBy}}">Username</a> on {{workItem.lastModifiedDate | date:'yy/MM/dd'}} 
+            </p>
+            <table class="span10">
+              <tr>
+                <td class="span1">
+                  <span class="label {{workItem.status.labelType}}">{{workItem.status.text}}</span>
+                </td>
+                <td class="span10">
+                  <div class="span10 progress"><div class="bar" style="width: {{workItem.completionPercentage}}%;"></div></div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
 
 </div>

@@ -17,7 +17,29 @@
 
 .progress {
   border: 1px solid #aaccaa;
-  border-collapse: none !important;
+  border-collapse: none;
+}
+
+.nav {
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+.nav-tabs li {
+}
+
+.nav-tabs li a {
+  padding: 5px;
+}
+
+.above-table {
+  border-bottom: 0px;
+  margin-left: 2px;
+}
+
+.above-well {
+  margin-left: 22px;
+  margin-bottom: 5px;
 }
 
 .sorting span {
