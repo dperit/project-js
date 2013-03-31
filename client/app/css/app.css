@@ -10,4 +10,16 @@
 
 .info-small {
   font-size: 12px;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  margin: 7px 7px 7px 0px;
+}
+
+.progress {
+  border: 1px solid #aaccaa;
+  border-collapse: none !important;
+}
+
+.sorting span {
+  margin-right: 8px;
 }
