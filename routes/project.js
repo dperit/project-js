@@ -380,7 +380,7 @@ module.exports = function(app) {
   // GET /project/:project/workbreakdown: get a project's WBS
   app.get(prefix + '/projects/:project/workbreakdown', function(req, res) {
     var project = req.project;
-    res.send(project.workBreakdownItems);
+    res.send(project.workBreakdownStructure);
   });
   
   // POST /projects/:project/workbreakdown: create a new parent work breakdown item
@@ -403,7 +403,7 @@ module.exports = function(app) {
         item.children.push(req.body.children[i]);
       }
     }
-    project.workBreakdownItems.push(item);
+    project.workBreakdownStructure.push(item);
     project.save(function(err) {
       if (err) {
         res.send(500, err);
