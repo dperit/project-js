@@ -4,6 +4,10 @@
   margin-top: 80px;
 }
 
+.container li {
+  list-style-type: none;
+}
+
 .navbar select {
   margin: 6px;
 }
@@ -52,6 +56,6 @@
   margin-right: 8px;
 }
 
-select {
-  margin-bottom: 0;
+input, select {
+  margin-bottom: 0 !important;
 }
