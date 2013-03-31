@@ -15,6 +15,12 @@
   margin: 7px 7px 7px 0px;
 }
 
+.container-bordered {
+  border: 1px solid #ddd;
+  border-collapse: separate;
+  border-radius: 4px;
+}
+
 .progress {
   border: 1px solid #aaccaa;
   border-collapse: none;
@@ -44,4 +50,8 @@
 
 .sorting span {
   margin-right: 8px;
+}
+
+select {
+  margin-bottom: 0;
 }
