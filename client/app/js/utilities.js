@@ -46,4 +46,12 @@ PJS.Utilities.isDefined = function(val) {
   return val !== null && val !== undefined && val !== NaN;
 };
 
+PJS.Utilities.setSelectedOption = function(selectMenu, expected) {
+  for (var i=0, length=selectMenu.children.length; i<length; ++i) {
+    var child = selectMenu.children[i];
+    if (!child.textContent) selectMenu.removeChild(child);
+    child.selected = child.textContent === expected ? 'selected' : '';
+  }
+};
+
 })();

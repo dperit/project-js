@@ -7,3 +7,7 @@
 .navbar select {
   margin: 6px;
 }
+
+.info-small {
+  font-size: 12px;
+}
