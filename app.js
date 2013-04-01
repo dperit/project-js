@@ -12,8 +12,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/client/app'));
 
-app.use(app.router);
-
 // connect to mongoDB
 mongoose.connect('localhost', 'test');
 
