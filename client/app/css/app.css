@@ -1,7 +1,19 @@
 /* app css stylesheet */
 
+html, body {
+  word-wrap: break-word;
+}
+
 .container {
   margin-top: 80px;
+}
+
+.container div {
+  max-width: 950px;
+}
+
+.table div, p, a, h1, h2, h3, h4, h5 {
+  max-width: 880px;
 }
 
 .container li {
@@ -81,6 +93,18 @@ table .work-item, table .work-item tr, table .work-item td {
   padding-bottom: 4px;
 }
 
+.span2 {
+  max-width: 121px;
+}
+
+.span4 {
+  max-width: 284px;
+}
+
+.span7 {
+  max-width: 503px;
+}
+
 table .work-item {
   border-bottom: 1px solid #eee;
 }
@@ -95,4 +119,23 @@ table .work-item {
 
 .content {
   padding: 0;
+}
+
+.title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table .title {
+  max-width: 250px;
+  padding-right: 10px;
+  float: left;
+}
+
+.btn-mini {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

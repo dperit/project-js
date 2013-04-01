@@ -10,7 +10,7 @@
       Search: <input class="input-medium" ng-model="wkFilter.title"></input>
     </form>
 
-    <div ng-init="predicate = 'lastModifiedDate'; reverse=!reverse" class="pull-right span4 sorting">
+    <div ng-init="predicate = 'lastModifiedDate'; reverse=!reverse" class="pull-right sorting">
       <span class="sorting-title">Sort:</span> 
       <button class="btn" href="" ng-click="predicate = 'title'; reverse=!reverse">Title</button>
       <button class="btn" href="" ng-click="predicate = 'completionPercentage'; reverse=!reverse">Completed</button>
@@ -24,7 +24,7 @@
   </span>
 
   <div ng-show="workItems.length != 0" class="work-items tab-content">
-    
+
     <div class="tab-pane active" id="{{status[0]}}">
       <table class="table table-condensed table-striped table-bordered">
         <tbody>
@@ -34,7 +34,7 @@
             <table class="table table-condensed work-item">
               <tr>
                 <td class="span4">
-                  <a href="#/projects/{{project.id}}/work-items/{{workItem.id}}/view"><b>{{workItem.title}}</b></a>
+                  <span class="title"><a href="#/projects/{{project.id}}/work-items/{{workItem.id}}/view"><b>{{workItem.title}}</b></a></span>
                   <a href="#/projects/{{project.id}}/work-items/{{workItem.id}}/edit"><i class="icon icon-edit"></i></a>
 
                   <div class="assigned-users info-small" ng-show="workItem.assignedUsers.length != 0">

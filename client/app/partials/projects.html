@@ -20,7 +20,7 @@
 
 <div class="table projects">
   <div ng-show="projects.length != 0" class="well project" id="{{project.id}}" ng-repeat="project in projects | filter:filter | orderBy:predicate:reverse">
-    <h4><a href="#/projects/{{project.id}}">{{project.title}}</a></h4>
+    <h4 class="title"><a href="#/projects/{{project.id}}">{{project.title}}</a></h4>
     <p>{{project.description}}</p>
     <p ng-show="project.projectUsers.length != 0"><b>Project Manager:</b>
       <span ng-repeat="user in project.usersByRole['project manager']">
