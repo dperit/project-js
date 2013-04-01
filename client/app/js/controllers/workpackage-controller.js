@@ -11,7 +11,7 @@ PJS.Controllers.WorkPackage = {
     $scope.project = Project.get({id: $routeParams.projectId.toLowerCase()}, function(project) {
       PJS.Controllers.allRelations('WorkPackage', project, project.workPackages);
       var workPackages = PJS.ViewModels.each('WorkPackage', project.workPackages);
-      $scope.status = 'open';
+      $scope.status = ['open', 'late'];
       $scope.workPackages = PJS.Utilities.filterByStatus(workPackages, $scope.status);
 
       $scope.changeMode = function(status) {

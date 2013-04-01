@@ -15,6 +15,11 @@ PJS.ViewModels = {
     return PJS.ViewModels.all(workItem);
   },
   
+  Comment: function(comment) {
+    comment.postedBy = PJS.ViewModels.User(comment.postedBy);
+    return PJS.ViewModels.all(comment);
+  },
+  
   WorkBreakdownItem: function(wbItem) {
     return PJS.ViewModels.all(wbItem);
   },
@@ -23,8 +28,10 @@ PJS.ViewModels = {
     return PJS.ViewModels.all(workPackage);
   },
 
-  ProjectUser: function(user) {
-    return PJS.ViewModels.all(user);
+  ProjectUser: function(projectUser) {
+    projectUser.role = PJS.ViewModels.Role(projectUser.role);
+    projectUser.user = PJS.ViewModels.User(projectUser.user);
+    return PJS.ViewModels.all(projectUser);
   },
 
   User: function(user) {
@@ -49,6 +56,9 @@ PJS.ViewModels = {
     if (resource.id === undefined) {
       resource.id = resource._id;
     }
+    if (resource.lastModifiedBy) {
+      PJS.ViewModels.User(resource.lastModifiedBy);
+    }
     if (resource.status) {
       var type = resource.status;
       resource.status = statuses[resource.status];
@@ -61,7 +71,7 @@ PJS.ViewModels = {
 
 var statuses = {
   'open': {text: 'Open', level: 0},
-  'late': {text: 'Late', level: 2},
+  'late': {text: 'Late', level: 1},
   'closed': {text: 'Closed', level: 2},
   'deleted': {text: 'Deleted', level: 2}
 };
