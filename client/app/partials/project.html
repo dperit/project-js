@@ -3,7 +3,7 @@
 <div class="row">
   <div class="well well-small span11 project">
     <h4>Your Project at a Glance:</h4>
-    <h5>Project Manager: 
+    <h5 ng-show="project.projectUsers.length != 0">Project Manager: 
       <span ng-repeat="user in project.usersByRole['project manager']">
         <a class="btn btn-mini" href="#/users/{{user._id}}"> {{user.firstName}} {{user.lastName}} </a>
       </span>

@@ -60,11 +60,11 @@ hr {
   margin-bottom: 5px;
 }
 
-.sorting span {
+.sorting, .sorting span {
   margin-right: 8px;
 }
 
-input, select {
+input, select, form {
   margin-bottom: 0 !important;
 }
 
@@ -91,4 +91,8 @@ table .work-item {
 
 .comments div {
   padding: 5px;
+}
+
+.content {
+  padding: 0;
 }

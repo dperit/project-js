@@ -1,18 +1,22 @@
 <div ng-include src="'partials/project-nav.html'"></div>
 
-<div class="table">
-  <div class="span11">
-    <a class="btn" ng-click="addUser()">Add User</a>
+<a class="btn" ng-click="addUser()">Add User</a>
+
+<span ng-show="users.length != 0" class="table">
+  <span class="span11">
     <select ng-model="addUserChosen" ng-options="(user.username + ': ' + user.firstName + ' ' + user.lastName) for user in usersList">
       <option value="">Choose a User</option>
     </select>
     <select ng-model="addRoleChosen" ng-options="role.title for role in rolesList">
       <option value="">Choose a Role</option>
     </select>
-  </div>
-</div>
+  </span>
+</span>
 
-<div class="table">
+<div ng-show="users.length != 0" class="table">
+
+  <hr />
+  
   <table class="container-bordered table table-condensed table-striped">
     <tr class="user" id="{{container.user.id}}" ng-repeat="container in users">
       <td class="span2">
@@ -31,4 +35,9 @@
       </td>
     </tr>
   </table>
+</div>
+
+<div ng-show="users.length == 0" class="empty-message">
+  <hr />
+  There are currently no users in this project.
 </div>

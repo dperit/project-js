@@ -4,7 +4,7 @@
 
   <div ng-switch-when="view">
 
-    <div>
+    <div class="content">
       <div class="span11 work-item well" id="{{workItem.id}}">
         <h4>{{workItem.title}}</h4>
         <p>{{workItem.description}}</p>
@@ -51,7 +51,7 @@
       </div>
     </div>
   </div>
-  
+
    <div ng-switch-when="edit">
     <form class="form-horizontal" ng-submit="updateWorkItem()">
       <fieldset>
