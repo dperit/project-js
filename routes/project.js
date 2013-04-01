@@ -342,6 +342,36 @@ module.exports = function(app) {
     });
   });
 
+  // PUT /project/:project/workitem: update a project's work items
+  app.put(prefix + '/projects/:project/workitems/:workitem', function(req, res) {
+    var project = req.project;
+    var wi = req.workItem;
+
+    // update attributes
+    if(req.body.title) wi.title = req.body.title;
+    if(req.body.description) wi.description = req.body.description;
+    if(req.body.timeEstimate) wi.timeEstimate = req.body.timeEstimate;
+    if(req.body.status) wi.status = req.body.status;
+    if(req.body.completionPercentage) wi.completionPercentage = req.body.completionPercentage;
+
+    // add dependencies
+    if(req.body.dependencies){
+      for (var i = 0, l = req.body.dependencies.length; i < l; i ++) {
+        var v = req.body.dependencies[i];
+        wi.dependencies.push(ObjectId(v));
+      }
+    }
+
+    project.save(function(err){
+      if(err) {
+        res.send(500, err);
+        res.end();
+      }
+      res.send(wi);
+      res.end();
+    });
+  });
+
   // GET /project/:project/workitem/:workitem: get a project's specific work items
   app.get(prefix + '/projects/:project/workitems/:workitem', function(req, res) {
     res.send(req.workItem);
@@ -353,8 +383,8 @@ module.exports = function(app) {
     res.send(project.workBreakdownStructure);
   });
   
-  // POST /projects/:project/workbreakdownitems: create project work breakdown items
-  app.post(prefix + "/projects/:project/workbreakdownitems", function(req, res, next) {
+  // POST /projects/:project/workbreakdown: create a new parent work breakdown item
+  app.post(prefix + "/projects/:project/workbreakdown", function(req, res, next) {
     if (!(req.body.title)) {
       res.send(404, 'Title is required');
       res.end();
@@ -368,22 +398,23 @@ module.exports = function(app) {
       lastModifiedDate: new Date(),
       //lastModifiedBy: 
     };
-    if (!(req.body.children.length === 0)) {
+    if (req.body.children) {
       for (var i = 0; i < req.body.children.lengh; i++) {
         item.children.push(req.body.children[i]);
       }
     }
-    project.workBreakdownItems.push(item);
+    project.workBreakdownStructure.push(item);
     project.save(function(err) {
       if (err) {
         res.send(500, err);
         res.end()
       }
+      res.json(item);
+      res.end();
     });
-    res.json(req.project.item);
-    res.end();
   });
 
+  // ----------------------- HELPER METHODS
   var lightList = function(list) {
     var newList = [];
     list.forEach(function(item, index) {
