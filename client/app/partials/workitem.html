@@ -6,7 +6,7 @@
 
     <div class="content">
       <div class="span11 work-item well" id="{{workItem.id}}">
-        <h4 class="title">{{workItem.title}}</h4>
+        <h4 class="title">{{workItem.title}} <a href="#/projects/{{project.id}}/work-items/{{workItem.id}}/edit"><i class="icon icon-edit"></i></a></h4>
         <p>{{workItem.description}}</p>
         <p><span class="label {{workItem.status.labelType}}">{{workItem.status.text}}</span></p>
 
