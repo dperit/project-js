@@ -127,10 +127,10 @@ table .work-item {
   text-overflow: ellipsis;
 }
 
-.table .title {
+.span4 .title {
+  float: left;
   max-width: 250px;
   padding-right: 10px;
-  float: left;
 }
 
 .btn-mini {
