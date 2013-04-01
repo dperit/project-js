@@ -30,11 +30,29 @@ module.exports = function(app) {
     var milestone = {
       title: req.body.title,
       description: req.body.description,
+      completionPercentage: req.body.completionPercentage || 0,
       wpDependencies: [],
       msDependencies: [],
       priority: 'high',
       status: 'open'
     };
+
+    // add dependencies
+    if(req.body.wpDependencies){
+      for (var i = 0, l = req.body.wpDependencies.length; i < l; i ++) {
+        var v = req.body.wpDependencies[i];
+        v.wkpackage = ObjectId(v.wkpackage);
+        milestone.wpDependencies.push(v);
+      }
+    }
+
+    if(req.body.msDependencies){
+      for (var i = 0, l = req.body.msDependencies.length; i < l; i ++) {
+        var v = req.body.msDependencies[i];
+        milestone.msDependencies.push(ObjectId(v));
+      }
+    }
+
     project.milestones.push(milestone);
     project.save(function(err){
       if(err) {
@@ -43,6 +61,43 @@ module.exports = function(app) {
         res.end();
       }
       res.json(req.project.milestones);
+      res.end();
+    });
+  });
+
+  // POST /project/:project/workpackage: update a project's work packages
+  app.post(prefix + '/projects/:project/workpackages/:workpackage', function(req, res) {
+    var project = req.project;
+    var ms = req.milestone;
+
+    // update attributes
+    if(req.body.title) ms.title = req.body.title;
+    if(req.body.description) ms.description = req.body.description;
+    if(req.body.status) ms.status = req.body.status;
+    if(req.body.completionPercentage) ms.completionPercentage = req.body.completionPercentage;
+
+    // add dependencies
+    if(req.body.wpDependencies){
+      for (var i = 0, l = req.body.wpDependencies.length; i < l; i ++) {
+        var v = req.body.wpDependencies[i];
+        v.wkpackage = ObjectId(v.wkpackage);
+        ms.wpDependencies.push(v);
+      }
+    }
+
+    if(req.body.msDependencies){
+      for (var i = 0, l = req.body.msDependencies.length; i < l; i ++) {
+        var v = req.body.msDependencies[i];
+        ms.msDependencies.push(ObjectId(v));
+      }
+    }
+
+    project.save(function(err){
+      if(err) {
+        res.send(500, err);
+        res.end();
+      }
+      res.send(ms);
       res.end();
     });
   });

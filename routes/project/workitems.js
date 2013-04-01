@@ -45,6 +45,17 @@ module.exports = function(app) {
     wi.description = req.body.description;
     wi.timeEstimate = req.body.timeEstimate;
     wi.startDate = new Date();
+    wi.status = req.body.status || 'open';
+    wi.completionPercentage = req.body.completionPercentage || 0;
+
+    // add dependencies
+    if(req.body.dependencies){
+      for (var i = 0, l = req.body.dependencies.length; i < l; i ++) {
+        var v = req.body.dependencies[i];
+        wi.dependencies.push(ObjectId(v));
+      }
+    }
+
     project.workItems.push(wi);
     project.save(function(err){
       if(err) {
