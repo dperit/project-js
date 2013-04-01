@@ -1,169 +1,50 @@
 <div ng-include src="'partials/project-nav.html'"></div>
 
-<div ng-switch on="mode">
+<div class="content">
+  <div class="span11 work-item well" id="{{workItem.id}}">
+    <h4 class="title">{{workItem.title}} <a href="#/projects/{{project.id}}/work-items/{{workItem.id}}/edit"><i class="icon icon-edit"></i></a></h4>
+    <p>{{workItem.description}}</p>
+    <p><span class="label {{workItem.status.labelType}}">{{workItem.status.text}}</span></p>
 
-  <div ng-switch-when="view">
+    <h5>Overall Progress:</h5> <div class="progress"><div class="bar" style="width: {{workItem.completionPercentage}}%;"></div></div>
 
-    <div class="content">
-      <div class="span11 work-item well" id="{{workItem.id}}">
-        <h4 class="title">{{workItem.title}} <a href="#/projects/{{project.id}}/work-items/{{workItem.id}}/edit"><i class="icon icon-edit"></i></a></h4>
-        <p>{{workItem.description}}</p>
-        <p><span class="label {{workItem.status.labelType}}">{{workItem.status.text}}</span></p>
+    <hr />
 
-        <h5>Overall Progress:</h5> <div class="progress"><div class="bar" style="width: {{workItem.completionPercentage}}%;"></div></div>
+    <div class="info-small">
+      <div class="assigned-users" ng-show="workItem.assignedUsers.length != 0">
+        <span>Assigned: </span>
+        <span ng-repeat="assignedUser in workItem.assignedUsers">
+          <a class="btn btn-mini" href="#/users/{{assignedUser._id}}">{{assignedUser.firstName}} {{assignedUser.lastName}}</a>
+        </span>
+      </div>
+      <hr />
+      <div>Started on: {{workItem.startDate | date:'yy/MM/dd'}}</div>
+      <hr />
+      <div ng-show="workItem.timeSpent != 0">Time spent: {{workItem.timeSpentStr}}<hr /></div>
+      <div ng-show="workItem.timeEstimate != 0">Estimated time: {{workItem.timeEstimateStr}}<hr /></div>
+    </div>
 
-        <hr />
+    <div ng-show="lastModifiedBy" class="info-small">
+      Last modified {{lastModifiedDate | date:'yy/MM/dd'}} by:
+      <a href="#/users/{{lastModifiedBy.id}}">{{lastModifiedBy.firstName}} {{lastModifiedBy.lastName}}</a>
+    </div>
 
-        <div class="info-small">
-          <div class="assigned-users" ng-show="workItem.assignedUsers.length != 0">
-            <span>Assigned: </span>
-            <span ng-repeat="assignedUser in workItem.assignedUsers">
-              <a class="btn btn-mini" href="#/users/{{assignedUser._id}}">{{assignedUser.firstName}} {{assignedUser.lastName}}</a>
-            </span>
-          </div>
-          <hr />
-          <div>Started on: {{workItem.startDate | date:'yy/MM/dd'}}</div>
-          <hr />
-          <div ng-show="workItem.timeSpent != 0">Time spent: {{workItem.timeSpentStr}}<hr /></div>
-          <div ng-show="workItem.timeEstimate != 0">Estimated time: {{workItem.timeEstimateStr}}<hr /></div>
-        </div>
-
-        <div ng-show="lastModifiedBy" class="info-small">
-          Last modified {{lastModifiedDate | date:'yy/MM/dd'}} by:
-          <a href="#/users/{{lastModifiedBy.id}}">{{lastModifiedBy.firstName}} {{lastModifiedBy.lastName}}</a>
-        </div>
-
-        <div ng-show="workItem.workPackages.length != 0" class="span4 workPackages">
-          <h5>Work Packages</h5>
-          <div class="workPackage" id="{{workPackage.id}}" ng-repeat="workPackage in workItem.workPackages">
-            <a href="#/projects/{{project.id}}/work-packages/{{workPackage.id}}">{{workPackage.title}}
-            </a>
-          </div>
-        </div>
-
-        <div ng-show="workItem.dependencies.length != 0" class="span4 dependencies">
-          <h5>Dependencies</h5>
-          <div class="dependencies" id="{{dependency.id}}" ng-repeat="dependency in workItem.dependencies">
-            <a href="#/projects/{{project.id}}/workItems/{{dependency.id}}">{{dependency.title}}</a>
-          </div>
-        </div>
-
+    <div ng-show="workItem.workPackages.length != 0" class="span4 workPackages">
+      <h5>Work Packages</h5>
+      <div class="workPackage" id="{{workPackage.id}}" ng-repeat="workPackage in workItem.workPackages">
+        <a href="#/projects/{{project.id}}/work-packages/{{workPackage.id}}">{{workPackage.title}}
+        </a>
       </div>
     </div>
-  </div>
 
-   <div ng-switch-when="edit">
-    <form class="form-horizontal" ng-submit="updateWorkItem()">
-      <fieldset>
-        <legend>Edit Work Item</legend>
-
-        <div class="span5">
-          <div class="control-group">
-            <label class="control-label span2" for="inputTitle">Title:</label>
-            <div class="controls">
-              <input type="text" id="inputTitle" ng-model="workItem.title" />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label span2" for="inputDescription">Description:</label>
-            <div class="controls">
-              <input type="text" id="inputDescription" ng-model="workItem.description" />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label span2" for="inputWorkPackages">Work Packages:</label>
-            <div class="controls">
-              <input type="text" id="inputWorkPackages" ng-model="workItem.workPackages" />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label span2" for="inputAssignedUsers">Assigned Users:</label>
-            <div class="controls">
-              <input type="text" id="inputAssignedUsers" ng-model="workItem.assignedUsers" />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label span2" for="inputDependencies">Dependencies:</label>
-            <div class="controls">
-              <input type="text" id="inputDependencies" ng-model="workItem.dependencies" />
-            </div>
-          </div>
-        </div>
-        
-        <div class="span5">
-          <div class="control-group">
-            <label class="control-label span2" for="inputStartDate">Start Date:</label>
-            <div class="controls">
-              <span id="inputStartDate" class="input uneditable-input">{{workItem.startDate | date:'yy/MM/dd'}}</span>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label span2" for="inputTimeEstimate">Time Estimate:</label>
-            <div class="controls">
-              <input type="text" id="inputTimeEstimate" ng-model="workItem.timeEstimate" />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label span2" for="inputTimeSpent">Time Spent:</label>
-            <div class="controls">
-              <input type="text" id="inputTimeSpent" ng-model="workItem.timeSpent" />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label span2" for="inputCompletionPercentage">Completion Percentage:</label>
-            <div class="controls">
-              <input type="text" id="inputCompletionPercentage" ng-model="workItem.completionPercentage" />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label span2" for="inputStatus">Status:</label>
-            <div class="controls">
-              <input type="text" id="inputStatus" ng-model="workItem.status.text" />
-            </div>
-          </div>
-        </div>
-
-      </fieldset>
-
-      <div style="float: none;" class="form-actions">
-        <button type="submit" class="btn">Update</button>
+    <div ng-show="workItem.dependencies.length != 0" class="span4 dependencies">
+      <h5>Dependencies</h5>
+      <div class="dependencies" id="{{dependency.id}}" ng-repeat="dependency in workItem.dependencies">
+        <a href="#/projects/{{project.id}}/workItems/{{dependency.id}}">{{dependency.title}}</a>
       </div>
-    </form>
-  </div>
+    </div>
 
+  </div>
 </div>
 
-<h5>Comments</h5>
-
-<table class="comments table table-condensed table-bordered info-small">
-  <tr>
-    <td>
-      <div class="comment info-small" ng-repeat="comment in workItem.comments">
-        {{comment.title}} <hr />
-        {{comment.text}} <hr />
-        Posted by: <a href="#/users/{{comment.postedBy._id}}">{{comment.postedBy.firstName}} {{comment.postedBy.lastName}}</a>
-        On: {{comment.datePosted | date:'yy/MM/dd'}} <br />
-      </div>
-    </td>
-  </tr>
-</table>
-
-<form class="info-small form-vertical" ng-submit="addComment()">
-  <fieldset>
-    <h5>Add Comment</h5>
-    <hr />
-    <div class="control-group">
-      <label class="control-label" for="inputNewCommentTitle">Title:</label>
-      <div class="controls">
-        <input type="text" id="inputNewCommentTitle" ng-model="newComment.title" />
-      </div>
-    </div>
-    <div class="control-group">
-      <label class="control-label" for="inputNewCommentText">Comment:</label>
-      <div class="controls">
-        <textarea id="inputNewCommentText" ng-model="newComment.text" />
-      </div>
-    </div>
-      <button type="submit" class="btn">Add Comment</button>
-  </fieldset>
-</form>
+<div ng-include src="'partials/comments.html'"></div>

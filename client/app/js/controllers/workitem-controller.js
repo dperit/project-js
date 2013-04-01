@@ -26,7 +26,6 @@ PJS.Controllers.WorkItem = {
       var workItem = PJS.Utilities.findInArray(project.workItems, $routeParams.workItemId.toLowerCase());
       PJS.Controllers.relations('WorkItem', project, workItem);
       $scope.workItem = PJS.ViewModels.WorkItem(workItem);
-      $scope.mode = $routeParams.mode || 'view';
     });
   },
 
@@ -46,6 +45,7 @@ PJS.Controllers.WorkItem = {
     Project.get({id: projectId}, function(project) {
       $scope.project = project;
       WorkItem.get({projectId: projectId, id: workItemId}, function(workItem) {
+        $scope.workItem = workItem;
         $scope.updateWorkItem = function() {
           workItem.title = $scope.workItem.title;
           workItem.description = $scope.workItem.description;
