@@ -56,8 +56,8 @@ module.exports = function(app) {
     });
   });
 
-  // PUT /project/:project/workitem: update a project's work items
-  app.put(prefix + '/projects/:project/workitems/:workitem', function(req, res) {
+  // POST /project/:project/workitem: update a project's work items
+  app.post(prefix + '/projects/:project/workitems/:workitem', function(req, res) {
     var project = req.project;
     var wi = req.workItem;
 
