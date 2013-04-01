@@ -3,7 +3,7 @@
 <div>
   <a class="btn" href="#/projects/{{project.id}}/add-workPackage">Add Work Package</a>
   
-  <span ng-show="workPackages.length != 0">
+  <span ng-show="hasWorkPackages">
     <form class="form-inline pull-right">
       Search: <input class="input-medium" ng-model="filter.title"></input>
     </form>
@@ -17,7 +17,7 @@
   </span>
 </div>
 
-<div ng-show="workPackages.length != 0" class="row">
+<div ng-show="hasWorkPackages" class="row">
   <ul class="above-well nav nav-tabs">
     <li class="active"><a ng-click="changeMode(['open', 'late'])" href="#open" data-toggle="tab">Open</a></li>
     <li><a href="#closed" ng-click="changeMode(['closed'])" data-toggle="tab">Closed</a></li>
@@ -49,7 +49,7 @@
   </div>
 </div>
 
-<div ng-show="workPackages.length == 0" class="empty-message">
+<div ng-show="!hasWorkPackages" class="empty-message">
   <hr />
   There are currently no work packages in this project.
 </div>

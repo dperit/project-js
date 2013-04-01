@@ -3,7 +3,7 @@
 <div>
   <a class="btn" href="#/projects/{{project.id}}/add-milestone">Add Milestone</a>
   
-  <span ng-show="milestones.length != 0">
+  <span ng-show="hasMilestones">
     <form class="form-inline pull-right">
       Search: <input class="input-medium" ng-model="filter.title"></input>
     </form>
@@ -17,7 +17,7 @@
   </span>
 </div>
 
-<div ng-show="milestones.length != 0" class="row">
+<div ng-show="hasMilestones" class="row">
   <ul class="above-well nav nav-tabs">
     <li class="active"><a ng-click="changeMode(['open', 'late'])" href="#open" data-toggle="tab">Open</a></li>
     <li><a href="#closed" ng-click="changeMode(['closed'])" data-toggle="tab">Closed</a></li>
@@ -54,7 +54,7 @@
   </div>
 </div>
 
-<div ng-show="milestones.length == 0" class="empty-message">
+<div ng-show="!hasMilestones" class="empty-message">
   <hr />
   There are currently no work packages in this project.
 </div>

@@ -13,6 +13,7 @@ PJS.Controllers.Milestone = {
       
       $scope.status = ['open', 'late'];
       $scope.milestones = PJS.Utilities.filterByStatus(milestones, $scope.status);
+      $scope.hasMilestones = !!milestones.length;
 
       $scope.changeMode = function(status) {
         $scope.status = status;

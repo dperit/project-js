@@ -5,7 +5,7 @@
     Add Work Item
   </a>
 
-  <span ng-show="workItems.length != 0">
+  <span ng-show="hasWorkItems">
     <form class="form-inline pull-right">
       Search: <input class="input-medium" ng-model="wkFilter.title"></input>
     </form>
@@ -23,7 +23,7 @@
     </ul>
   </span>
 
-  <div ng-show="workItems.length != 0" class="work-items tab-content">
+  <div ng-show="hasWorkItems" class="work-items tab-content">
 
     <div class="tab-pane active" id="{{status[0]}}">
       <table class="table table-condensed table-striped table-bordered">
@@ -71,7 +71,7 @@
 
   </div>
 
-  <div ng-show="workItems.length == 0" class="empty-message">
+  <div ng-show="!hasWorkItems" class="empty-message">
     <hr />
     There are currently no work items in this project.
   </div>

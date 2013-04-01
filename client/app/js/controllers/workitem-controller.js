@@ -11,6 +11,7 @@ PJS.Controllers.WorkItem = {
       var workItems = PJS.ViewModels.each('WorkItem', project.workItems);
       $scope.status = ['open', 'late'];
       $scope.workItems = PJS.Utilities.filterByStatus(workItems, $scope.status);
+      $scope.hasWorkItems = !!workItems.length;
 
       $scope.changeMode = function(status) {
         $scope.status = status;

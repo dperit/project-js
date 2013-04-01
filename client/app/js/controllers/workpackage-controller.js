@@ -13,6 +13,7 @@ PJS.Controllers.WorkPackage = {
       var workPackages = PJS.ViewModels.each('WorkPackage', project.workPackages);
       $scope.status = ['open', 'late'];
       $scope.workPackages = PJS.Utilities.filterByStatus(workPackages, $scope.status);
+      $scope.hasWorkPackages = !!workPackages.length;
 
       $scope.changeMode = function(status) {
         $scope.status = status;
