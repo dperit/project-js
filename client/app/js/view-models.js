@@ -43,7 +43,7 @@ PJS.ViewModels = {
   },
 
   each: function(viewModelName, list) {
-    var ViewModel = PJS.ViewModels[viewModelName];
+    var ViewModel = PJS.ViewModels[viewModelName] || PJS.ViewModels.all;
     var newList = [];
     list.forEach(function(item) {
       newList.push(ViewModel(item));
@@ -57,7 +57,7 @@ PJS.ViewModels = {
       resource.id = resource._id;
     }
     if (resource.lastModifiedBy) {
-      PJS.ViewModels.User(resource.lastModifiedBy);
+      resource.lastModifiedBy = PJS.ViewModels.User(resource.lastModifiedBy);
     }
     if (resource.status) {
       var type = resource.status;

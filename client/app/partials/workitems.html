@@ -31,7 +31,7 @@
             <a href="#/projects/{{project.id}}/work-items/{{workItem.id}}/edit"><i class="icon icon-edit"></i></a>
             <div>{{workItem.description}}</div>
             <p class="pull-left info-small">by: 
-              <a href="#/users/{{workItem.lastModifiedBy._id}}">
+              <a href="#/users/{{workItem.lastModifiedBy.id}}">
                 {{workItem.lastModifiedBy.firstName}} {{workItem.lastModifiedBy.lastName}}
               </a> on {{workItem.lastModifiedDate | date:'yy/MM/dd'}} 
             </p>
