@@ -44,11 +44,21 @@
                     </span> 
                   </div>
                 </td>
-                <td class="span1">
-                  <span class="label {{workItem.status.labelType}}">{{workItem.status.text}}</span>
-                </td>
-                <td class="span8">
-                  <div class="span8 progress"><div class="bar" style="width: {{workItem.completionPercentage}}%;"></div></div>
+                <td class="span9">
+                  <table>
+                    <tr>
+                      <td class="span1">
+                        <span class="label {{workItem.status.labelType}}">{{workItem.status.text}}</span>
+                      </td>
+                      <td class="span8">
+                        <div class="span8 progress"><div class="bar" style="width: {{workItem.completionPercentage}}%;"></div></div>
+                      </td>
+                    </tr>
+                  </table>
+                  <span class="info-small time-info pull-right">
+                    <span ng-show="workItem.timeSpent != 0">Time spent: {{workItem.timeSpentStr}} |</span>
+                    <span ng-show="workItem.timeEstimate != 0">Estimated time: {{workItem.timeEstimateStr}}</span>
+                  </span>
                 </td>
               </tr>
             </table>
