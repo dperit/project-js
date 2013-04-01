@@ -9,6 +9,7 @@ var mongoose = require('mongoose'),
 
 var populateProjectList = [
   'workItems.lastModifiedBy',
+  'workItems.assignedUsers',
   'workItems.comments.postedBy',
   'workPackages.lastModifiedBy',
   'workBreakdownItems.lastModifiedBy',

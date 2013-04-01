@@ -1,4 +1,4 @@
-<h2>Your Projects</h2>
+<h3>Your Projects</h3>
 
 <div class="row">
   <div class="span11">
@@ -19,11 +19,11 @@
 
 <div class="row projects">
   <div class="well span11 project" id="{{project.id}}" ng-repeat="project in projects | filter:filter | orderBy:predicate:reverse">
-    <h3><a href="#/projects/{{project.id}}">{{project.title}}</a></h3>
+    <h4><a href="#/projects/{{project.id}}">{{project.title}}</a></h4>
     <p>{{project.description}}</p>
     <p><b>Project Manager:</b>
       <span ng-repeat="user in project.usersByRole['project manager']">
-        <a href="#/users/{{user._id}}"> {{user.firstName}} {{user.lastName}} </a>
+        <a class="btn btn-mini" href="#/users/{{user._id}}"> {{user.firstName}} {{user.lastName}} </a>
       </span>
     </p>
     <p><span class="label {{project.status.labelType}}">{{project.status.text}}</span></p>

@@ -12,6 +12,8 @@ PJS.ViewModels = {
   },
   
   WorkItem: function(workItem) {
+    workItem.timeSpentStr = hoursString(workItem.timeSpent);
+    workItem.timeEstimateStr = hoursString(workItem.timeEstimate);
     return PJS.ViewModels.all(workItem);
   },
   
@@ -67,6 +69,16 @@ PJS.ViewModels = {
     }
     return resource;
   },
+};
+
+var hoursString = function(time) {
+  var timeStr = '';
+  if (time > 1) {
+    timeStr = time + ' hours';
+  } else if (time === 1) {
+    timeStr = time + ' hour';
+  }
+  return timeStr;
 };
 
 var statuses = {
