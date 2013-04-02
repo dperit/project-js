@@ -37,4 +37,40 @@ module.exports = function(app) {
       res.end();
     });
   });
+
+  // GET /projects/:project/workbreakdown/:workbreakdown: get a specific WorkBreakdownItem
+  app.get(prefix + '/projects/:project/workbreakdown/:workbreakdownitem', function(req, res, next) {
+    res.json(req.workbreakdownitem);
+    res.end();
+  });
+
+  // POST /projects/:project/workbreakdown/:workbreakdown: add a new child to workbreakdownitem
+  app.post(prefix + '/projects/:project/workbreakdown/:workbreakdownitem', function(req, res, next) {
+    var project = req.project;
+    var wbi = req.workbreakdownitem;
+  });
+
+  // PUT /projects/:project/workbreakdown/:workbreakdown: update a workbreakdownitem
+  app.put(prefix + '/projects/:project/workbreakdown/:workbreakdownitem', function(req, res, next) {
+    var project = req.project;
+    var wbi = req.workbreakdownitem;
+    if(!req.body.children) {
+      res.send(404, 'Request must include array of children IDs');
+      res.end();
+    }
+  });
+
+  // 'workbreakdownitem' param catcher
+  app.param('workbreakdownitem', function(req, res, next, id) {
+    var project = req.project;
+    var workbreakdownitem = project.workBreakdownStructure.id(id);
+    if(workbreakdownitem) {
+      req.workbreakdownitem = workbreakdownitem;
+      next();
+    }
+    else {
+      res.send(404, 'Cannot find that work breakdown item');
+      res.end();
+    }
+  });
 };
