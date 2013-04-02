@@ -1,7 +1,7 @@
 PJS.Controllers.WorkBreakdown = {
   list: function($scope, $routeParams, WorkBreakdown, Project) {
     Project.get({id: $routeParams.projectId.toLowerCase()}, function(project) {
-      WorkBreakdown.get({projectId: project._id}, function(flatWorkBreakdown){
+      WorkBreakdown.query({projectId: project._id}, function(flatWorkBreakdown){
         $scope.workBreakdown = [];
 
         //This is a recursive function that replaces the IDs of the children of workBreakdown[startIndex]
@@ -15,8 +15,8 @@ PJS.Controllers.WorkBreakdown = {
             //That recursion should give us the index immediately before the next child, allowing us to loop again
             for (var childIndex = 0; childIndex < workBreakdown[startIndex].children.length; childIndex++){
               //TODO: Make sure that _id is actually a primitive string or something that can be compared like this
-              if(workBreakdown[currentIndex].children[childIndex] === workBreakdown[currentIndex+1]._id){
-                workBreakdown[currentIndex].children[childIndex] = workBreakdown[currentIndex+1];
+              if(workBreakdown[startIndex].children[childIndex] === workBreakdown[currentIndex+1]._id){
+                workBreakdown[startIndex].children[childIndex] = workBreakdown[currentIndex+1];
                 currentIndex = replaceIDsWithChildren(workBreakdown, currentIndex+1);
               }else{
                 //The child isn't where it's supposed to be, so we must find it and put it in the right location, and
@@ -31,7 +31,7 @@ PJS.Controllers.WorkBreakdown = {
                     if (currentIndex + 1 < searchIndex){
                       searchIndex++;
                     }else{
-                      searchIndex--;
+                      //TODO: If this line of code is reached there's a good chance that a child object got added as a top level object and will, as a result, appear twice in the tree. We should add some way of fixing this, but it's kind of an edge case so I'm not doing it right now.
                     }
                     workBreakdown.splice(searchIndex, 1);
                     //TODO: Tell the server to put the item with id of workBreakdown[currentIndex+1]._id after
@@ -43,7 +43,6 @@ PJS.Controllers.WorkBreakdown = {
                   }
                 }
               }
-              replaceIDsWithChildren(workBreakdown, currentIndex + 1, errorList);
             }
           }
           return currentIndex;
