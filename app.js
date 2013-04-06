@@ -6,6 +6,7 @@ var express = require("express"),
 
 // configuration
 require('./config/project')(app);
+app.use(express.logger('short'));
 app.use(express.bodyParser());
 app.use(express.cookieParser());
 app.use(passport.initialize());
