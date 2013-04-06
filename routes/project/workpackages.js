@@ -2,7 +2,7 @@ var Utilities = require('../../utilities');
 
 module.exports = function(app) {
   var prefix = app.get('apiPrefix');
-  
+
   // GET /project/:project/workpackage: get a project's work packages
   app.get(prefix + '/projects/:project/workpackages', function(req, res) {
     var project = req.project;
@@ -38,6 +38,8 @@ module.exports = function(app) {
     wp.description = req.body.description;
     wp.status = req.body.status || 'open';
     wp.completionPercentage = req.body.completionPercentage || 0;
+    wp.timeEstimate = req.body.timeEstimate || 0;
+    wp.priority = req.body.priority || 'low';
     wp.dependencies = [];
 
     // add dependencies
@@ -51,6 +53,7 @@ module.exports = function(app) {
     project.workPackages.push(wp);
     project.save(function(err){
       if(err) {
+        console.log(err);
         res.send(500, err);
         res.end();
       }
@@ -69,6 +72,9 @@ module.exports = function(app) {
     if(req.body.description) wp.description = req.body.description;
     if(req.body.status) wp.status = req.body.status;
     if(req.body.completionPercentage) wp.completionPercentage = req.body.completionPercentage;
+    if(req.body.timeEstimate) wp.completionPercentage = req.body.timeEstimate;
+    if(req.body.priority) wp.priority = req.body.priority;
+
 
     // add dependencies
     if(req.body.dependencies){
