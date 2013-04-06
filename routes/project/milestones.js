@@ -37,7 +37,7 @@ module.exports = function(app) {
       completionPercentage: req.body.completionPercentage || 0,
       wpDependencies: [],
       msDependencies: [],
-      priority: 'high',
+      priority: 'low',
       status: 'open'
     });
 
@@ -83,6 +83,7 @@ module.exports = function(app) {
     if(req.body.description) ms.description = req.body.description;
     if(req.body.status) ms.status = req.body.status;
     if(req.body.completionPercentage) ms.completionPercentage = req.body.completionPercentage;
+    if(req.body.priority) ms.priority = req.body.priority;
 
     // add dependencies
     if(req.body.wpDependencies) {

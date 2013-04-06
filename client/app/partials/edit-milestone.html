@@ -8,7 +8,7 @@
       <div class="control-group">
         <label class="control-label span2" for="inputTitle">Title:</label>
         <div class="controls">
-          <input type="text" id="inputTitle" ng-model="milestone.title" />
+          <input type="text" id="inputTitle" required maxlength="75" ng-maxlength="75" ng-model="milestone.title" />
         </div>
       </div>
       <div class="control-group">
@@ -20,7 +20,12 @@
       <div class="control-group">
         <label class="control-label span2" for="inputPriority">Priority:</label>
         <div class="controls">
-          <input type="text" id="inputPriority" ng-model="milestone.priority" />
+          <select id="inputPriority" ng-model="milestone.priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+            <option value="urgent">Urgent</option>
+          </select>
         </div>
       </div>
       <div class="control-group">

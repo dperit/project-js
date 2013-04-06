@@ -8,19 +8,13 @@
       <div class="control-group">
         <label class="control-label span2" for="inputTitle">Title:</label>
         <div class="controls">
-          <input type="text" id="inputTitle" ng-model="workItem.title" />
+          <input type="text" id="inputTitle" required maxlength="50" ng-maxlength="50" ng-model="workItem.title" />
         </div>
       </div>
       <div class="control-group">
         <label class="control-label span2" for="inputDescription">Description:</label>
         <div class="controls">
           <input type="text" id="inputDescription" ng-model="workItem.description" />
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label span2" for="inputPriority">Priority:</label>
-        <div class="controls">
-          <input type="text" id="inputPriority" ng-model="workItem.priority" />
         </div>
       </div>
       <div class="control-group">
