@@ -3,7 +3,7 @@ PJS.Controllers.WorkBreakdown = {
     var projectId = $routeParams.projectId.toLowerCase();
     Project.get({id: projectId}, function(project) {
       WorkBreakdown.query({projectId: project._id}, function(flatWorkBreakdown){
-        $scope.workBreakdown = [];
+        var workBreakdown = [];
 
         //This is a recursive function that replaces the IDs of the children of workBreakdown[startIndex]
         //with the actual objects from further in the list.
@@ -57,24 +57,31 @@ PJS.Controllers.WorkBreakdown = {
             //ReplaceIDsWithChildren will return the farthest point in the array that it got to.
             //This allows us to skip all the parts that already got recursively added
             var skipAheadPoint = replaceIDsWithChildren(flatWorkBreakdown, wbIndex);
-            $scope.workBreakdown.push(flatWorkBreakdown[wbIndex]);
+            workBreakdown.push(flatWorkBreakdown[wbIndex]);
             wbIndex = skipAheadPoint + 1;
           }else{
-            $scope.workBreakdown.push(flatWorkBreakdown[wbIndex]);
+            workBreakdown.push(flatWorkBreakdown[wbIndex]);
             wbIndex++;
           }
         }
+        $scope.data = {};
+        $scope.data.children = workBreakdown;
+        $scope.data.newItem = {};
+        $scope.mode = "view";
       });
 
       //TODO: Make this delete the item associated with data
       $scope.delete = function(data) {
 
       };
-      $scope.add = function(data) {
+      $scope.addChildren = function(data) {
         var description = data.newItem.description || "";
         var newItem = new WorkBreakdown({title: data.newItem.title, description: description});
         newItem.projectId = projectId;
         newItem.$save(newItem, function(newItem){
+          if (!data.children){
+            data.children = [];
+          }
           data.children.push(newItem);
           //The $save function is going to replace our children with their IDs, so we can just make a copy
           //of them and replace them
@@ -93,6 +100,18 @@ PJS.Controllers.WorkBreakdown = {
               $http.post('api/projects/' + projectId + '/workbreakdown/move', {source: newItem, appendAfter: bottomLevelObject}).success(function(){});
             }
           });
+        });
+      };
+
+      $scope.add = function(data) {
+        var description = data.newItem.description || "";
+        var newItem = new WorkBreakdown({title: data.newItem.title, description: description});
+        newItem.projectId = projectId;
+        newItem.$save(newItem, function(newItem){
+          if (!data.children){
+            data.children = [];
+          }
+          data.children.push(newItem);
         });
       };
 
