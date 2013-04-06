@@ -24,6 +24,7 @@ module.exports = function(app) {
     item.status = 'open';
     item.lastModifiedDate = new Date();
       //lastModifiedBy:
+
     if (req.body.children) {
       for (var i = 0; i < req.body.children.length; i++) {
         var child = req.body.children[i]._id || req.body.children[i];
@@ -56,8 +57,8 @@ module.exports = function(app) {
       res.send(400, 'source and appendAfter arguments required to move workbreakdown items.');
       res.end();
     }
-    var sourceObj = project.workBreakdownStructure.id(source._id || source);
-    var appendObj = project.workBreakdownStructure.id(appendAfter._id || appendAfter);
+    var sourceObj = project.workBreakdownStructure.id(source);
+    var appendObj = project.workBreakdownStructure.id(appendAfter);
     var sourceIdx = project.workBreakdownStructure.indexOf(sourceObj);
     var appendIdx = project.workBreakdownStructure.indexOf(appendObj);
 
@@ -66,7 +67,7 @@ module.exports = function(app) {
       res.end();
     }
     var wbi = project.workBreakdownStructure.splice(sourceIdx, 1);
-    project.workBreakdownStructure.splice(appendIdx + 1, 0, wbi[0]);
+    project.workBreakdownStructure.splice(appendIdx, 0, wbi[0]);
     project.save(function(err){
       if(err) {
         res.send(500, err);
@@ -86,9 +87,9 @@ module.exports = function(app) {
       res.send(400, 'Requires child IDs');
       res.end();
     }
-    var originalLength = wbi.children.length;
+
     wbi.children.length = 0;
-    for (var i = originalLength, l = children.length; i < l; i ++) {
+    for (var i = 0, l = children.length; i < l; i ++) {
       var id = children[i]._id || children[i];
       wbi.children.push(id);
     }
