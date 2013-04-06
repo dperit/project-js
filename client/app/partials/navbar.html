@@ -10,14 +10,19 @@
       <div class="pull-right" ng-switch on="loggedIn">
         <span ng-switch-when="true">
           <ul class="nav pull-right">
-            <li><a href="#/profile/{{user.name}}">Logged in as {{user.name}}</a></li>
+            <li><a href="#/profile/{{user.username}}">Logged in as {{user.username}}</a></li>
             <li class="divider-vertical"></li>
             <li><a href="#/users/logout">Log Out</a></li>
           </ul>
         </span>
         <span ng-switch-default>
           <ul class="nav pull-right">
-            <li><a href="#/users/register">Sign Up</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign Up <strong class="caret"></strong></a>
+              <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                <div ng-include src="'partials/register.html'"></div>
+              </div>
+            </li>
             <li class="divider-vertical"></li>
             <li class="dropdown">
               <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
@@ -42,4 +47,4 @@
       </ul>
     </div>
   </div>
-</div>  
+</div>

@@ -23,29 +23,6 @@ PJS.Controllers = {
     };
   },
 
-  login: function($scope, $routeParams, $location, Login) {
-    PJS.Controllers.all($scope, $routeParams, Login);
-    $scope.login = function() {
-      var login = new Login({id: $scope.username, password: $scope.password});
-      login.$save({username: $scope.username, password: $scope.password}, function(loggedInUser) {
-        window.location.reload(true);
-      });
-    };
-  },
-
-  logout: function($http) {
-    $http({method: 'GET', url: '/api/logout'});
-    window.location = '/';
-  },
-
-  register: function($scope, $routeParams, User) {
-    $scope.register = function() {
-      /*User.get({id: $scope.username, password: $scope.password}, function(loggedInUser) {
-        user = loggedInUser;
-      });*/
-    };
-  },
-
   relations: function(controllerName, project, model) {
     if (!model) return
     var Controller = PJS.Controllers[controllerName];
