@@ -16,6 +16,8 @@ module.exports = function(app) {
       res.send(404, 'Title is required');
       res.end();
     }
+    //TODO: Fix bug: If you add a WBI and then give it a child without refreshing the page, this gets called with the parent and the child. Refresh the page between adding parent and adding child and the child adding thing below will be correctly called.
+    console.log("Posting new workbreakdownitem");
     var project = req.project;
     var item = new WorkBreakdownItem();
     item.title = req.body.title;
@@ -87,11 +89,11 @@ module.exports = function(app) {
       res.send(400, 'Requires child IDs');
       res.end();
     }
-
-    wbi.children.length = 0;
+    console.log("Updating a work breakdown item with a new child");
+    wbi.children = [];
     // synchronous save to make sure children are
     // cleared out of WBI array
-    project.save();
+    project.save(function(err){
       for (var i = 0, l = children.length; i < l; i ++) {
         var id = children[i]._id || children[i];
         wbi.children.push(id);
@@ -103,6 +105,7 @@ module.exports = function(app) {
         }
         res.json(wbi);
         res.end();
+      });
     });
   });
 
