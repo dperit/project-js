@@ -3,7 +3,7 @@ var express = require("express"),
     mongoose = require("mongoose"),
     passport = require("passport"),
     app = express(),
-    MongoStore = require('connect-mongo')(app);
+    MongoStore = require('connect-mongo')(express);
 
 // configuration
 require('./config/project')(app);
