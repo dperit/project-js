@@ -44,7 +44,7 @@ module.exports = function(app)
   // initialize passport
   app.use(passport.initialize());
   // initialize passport session
-  // && serve client (client/api mode only)
   app.use(passport.session());
+  // serve client
   app.use(express.static(__dirname + '/client/app'));
 }

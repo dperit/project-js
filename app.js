@@ -9,7 +9,6 @@ require('./config/project')(app);
 // connect to mongoDB
 mongoose.connect('localhost', app.get('databaseName'));
 
-app.use(express.static(__dirname + '/client/app'));
 // initialize models & routes
 var models = require('./models/index');
 var routes = require('./routes/index')(app);
