@@ -43,6 +43,7 @@ module.exports = function(app) {
     if (req.body.clientName) project.clientName = req.body.clientName;
     if (req.body.projectDueDate) project.projectDueDate = req.body.projectDueDate;
     if (req.body.completionPercentage) project.completionPercentage = req.body.completionPercentage;
+    if (req.body.status) project.status = req.body.status;
 
     project.save(function(err){
       if(err) {
