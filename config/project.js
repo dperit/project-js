@@ -4,7 +4,11 @@ var express = require('express')
 
 module.exports = function(app)
 {
-  // port: the port the API (& client) should listen to
+  ///////////////////////////////////////////////////////////////////
+  ///////////// ONLY PERFORM EDITS BELOW THIS POINT /////////////////
+  ///////////////////////////////////////////////////////////////////
+
+  // port: the port the application should be served on
   app.set('port', 8080);
   // databaseName: name of the MongoDB database to use
   app.set('databaseName', 'test');
@@ -14,6 +18,7 @@ module.exports = function(app)
   // listen and respond to to API requests. session support 
   // & serving pages will be disabled.
   app.set('apiOnlyMode', false);
+
   ///////////////////////////////////////////////////////////////////
   ///////////// DO NOT ALTER BELOW THIS POINT ///////////////////////
   ///////////////////////////////////////////////////////////////////
