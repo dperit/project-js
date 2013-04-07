@@ -2,6 +2,8 @@ module.exports = function(app)
 {
   // port: the port the API (& client) should listen to
   app.set('port', 8080);
+  // databaseName: name of the MongoDB database to use
+  app.set('databaseName', 'test');
   // apiPrefix: URL prefix for API routes
   app.set('apiPrefix', '/api');
   // apiOnlyMode: if true, the application will only

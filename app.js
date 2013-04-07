@@ -2,20 +2,34 @@
 var express = require("express"), 
     mongoose = require("mongoose"),
     passport = require("passport"),
-    app = express();
+    app = express(),
+    MongoStore = require('connect-mongo')(app);
 
 // configuration
 require('./config/project')(app);
 app.use(express.logger('short'));
 app.use(express.bodyParser());
 app.use(express.cookieParser());
-app.use(express.session({ secret: 'lolcats' }));
+if (app.get('env') === 'production') {
+  app.use(express.session({ secret: 'lolcats',
+    store: new MongoStore({
+     db: app.get('databaseName')
+    })
+  }));
+}
+else {
+  app.use(express.session({ secret: 'lolcats',
+    store: express.session.MemoryStore({
+     reapInterval: 60000 * 10
+    })
+  }));
+}
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/client/app'));
 
 // connect to mongoDB
-mongoose.connect('localhost', 'test');
+mongoose.connect('localhost', app.get('databaseName'));
 
 var models = require('./models/index');
 var routes = require('./routes/index')(app);
