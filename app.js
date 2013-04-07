@@ -5,31 +5,41 @@ var express = require("express"),
     app = express(),
     MongoStore = require('connect-mongo')(express);
 
+// connect to mongoDB
+mongoose.connect('localhost', app.get('databaseName'));
+
 // configuration
 require('./config/project')(app);
 app.use(express.logger('short'));
 app.use(express.bodyParser());
 app.use(express.cookieParser());
-if (app.get('env') === 'production') {
-  app.use(express.session({ secret: 'lolcats',
-    store: new MongoStore({
-     db: app.get('databaseName')
-    })
-  }));
+if(app.get('apiOnlyMode') === true) {
+  if (app.get('env') === 'production') {
+    app.use(express.session({ secret: 'lolcats',
+                            store: new MongoStore({
+                              db: app.get('databaseName')
+                            })
+    }));
+  }
+  else {
+    app.use(express.session({ secret: 'lolcats',
+                            store: express.session.MemoryStore({
+                              reapInterval: 60000 * 10
+                            })
+    }));
+  }
 }
-else {
-  app.use(express.session({ secret: 'lolcats',
-    store: express.session.MemoryStore({
-     reapInterval: 60000 * 10
-    })
-  }));
+if(app.get('apiOnlyMode') === false) {
+  app.use(express.session({ secret: 'keyboard cat' }));
 }
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(express.static(__dirname + '/client/app'));
 
-// connect to mongoDB
-mongoose.connect('localhost', app.get('databaseName'));
+app.use(passport.initialize());
+
+if(app.get('apiOnlyMode') === false) {
+  app.use(passport.session());
+  app.use(express.static(__dirname + '/client/app'));
+}
+
 
 var models = require('./models/index');
 var routes = require('./routes/index')(app);
