@@ -9,37 +9,100 @@ module.exports = function(app) {
     var project = req.project;
     res.send(project.workBreakdownStructure);
   });
-  
+
+  function addChildren(req, res, next) {
+    var project = req.project;
+    var wbi = req.workbreakdownitem;
+    var children = req.body.children;
+    if(!children){
+      res.send(400, 'Requires child IDs');
+      res.end();
+    }
+    wbi.children = [];
+    // synchronous save to make sure children are
+    // cleared out of WBI array
+    project.save(function(err){
+      for (var i = 0, l = children.length; i < l; i ++) {
+        var id = children[i]._id || children[i];
+        wbi.children.push(id);
+      }
+      project.save(function(err) {
+        if (err) {
+          res.send(500, err);
+          res.end()
+        }
+        res.json(wbi);
+        res.end();
+      });
+    });
+  }
+
+  function deleteItem(req, res, next) {
+    var project = req.project;
+    var wbi = req.workbreakdownitem;
+
+    function recursiveDelete(id){
+      var wbiToDelete = project.workBreakdownStructure.id(id);
+      for(var childIndex = 0; childIndex < wbiToDelete.children.length; childIndex++){
+        recursiveDelete(wbiToDelete.children[childIndex]);
+      }
+      var sourceIdx = project.workBreakdownStructure.indexOf(wbiToDelete);
+      project.workBreakdownStructure.splice(sourceIdx, 1);
+    }
+    recursiveDelete(wbi._id);
+    project.save(function(err) {
+      if (err) {
+        res.send(500, err);
+        res.end()
+      }
+      res.json(wbi);
+      res.end();
+    });
+  }
+
+  app.delete(prefix + "/projects/:project/workbreakdown", function(req, res, next){
+    req.workbreakdownitem = req.project.workBreakdownStructure.id(req.query._id);
+    deleteItem(req,res,next);
+  });
+
   // POST /projects/:project/workbreakdown: create a new parent work breakdown item
+  // or update an existing one if there
   app.post(prefix + "/projects/:project/workbreakdown", function(req, res, next) {
     if (!(req.body.title)) {
       res.send(404, 'Title is required');
       res.end();
     }
     var project = req.project;
-    var item = new WorkBreakdownItem();
-    item.title = req.body.title;
-    item.description = req.body.description;
-    item.children = [];
-    item.status = 'open';
-    item.lastModifiedDate = new Date();
+    if (req.body._id){
+      //We already have an ID so we don't need to make a new item. Just get the existing one.
+      req.workbreakdownitem = project.workBreakdownStructure.id(req.body._id);
+      addChildren(req, res, next);
+    }else{
+      var item = new WorkBreakdownItem();
+      item.title = req.body.title;
+      item.description = req.body.description;
+      item.children = [];
+      item.status = 'open';
+      item.lastModifiedDate = new Date();
       //lastModifiedBy:
 
-    if (req.body.children) {
-      for (var i = 0; i < req.body.children.length; i++) {
-        var child = req.body.children[i]._id || req.body.children[i];
-        item.children.push(child);
+      if (req.body.children) {
+        console.log("Children found during new workbreakdownitem creation");
+        for (var i = 0; i < req.body.children.length; i++) {
+          var child = req.body.children[i]._id || req.body.children[i];
+          item.children.push(child);
+        }
       }
-    }
-    project.workBreakdownStructure.push(item);
-    project.save(function(err) {
-      if (err) {
-        res.send(500, err);
+      project.workBreakdownStructure.push(item);
+      project.save(function(err) {
+        if (err) {
+          res.send(500, err);
+          res.end();
+        }
+        res.json(item);
         res.end();
-      }
-      res.json(item);
-      res.end();
-    });
+      });
+    }
   });
 
   // GET /projects/:project/workbreakdown/:workbreakdown: get a specific WorkBreakdownItem
@@ -79,59 +142,10 @@ module.exports = function(app) {
   });
 
   // POST /projects/:project/workbreakdown/:workbreakdown: add a new child to workbreakdownitem
-  app.post(prefix + '/projects/:project/workbreakdown/:workbreakdownitem', function(req, res, next) {
-    var project = req.project;
-    var wbi = req.workbreakdownitem;
-    var children = req.body.children;
-    if(!children){
-      res.send(400, 'Requires child IDs');
-      res.end();
-    }
+  app.post(prefix + '/projects/:project/workbreakdown/:workbreakdownitem', addChildren);
 
-    wbi.children.length = 0;
-    // synchronous save to make sure children are
-    // cleared out of WBI array
-    project.save();
-      for (var i = 0, l = children.length; i < l; i ++) {
-        var id = children[i]._id || children[i];
-        wbi.children.push(id);
-      }
-      project.save(function(err) {
-        if (err) {
-          res.send(500, err);
-          res.end()
-        }
-        res.json(wbi);
-        res.end();
-    });
-  });
-
-  // DELETE /projects/:project/workbreakdown/:workbreakdown: delete a workbreakdownitem child
-  app.delete(prefix + '/projects/:project/workbreakdown/:workbreakdownitem', function(req, res, next) {
-    var project = req.project;
-    var wbi = req.workbreakdownitem;
-    var children = req.body.children;
-    if(!children){
-      res.send(400, 'Requires child IDs');
-      res.end();
-    }
-    children = JSON.parse(children);
-    for (var i = 0, l = children.length; i < l; i ++) {
-      var id = children[i]._id || children[i];
-      var idx = wbi.children.indexOf(id);
-      if(idx !== -1) {
-        wbi.children.splice(idx, 1);
-      }
-    }
-    project.save(function(err) {
-      if (err) {
-        res.send(500, err);
-        res.end()
-      }
-      res.json(wbi);
-      res.end();
-    });
-  });
+  // DELETE /projects/:project/workbreakdown/:workbreakdown: delete a workbreakdownitem
+  app.delete(prefix + '/projects/:project/workbreakdown/:workbreakdownitem', deleteItem);
   // PUT /projects/:project/workbreakdown/:workbreakdown: update a workbreakdownitem
   app.put(prefix + '/projects/:project/workbreakdown/:workbreakdownitem', function(req, res, next) {
     var project = req.project;
