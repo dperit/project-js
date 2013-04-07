@@ -45,11 +45,6 @@ hr {
   border-radius: 4px;
 }
 
-.progress {
-  border: 1px solid #aaccaa;
-  border-collapse: none;
-}
-
 .nav {
   margin-bottom: 0;
   margin-top: 5px;
@@ -154,4 +149,22 @@ table .work-item {
 .form-actions {
   margin-bottom: 0;
   margin-top: 0;
+}
+
+.borderless {
+  border: 0;
+}
+
+.add-comments input, .add-comments textarea {
+  width: 400px;
+}
+
+.select2-container {
+  margin-top: 7px;
+  margin-bottom: 7px;
+  min-width: 200px;
+}
+
+#select2-drop-mask {
+  display: none !important;
 }

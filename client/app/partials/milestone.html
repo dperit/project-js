@@ -2,16 +2,17 @@
 
 <div>
   <div class="span11 milestone well" id="{{milestone.id}}">
-    <h4 class="title">{{milestone.title}}</h4>
+    <h4 class="title">{{milestone.title}} <a href="#/projects/{{project.id}}/milestones/{{milestone.id}}/edit"><i class="icon icon-edit"></i></a></h4>
     <p>{{milestone.description}}</p>
     <p><span class="label {{milestone.status.labelType}}">{{milestone.status.text}}</span></p>
+    <p ng-show="milestone.dueDate" class="info-small">Due: {{milestone.dueDate | date:'MMMM dd, yyyy'}}</p>
     <h5>Overall Progress:</h5> <div class="progress"><div class="bar" style="width: {{milestone.completionPercentage}}%;"></div></div>
 
     <div ng-show="milestone.wpDependencies.length != 0" class="span4 workPackages">
       <h5>Work Packages</h5>
-      <div class="workPackage" id="{{container.wkpackage.id}}" ng-repeat="container in milestone.wpDependencies">
-        <a href="#/projects/{{project.id}}/work-packages/{{container.wkpackage.id}}">{{container.wkpackage.title}}
-          <span ng-show="isDefined(container.percentage)">{{container.wkpackage.completionPercentage}}/{{container.percentage}}%</span>
+      <div class="workPackage" id="{{container.wkPackage.id}}" ng-repeat="container in milestone.wpDependencies">
+        <a href="#/projects/{{project.id}}/work-packages/{{container.wkPackage.id}}">{{container.wkPackage.title}}
+          <span ng-show="isDefined(container.percentage)">{{container.wkPackage.completionPercentage}}/{{container.percentage}}%</span>
         </a>
       </div>
     </div>

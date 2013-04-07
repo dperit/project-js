@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-  Milestone = mongoose.model('Milestone');
+  Milestone = mongoose.model('Milestone'),
+  Completion = mongoose.model('Completion');
 
 var Utilities = require('../../utilities');
 
@@ -36,20 +37,25 @@ module.exports = function(app) {
       completionPercentage: req.body.completionPercentage || 0,
       wpDependencies: [],
       msDependencies: [],
-      priority: 'high',
-      status: 'open'
+      priority: 'low',
+      status: 'open',
+      dueDate: req.body.dueDate || null
     });
 
     // add dependencies
-    if(req.body.wpDependencies){
+    if(req.body.wpDependencies) {
       for (var i = 0, l = req.body.wpDependencies.length; i < l; i ++) {
-        var v = req.body.wpDependencies[i];
-        v.wkpackage = v.wkpackage._id || v.wkpackage;
-        milestone.wpDependencies.push(v);
+        var workPackage = req.body.wpDependencies[i];
+        var completion = new Completion();
+        completion.wkPackage = workPackage.wkPackage._id || v.wkPackage;
+        if (workPackage.percentage !== undefined) {
+          completion.percentage = workPackage.percentage;
+        }
+        milestone.wpDependencies.push(completion);
       }
     }
 
-    if(req.body.msDependencies){
+    if(req.body.msDependencies) {
       for (var i = 0, l = req.body.msDependencies.length; i < l; i ++) {
         var v = req.body.msDependencies[i];
         milestone.msDependencies.push(v._id || v);
@@ -63,13 +69,13 @@ module.exports = function(app) {
         res.send(500, err);
         res.end();
       }
-      res.json(req.project.milestones);
+      res.json(req.project.milestone);
       res.end();
     });
   });
 
-  // POST /project/:project/workpackage: update a project's work packages
-  app.post(prefix + '/projects/:project/workpackages/:workpackage', function(req, res) {
+  // POST /project/:project/milestones/:milestone: update a project's milestones
+  app.post(prefix + '/projects/:project/milestones/:milestone', function(req, res) {
     var project = req.project;
     var ms = req.milestone;
 
@@ -78,18 +84,24 @@ module.exports = function(app) {
     if(req.body.description) ms.description = req.body.description;
     if(req.body.status) ms.status = req.body.status;
     if(req.body.completionPercentage) ms.completionPercentage = req.body.completionPercentage;
+    if(req.body.priority) ms.priority = req.body.priority;
+    if(req.body.dueDate) ms.dueDate = req.body.dueDate;
 
     // add dependencies
-    if(req.body.wpDependencies){
+    if(req.body.wpDependencies) {
       ms.wpDependencies = [];
       for (var i = 0, l = req.body.wpDependencies.length; i < l; i ++) {
-        var v = req.body.wpDependencies[i];
-        v.wkpackage = v.wkpackage._id || v.wkpackage;
-        ms.wpDependencies.push(v);
+        var workPackage = req.body.wpDependencies[i];
+        var completion = new Completion();
+        completion.wkPackage = workPackage.wkPackage._id || v.wkPackage;
+        if (workPackage.percentage !== undefined) {
+          completion.percentage = workPackage.percentage;
+        }
+        ms.wpDependencies.push(completion);
       }
     }
 
-    if(req.body.msDependencies){
+    if(req.body.msDependencies) {
       ms.msDependencies = [];
       for (var i = 0, l = req.body.msDependencies.length; i < l; i ++) {
         var v = req.body.msDependencies[i];

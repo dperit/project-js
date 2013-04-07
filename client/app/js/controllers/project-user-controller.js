@@ -14,12 +14,14 @@ PJS.Controllers.ProjectUser = {
 
   update: function($scope, $routeParams, User, Project, Role, ProjectUser) {
     var projectId = $routeParams.projectId.toLowerCase();
+    $scope.hasUsers = true;
 
     User.query(function(users) {
       $scope.usersList = PJS.ViewModels.each('User', users);
       Role.query(function(roles) {
         $scope.rolesList = PJS.ViewModels.each('Role', roles);
         ProjectUser.query({projectId: projectId}, function(projectUsers) {
+          $scope.hasUsers = !!projectUsers.length;
           $scope.users = projectUsers;
           $scope.setSelectedOptionUser = setSelectedOptionUser;
 
@@ -48,6 +50,7 @@ PJS.Controllers.ProjectUser = {
                 added.role = PJS.ViewModels.Role(added.role);
                 added.id = added.user.id;
                 projectUsers.push(added);
+                $scope.hasUsers = !!projectUsers.length;
               });
             }
           };
@@ -57,6 +60,7 @@ PJS.Controllers.ProjectUser = {
             if (index !== -1) {
               userObj.$delete({projectId: projectId, id: userObj.user.id}, function() {
                 projectUsers.splice(index, 1);
+                $scope.hasUsers = !!projectUsers.length;
               });
             }
           };
