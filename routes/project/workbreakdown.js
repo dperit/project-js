@@ -48,8 +48,15 @@ module.exports = function(app) {
     if (req.body._id){
       //We already have an ID so we don't need to make a new item. Just get the existing one.
       //DALE: Can you, using req.body._id, get the workbreakdownitem and put it in req.workbreakdownitem?
-      req.workbreakdownitem = {};
-      addChildren(req, res, next);
+      WorkBreakdownItem.findById(req.body._id, function(err, wbi) {
+        if(err) {
+          res.send(500, err);
+          res.end();
+        }
+        req.workbreakdownitem = wbi;
+        addChildren(req, res, next);
+      })
+
     }else{
       var item = new WorkBreakdownItem();
       item.title = req.body.title;
