@@ -5,8 +5,9 @@ var directives = angular.module('ProjectJS.directives', []);
 directives.directive('select2', function() {
    return function(scope, element, attrs) {
       element.select2();
-      element.on('blur', function(e) {
-        element.select2('close');
+      scope.$on('$routeChangeSuccess', function(event, routeData) {
+        $('.select2-drop').detach();
+        $('.select2-drop-mask').detach();
       });
    }
 });

@@ -88,7 +88,7 @@ PJS.Controllers = {
     $scope[key + 'Add'] = function() {
       var id = $scope[key + 'AddChosen']._id || $scope[key + 'AddChosen'];
       var index = PJS.Utilities.findIndexInArray(list, id);
-      if (index === -1) {
+      if (index === -1 && id !== model._id) {
         Related.get({projectId: projectId, id: id}, function(related) {
           list.push(related);
           if (shouldSave) {
@@ -101,7 +101,7 @@ PJS.Controllers = {
 
     $scope[key + 'Remove'] = function(related) {
       var index = PJS.Utilities.findIndexInArray(list, related._id);
-      if (index !== -1) {
+      if (index !== -1 && related.id !== model._id) {
         list.splice(index, 1);
         if (shouldSave) {
           model.projectId = projectId;
