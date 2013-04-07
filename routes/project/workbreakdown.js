@@ -9,39 +9,73 @@ module.exports = function(app) {
     var project = req.project;
     res.send(project.workBreakdownStructure);
   });
-  
+
+  function addChildren(req, res, next) {
+    var project = req.project;
+    var wbi = req.workbreakdownitem;
+    var children = req.body.children;
+    if(!children){
+      res.send(400, 'Requires child IDs');
+      res.end();
+    }
+    wbi.children = [];
+    // synchronous save to make sure children are
+    // cleared out of WBI array
+    project.save(function(err){
+      for (var i = 0, l = children.length; i < l; i ++) {
+        var id = children[i]._id || children[i];
+        wbi.children.push(id);
+      }
+      project.save(function(err) {
+        if (err) {
+          res.send(500, err);
+          res.end()
+        }
+        res.json(wbi);
+        res.end();
+      });
+    });
+  }
+
   // POST /projects/:project/workbreakdown: create a new parent work breakdown item
+  // or update an existing one if there
   app.post(prefix + "/projects/:project/workbreakdown", function(req, res, next) {
     if (!(req.body.title)) {
       res.send(404, 'Title is required');
       res.end();
     }
-    //TODO: Fix bug: If you add a WBI and then give it a child without refreshing the page, this gets called with the parent and the child. Refresh the page between adding parent and adding child and the child adding thing below will be correctly called.
-    console.log("Posting new workbreakdownitem");
     var project = req.project;
-    var item = new WorkBreakdownItem();
-    item.title = req.body.title;
-    item.description = req.body.description;
-    item.children = [];
-    item.status = 'open';
-    item.lastModifiedDate = new Date();
+    if (req.body._id){
+      //We already have an ID so we don't need to make a new item. Just get the existing one.
+      //DALE: Can you, using req.body._id, get the workbreakdownitem and put it in req.workbreakdownitem?
+      req.workbreakdownitem = {};
+      addChildren(req, res, next);
+    }else{
+      var item = new WorkBreakdownItem();
+      item.title = req.body.title;
+      item.description = req.body.description;
+      item.children = [];
+      item.status = 'open';
+      item.lastModifiedDate = new Date();
       //lastModifiedBy:
 
-    if (req.body.children) {
-      for (var i = 0; i < req.body.children.length; i++) {
-        var child = req.body.children[i]._id || req.body.children[i];
-        item.children.push(child);
+      if (req.body.children) {
+        console.log("Children found during new workbreakdownitem creation");
+        for (var i = 0; i < req.body.children.length; i++) {
+          var child = req.body.children[i]._id || req.body.children[i];
+          item.children.push(child);
+        }
       }
-    }
-    project.workBreakdownStructure.push(item);
-    project.save(function(err) {
-      if (err) {
-        res.send(500, err);
+      project.workBreakdownStructure.push(item);
+      project.save(function(err) {
+        if (err) {
+          res.send(500, err);
+          res.end();
+        }
+        res.json(item);
         res.end();
-      }
-      res.json(item);
-      res.end();
-    });
+      });
+    }
   });
 
   // GET /projects/:project/workbreakdown/:workbreakdown: get a specific WorkBreakdownItem
@@ -81,33 +115,7 @@ module.exports = function(app) {
   });
 
   // POST /projects/:project/workbreakdown/:workbreakdown: add a new child to workbreakdownitem
-  app.post(prefix + '/projects/:project/workbreakdown/:workbreakdownitem', function(req, res, next) {
-    var project = req.project;
-    var wbi = req.workbreakdownitem;
-    var children = req.body.children;
-    if(!children){
-      res.send(400, 'Requires child IDs');
-      res.end();
-    }
-    console.log("Updating a work breakdown item with a new child");
-    wbi.children = [];
-    // synchronous save to make sure children are
-    // cleared out of WBI array
-    project.save(function(err){
-      for (var i = 0, l = children.length; i < l; i ++) {
-        var id = children[i]._id || children[i];
-        wbi.children.push(id);
-      }
-      project.save(function(err) {
-        if (err) {
-          res.send(500, err);
-          res.end()
-        }
-        res.json(wbi);
-        res.end();
-      });
-    });
-  });
+  app.post(prefix + '/projects/:project/workbreakdown/:workbreakdownitem', addChildren);
 
   // DELETE /projects/:project/workbreakdown/:workbreakdown: delete a workbreakdownitem child
   app.delete(prefix + '/projects/:project/workbreakdown/:workbreakdownitem', function(req, res, next) {
