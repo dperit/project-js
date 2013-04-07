@@ -9,6 +9,7 @@ require('./config/project')(app);
 app.use(express.logger('short'));
 app.use(express.bodyParser());
 app.use(express.cookieParser());
+app.use(express.session({ secret: 'lolcats' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/client/app'));

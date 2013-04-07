@@ -8,16 +8,19 @@ module.exports = function(app) {
   app.post(prefix + '/login',
            passport.authenticate('local'),
            function(req, res){
-             req.session.user = {};
+             //req.session.user = {};
+             res.send(req.user);
+             res.end();
            }
   );
 
+  /*
   app.get('/api/login', function(req, res) {
     if (req.session.user) {
       res.send(req.session.user);
     }
   }
-  );
+  );*/
 
   app.get('/api/logout', function(req, res) {
     req.session.user = null;
