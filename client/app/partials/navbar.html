@@ -10,7 +10,7 @@
       <div class="pull-right" ng-switch on="loggedIn">
         <span ng-switch-when="true">
           <ul class="nav pull-right">
-            <li><a href="#/profile/{{user.username}}">Logged in as {{user.username}}</a></li>
+            <li><a href="#/profile/{{user.name}}">Logged in as {{user.name}}</a></li>
             <li class="divider-vertical"></li>
             <li><a href="#/users/logout">Log Out</a></li>
           </ul>
@@ -39,8 +39,9 @@
         </li>
         <li>
           <span class="nullable">
-            <select id="projects-menu" ng-change="changeProject()" ng-model="projectChosen" ng-options="projectChoice.title for projectChoice in projectsList">
-              <option value="">Choose a Project</option>
+            <select select2 id="projects-menu" data-placeholder="Choose a Project" ng-change="changeProject()" ng-model="projectChosen">
+              <option></option>
+              <option value="{{projectChoice._id}}" ng-repeat="projectChoice in projectsList">{{projectChoice.title}}</option>
             </select>
           </span>
         </li>

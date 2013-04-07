@@ -1,11 +1,12 @@
 'use strict';
 
-/* Directives */
+var directives = angular.module('ProjectJS.directives', []);
 
-
-angular.module('ProjectJS.directives', []).
-  directive('appVersion', ['version', function(version) {
-    return function(scope, elm, attrs) {
-      elm.text(version);
-    };
-  }]);
+directives.directive('select2', function() {
+   return function(scope, element, attrs) {
+      element.select2();
+      element.on('blur', function(e) {
+        element.select2('close');
+      });
+   }
+});

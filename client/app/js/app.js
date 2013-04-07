@@ -10,7 +10,7 @@ this.PJS = {
 (function() {
 
 // AngularJS routing for each pages. Links to controllers.
-angular.module('ProjectJS', ['ProjectJS.filters', 'ProjectJS.services', 'ProjectJS.directives']).
+angular.module('ProjectJS', ['ProjectJS.filters', 'ProjectJS.services', 'ProjectJS.directives', 'ui']).
   config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/users/login', {templateUrl: 'partials/login.html', controller: PJS.Controllers.User.login});
     $routeProvider.when('/users/logout', {templateUrl: 'partials/logout.html', controller: PJS.Controllers.User.logout});

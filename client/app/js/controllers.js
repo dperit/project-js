@@ -16,9 +16,9 @@ PJS.Controllers = {
     PJS.Controllers.all($scope, $routeParams, Login);
     $scope.projectsList = Project.query({list: true});
 
-    $scope.changeProject = function() {
+    $scope.changeProject = function(id) {
       if ($scope.projectChosen) {
-        window.location = '/#/projects/' + $scope.projectChosen._id;
+        window.location = '/#/projects/' + $scope.projectChosen;
       }
     };
   },
@@ -86,7 +86,7 @@ PJS.Controllers = {
     var list = model[key];
 
     $scope[key + 'Add'] = function() {
-      var id = $scope[key + 'AddChosen']._id;
+      var id = $scope[key + 'AddChosen']._id || $scope[key + 'AddChosen'];
       var index = PJS.Utilities.findIndexInArray(list, id);
       if (index === -1) {
         Related.get({projectId: projectId, id: id}, function(related) {

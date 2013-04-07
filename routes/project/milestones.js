@@ -38,7 +38,8 @@ module.exports = function(app) {
       wpDependencies: [],
       msDependencies: [],
       priority: 'low',
-      status: 'open'
+      status: 'open',
+      dueDate: req.body.dueDate || null
     });
 
     // add dependencies
@@ -84,6 +85,7 @@ module.exports = function(app) {
     if(req.body.status) ms.status = req.body.status;
     if(req.body.completionPercentage) ms.completionPercentage = req.body.completionPercentage;
     if(req.body.priority) ms.priority = req.body.priority;
+    if(req.body.dueDate) ms.dueDate = req.body.dueDate;
 
     // add dependencies
     if(req.body.wpDependencies) {

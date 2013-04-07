@@ -158,3 +158,13 @@ table .work-item {
 .add-comments input, .add-comments textarea {
   width: 400px;
 }
+
+.select2-container {
+  margin-top: 7px;
+  margin-bottom: 7px;
+  min-width: 200px;
+}
+
+#select2-drop-mask {
+  display: none !important;
+}
