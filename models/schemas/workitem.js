@@ -12,7 +12,7 @@ var WorkItem = new Schema({
   assignedUsers: [{ type: ObjectId, ref: 'User' }],
   dependencies: [{ type: ObjectId }],
   startDate: { type: Date, required: true },
-  timeEstimate: { type: Number, min: 0, default: 0, required: true }, // timeEstimate is a value representing number of hours
+  timeEstimate: { type: Number, min: 0, default: 0 }, // timeEstimate is a value representing number of hours
   timeSpent: { type: Number, min: 0, default: 0, min: 0 }, // timeSpent is a value representing number of hours
   ownCompletionPercentage: { type: Number, min: 0, max: 100, default: 0 },
   completionPercentage: { type: Number, min: 0, max: 100, default: 0 },

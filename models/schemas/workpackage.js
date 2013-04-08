@@ -7,7 +7,7 @@ var WorkPackage = new Schema({
   title: { type: String, required: true, unique: true, trim: true, sparse: true },
   description: { type: String, trim: true },
   priority: { type: String, trim: true }, //required?
-  timeEstimate: { type: Number, min: 0, default: 0, required: true }, // timeEstimate is a value representing number of hours
+  timeEstimate: { type: Number, min: 0, default: 0 }, // timeEstimate is a value representing number of hours
   timeSpent: { type: Number, min: 0, default: 0 },
   completionPercentage: { type: Number, min: 0, max: 100, default: 0 },
   status: { type: String, trim: true, default: 'open' },
