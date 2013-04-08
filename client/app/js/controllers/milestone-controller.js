@@ -7,6 +7,7 @@ PJS.Controllers.Milestone = {
   list: function($scope, $routeParams, Milestone, Project, WorkPackage) {
     var projectId = $routeParams.projectId.toLowerCase();
     $scope.hasMilestones = true;
+    $scope.isLoaded = false;
     $scope.project = Project.get({id: projectId}, function(project) {
       PJS.Controllers.allRelations('Milestone', project, project.milestones);
       $scope.isDefined = PJS.Utilities.isDefined;
@@ -15,6 +16,7 @@ PJS.Controllers.Milestone = {
       $scope.status = ['open', 'late'];
       $scope.milestones = PJS.Utilities.filterByStatus(milestones, $scope.status);
       $scope.hasMilestones = !!milestones.length;
+      $scope.isLoaded = true;
 
       $scope.changeMode = function(status) {
         $scope.status = status;

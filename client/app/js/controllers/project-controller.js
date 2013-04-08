@@ -7,16 +7,19 @@ PJS.Controllers.Project = {
 
   list: function($scope, $routeParams, Project, User, Role) {
     $scope.hasProjects = true;
+    $scope.isLoaded = false;
     $scope.projects = Project.query(function(projects) {
       $scope.hasProjects = !!projects.length;
       $scope.projects.forEach(function(project) {
         project.usersByRole = PJS.Controllers.ProjectUser.usersByRole(project.projectUsers);
       });
+      $scope.isLoaded = true;
     });
   },
 
   listUser: function($scope, $routeParams, Project, User, Role) {
     $scope.hasProjects = true;
+    $scope.isLoaded = false;
     var userId = $routeParams.userId.toLowerCase();
     Project.query(function(projects) {
       $scope.hasProjects = !!projects.length;
@@ -29,6 +32,7 @@ PJS.Controllers.Project = {
             $scope.projects.push(project);
           }
         });
+        $scope.isLoaded = true;
       });
     });
   },

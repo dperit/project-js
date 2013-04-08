@@ -17,7 +17,7 @@
       <button class="btn" href="" ng-click="predicate = 'lastModifiedBy'; reverse=!reverse">Modified</button>
     </div>
 
-    <ul class="above-table nav nav-tabs">
+    <ul ng-show="isLoaded" class="above-table nav nav-tabs">
       <li class="active"><a ng-click="changeMode(['open', 'late'])" href="#open" data-toggle="tab">Open</a></li>
       <li><a href="#closed" ng-click="changeMode(['closed'])" data-toggle="tab">Closed</a></li>
     </ul>
