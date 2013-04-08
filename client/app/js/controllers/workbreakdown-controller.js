@@ -88,7 +88,6 @@ PJS.Controllers.WorkBreakdown = {
         $scope.mode = "view";
       });
 
-      //TODO: Make this delete the item associated with data
       $scope.delete = function(data) {
         data.projectId = projectId;
         data.$delete(data, function(){
