@@ -23,7 +23,7 @@ module.exports = function(app) {
 
   // POST /user: create a new user
   app.post(prefix + "/users", function(req, res, next) {
-    if(!(req.body.userId &&
+    if(!(req.body.username &&
       req.body.firstName,
       req.body.lastName,
       req.body.email,
@@ -32,7 +32,7 @@ module.exports = function(app) {
       }
 
     var newUser = new User();
-    newUser.userId = newUser.username = req.body.userId;
+    newUser.userId = newUser.username = req.body.username;
     newUser.firstName = req.body.firstName;
     newUser.lastName = req.body.lastName;
     newUser.email = req.body.email;
