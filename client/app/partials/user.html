@@ -1,7 +1,7 @@
-<div class="row">
-  <div class="well well-small span11 user">
-    <h4>
-      {{user.firstName}} {{user.lastName}}
-    </h4>
-  </div>
+<div class="user">
+  <h4>
+    {{user.firstName}} {{user.lastName}}'s Projects
+  </h4>
 </div>
+
+<div ng-controller="PJS.Controllers.Project.listUser" ng-include src="'partials/projects.html'"></div>
