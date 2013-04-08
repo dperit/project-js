@@ -11,8 +11,8 @@
 
   <span ng-show="mode=='delete'">
     <span>{{data.title}}</span>
-    <button class="btn" ng-click="delete(data)" ng-show="mode=='delete'">Confirm Deletion</button>
     <button class="btn" ng-click="mode='view'" ng-show="mode=='delete'">Cancel</button>
+    <button class="btn" ng-click="delete(data)" ng-show="mode=='delete'">Confirm Deletion</button>
   </span>
 
   <span ng-show="mode=='update'">
