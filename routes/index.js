@@ -25,7 +25,6 @@ module.exports = function(app) {
     req.session.auth = false;
     req.session.user = null;
     req.session.reset();
-    res.send();
     res.end();
   });
 

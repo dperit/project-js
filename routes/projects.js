@@ -81,10 +81,8 @@ module.exports = function(app) {
     project.save(function(err) {
       if(err) {
         res.send(500, err);
-        res.end();
       }
       res.json(project);
-      res.end();
     });
   });
 
@@ -95,10 +93,8 @@ module.exports = function(app) {
     project.save(function(err) {
       if(err) {
         res.send(500, err);
-        res.end();
       }
       res.json(project);
-      res.end();
     });
   });
 
@@ -108,13 +104,11 @@ module.exports = function(app) {
     Project.findOne({"_id" : id}).populate(populateProjectList).exec(function(err, project){
       if (err) {
         res.send(500, "Error while finding project");
-        res.end();
       } else if (project) {
         req.project = project;
         next();
       } else {
         res.send(500, "Error while finding project");
-        res.end();
       }
     });
   });
