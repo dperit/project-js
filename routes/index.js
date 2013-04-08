@@ -8,21 +8,23 @@ module.exports = function(app) {
   app.post(prefix + '/login',
           passport.authenticate('local'),
           function(req, res, next) {
-            res.send(req.user);
+            req.session.auth = true;
+            req.session.user = req.user;
             res.end();
           }
   );
 
-  /*
   app.get('/api/login', function(req, res) {
     if (req.session.user) {
       res.send(req.session.user);
     }
-  }
-  );*/
+  });
 
   app.get('/api/logout', function(req, res) {
     req.user = null;
+    req.session.auth = false;
+    req.session.user = null;
+    req.session.reset();
     res.send();
     res.end();
   });
