@@ -73,7 +73,7 @@ module.exports = function(app) {
     if(req.body.title) wp.title = req.body.title;
     if(req.body.description) wp.description = req.body.description;
     if(req.body.status) wp.status = req.body.status;
-    if(req.body.timeEstimate) wp.completionPercentage = req.body.timeEstimate;
+    if(req.body.timeEstimate) wp.timeEstimate = req.body.timeEstimate;
     if(req.body.priority) wp.priority = req.body.priority;
 
 
