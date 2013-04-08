@@ -8,6 +8,7 @@ PJS.Controllers.WorkItem = {
 
   list: function($scope, $routeParams, WorkItem, Project) {
     $scope.hasWorkItems = true;
+    $scope.isLoaded = false;
     Project.get({id: $routeParams.projectId.toLowerCase()}, function(project) {
       $scope.project = project;
       PJS.Controllers.allRelations('WorkItem', project, project.workItems);
@@ -15,6 +16,7 @@ PJS.Controllers.WorkItem = {
       $scope.status = ['open', 'late'];
       $scope.workItems = PJS.Utilities.filterByStatus(workItems, $scope.status);
       $scope.hasWorkItems = !!workItems.length;
+      $scope.isLoaded = true;
 
       $scope.changeMode = function(status) {
         $scope.status = status;

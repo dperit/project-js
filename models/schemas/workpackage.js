@@ -45,6 +45,7 @@ WorkPackage.methods = {
       var completedDependencies = 0;
       var ownWeight = 4;
       var timeSpent = 0;
+      var hasItems = !!workItems.length;
 
       workItems.forEach(function(workItem) {
         var weight = workItem.getWeight();
@@ -77,7 +78,11 @@ WorkPackage.methods = {
         completedDependencies = 100;
       }
 
-      this.completionPercentage = completionPercentage - (100 - completedDependencies) / ownWeight;
+      if (hasItems) {
+        this.completionPercentage = completionPercentage - (100 - completedDependencies) / ownWeight;
+      } else {
+        this.completionPercentage = completedDependencies;
+      }
 
       if (this.completionPercentage < 0) {
         this.completionPercentage = 0;

@@ -15,6 +15,7 @@ PJS.Controllers.ProjectUser = {
   update: function($scope, $routeParams, User, Project, Role, ProjectUser) {
     var projectId = $routeParams.projectId.toLowerCase();
     $scope.hasUsers = true;
+    $scope.isLoaded = false;
 
     User.query(function(users) {
       $scope.usersList = PJS.ViewModels.each('User', users);
@@ -24,6 +25,7 @@ PJS.Controllers.ProjectUser = {
           $scope.hasUsers = !!projectUsers.length;
           $scope.users = projectUsers;
           $scope.setSelectedOptionUser = setSelectedOptionUser;
+          $scope.isLoaded = true;
 
           $scope.updateRole = function(userObj) {
             var role = userObj.role;

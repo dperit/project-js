@@ -34,6 +34,7 @@ Milestone.methods = {
       var amount = 0;
       var completedDependencies = 0;
       var ownWeight = 4;
+      var hasItems = !!this.wpDependencies.length;
 
       this.wpDependencies.forEach(function(dependency) {
         var percentage = dependency.percentage;
@@ -74,7 +75,11 @@ Milestone.methods = {
         completedDependencies = 100;
       }
 
-      this.completionPercentage = completionPercentage - (100 - completedDependencies) / ownWeight;
+      if (hasItems) {
+        this.completionPercentage = completionPercentage - (100 - completedDependencies) / ownWeight;
+      } else {
+        this.completionPercentage = completedDependencies;
+      }
 
       if (this.completionPercentage < 0) {
         this.completionPercentage = 0;
