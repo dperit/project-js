@@ -7,7 +7,8 @@ var WorkPackage = new Schema({
   title: { type: String, required: true, unique: true, trim: true, sparse: true },
   description: { type: String, trim: true },
   priority: { type: String, trim: true }, //required?
-  timeEstimate: { type: Number, required: true }, // timeEstimate is a value representing number of days
+  timeEstimate: { type: Number, min: 0, default: 0, required: true }, // timeEstimate is a value representing number of hours
+  timeSpent: { type: Number, min: 0, default: 0 },
   completionPercentage: { type: Number, min: 0, max: 100, default: 0 },
   status: { type: String, trim: true, default: 'open' },
   dependencies: [{ type: ObjectId }],
@@ -43,12 +44,16 @@ WorkPackage.methods = {
       var amount = 0;
       var completedDependencies = 0;
       var ownWeight = 4;
+      var timeSpent = 0;
 
       workItems.forEach(function(workItem) {
         var weight = workItem.getWeight();
         amount += weight;
         sum += workItem.getCompletion(ids, project) * weight;
+        timeSpent += workItem.timeSpent;
       });
+
+      this.timeSpent = timeSpent;
 
       if (amount) {
         completionPercentage = sum / amount;

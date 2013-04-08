@@ -28,6 +28,7 @@
         <a class="btn btn-mini" href="#/users/{{user._id}}"> {{user.firstName}} {{user.lastName}} </a>
       </span>
     </p>
+    <p ng-show="project.clientName != ''"><b>Client: </b>{{project.clientName}}<p>
     <p><span class="label {{project.status.labelType}}">{{project.status.text}}</span></p>
     <p ng-show="project.projectDueDate" class="info-small">Due: {{project.projectDueDate | date:'MMMM dd, yyyy'}}</p>
     <b>Overall Progress: {{project.completionPercentage | number:1}}%</b>
