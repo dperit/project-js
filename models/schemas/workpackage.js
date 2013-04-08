@@ -18,6 +18,11 @@ var WorkPackage = new Schema({
 module.exports = WorkPackage;
 
 WorkPackage.methods = {
+  getWeight: function() {
+    this.priority = this.priority || 'Medium';
+    return Utilities.getPriorityWeight(this.priority);
+  },
+
   getWorkItems: function(project) {
     var workItems = [];
     project.workItems.forEach(function(workItem) {
@@ -35,21 +40,47 @@ WorkPackage.methods = {
       var completionPercentage = 0;
       var sum = 0;
       var workItems = this.getWorkItems(project);
-      var amount = (workItems.length + this.dependencies.length);
+      var amount = 0;
+      var completedDependencies = 0;
+      var ownWeight = 4;
 
       workItems.forEach(function(workItem) {
-        sum += workItem.getCompletion(ids, project);
-      });
-      this.dependencies.forEach(function(dependency) {
-        dependency = project.hasWorkPackageAndRetrieve(dependency);
-        if (dependency) sum += dependency.getCompletion(ids, project);
+        var weight = workItem.getWeight();
+        amount += weight;
+        sum += workItem.getCompletion(ids, project) * weight;
       });
 
       if (amount) {
         completionPercentage = sum / amount;
       }
 
-      this.completionPercentage = completionPercentage;
+      amount = 0;
+      sum = 0;
+
+      this.dependencies.forEach(function(dependency) {
+        dependency = project.hasWorkPackageAndRetrieve(dependency);
+        if (dependency) {
+          var weight = dependency.getWeight();
+          amount += weight;
+          sum += dependency.getCompletion(ids, project) * weight;
+        }
+      });
+
+      if (amount) {
+        completedDependencies = sum / amount;
+      } else {
+        completedDependencies = 100;
+      }
+
+      this.completionPercentage = completionPercentage - (100 - completedDependencies) / ownWeight;
+
+      if (this.completionPercentage < 0) {
+        this.completionPercentage = 0;
+      }
+
+      if (this.completionPercentage > 100) {
+        this.completionPercentage = 100;
+      }
     }
     return this.completionPercentage;
   }

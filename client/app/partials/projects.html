@@ -30,7 +30,8 @@
     </p>
     <p><span class="label {{project.status.labelType}}">{{project.status.text}}</span></p>
     <p ng-show="project.projectDueDate" class="info-small">Due: {{project.projectDueDate | date:'MMMM dd, yyyy'}}</p>
-    <b>Overall Progress:</b> <div class="progress"><div class="bar" style="width: {{project.completionPercentage}}%;"></div></div>
+    <b>Overall Progress: {{project.completionPercentage | number:1}}%</b>
+    <div class="progress"><div class="bar" style="width: {{project.completionPercentage}}%;"></div></div>
   </div>
 
   <div ng-show="!hasProjects" class="empty-message">
