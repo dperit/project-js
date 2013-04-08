@@ -168,3 +168,22 @@ table .work-item {
 #select2-drop-mask {
   display: none !important;
 }
+
+.work-breakdown ul {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.work-breakdown li .item {
+  padding: 5px;
+  background-color: #efefff;
+  border-radius: 5px;
+}
+
+.work-breakdown li .item a {
+  color: #000;
+}
+
+.work-breakdown input {
+  max-height: 10px;
+}

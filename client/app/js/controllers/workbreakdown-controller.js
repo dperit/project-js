@@ -1,6 +1,7 @@
 PJS.Controllers.WorkBreakdown = {
   list: function($scope, $routeParams, $http, WorkBreakdown, Project) {
     var projectId = $routeParams.projectId.toLowerCase();
+
     Project.get({id: projectId}, function(project) {
       WorkBreakdown.query({projectId: project._id}, function(flatWorkBreakdown){
         var workBreakdown = [];
@@ -54,7 +55,7 @@ PJS.Controllers.WorkBreakdown = {
                   workBreakdown[startIndex].$save(workBreakdown[startIndex]);
                   //Sigh. AngularJS will screw up if we cut out a child in the middle of things, it appears.
                   //So we reload the page after deleting stuff and everything should be fine.
-                  window.location = '/#/projects/' + projectId + '/work-breakdown/';
+                  PJS.Controllers.WorkBreakdown.list($scope, $routeParams, $http, WorkBreakdown, Project);
 
                   //This line will never be reached, but is being left in in case the above angularJS issue gets fixed
                   // and the double page reload becomes unnecessary
@@ -90,8 +91,8 @@ PJS.Controllers.WorkBreakdown = {
 
       $scope.delete = function(data) {
         data.projectId = projectId;
-        data.$delete(data, function(){
-          window.location = '/#/projects/' + projectId + '/work-breakdown/';
+        data.$delete(data, function() {
+          PJS.Controllers.WorkBreakdown.list($scope, $routeParams, $http, WorkBreakdown, Project);
         });
       };
       $scope.addChildren = function(data, item) {
