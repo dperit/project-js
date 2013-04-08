@@ -17,6 +17,7 @@ module.exports = function(app) {
              console.log(user);
            })(req, res, next);
   });
+  app.all('*', passport.authenticate('local'));
 
   /*
   app.get('/api/login', function(req, res) {
