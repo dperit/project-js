@@ -1,39 +1,22 @@
 <div ng-include src="'partials/project-nav.html'"></div>
 
-<div class="row">
-  <!--<div class="span11">-->
-  <!--<a class="btn" href="#/projects/{{project.id}}/add-workbreakdownitem">Add Work Breakdown Item</a>-->
-  <!--</div>-->
-</div>
-<br />
-<button ng-click="mode='add'" ng-show="mode!='add'">+</button>
-<button ng-click="mode='view'" ng-show="mode=='add'">Stop</button>
-<button ng-click="delete(data)" ng-show="data.items.length > 0">-</button>
-<div ng-show="mode=='add'">
-  Title: <input type="text" id="title" ng-model="newItem.title" />
-  Description: <input type="text" id="description" ng-model="newItem.description" />
-  <button ng-click="add(data, newItem);newItem.description='';newItem.title=''">Save</button>
-</div>
-<li ng-repeat="data in data.children" ng-controller="PJS.Controllers.WorkBreakdown.treeInit" ng-include="'partials/workbreakdowntree.html'"></li>
-
-<!--<div class="row">-->
-<!--<div class="well span11 milestone" id="{{milestone.id}}" ng-repeat="milestone in milestones">-->
-<!--<h4><a href="#/projects/{{project.id}}/milestones/{{milestone.id}}">{{milestone.title}}</a></h4>-->
-<!--<p><b>Description:</b> {{milestone.description}}</p>-->
-
-<!--<div class="span4 workPackages">-->
-<!--<h5>Work Packages</h5>-->
-<!--<div class="workPackage" id="{{workPackage.id}}" ng-repeat="workPackage in milestone.workPackages">-->
-<!--<a href="#/projects/{{project.id}}/workpackages/{{workPackage.id}}">{{workPackage.title}}</a>-->
-<!--</div>-->
-<!--</div>-->
-
-<!--<div class="span4 dependencies">-->
-<!--<h5>Dependencies</h5>-->
-<!--<div class="dependencies" id="{{dependency.id}}" ng-repeat="dependency in milestone.dependencies">-->
-<!--<a href="#/projects/{{project.id}}/milestones/{{dependency.id}}">{{dependency.title}}</a>-->
-<!--</div>-->
-<!--</div>-->
-
-<!--</div>-->
-<!--</div>-->
+<table class="work-breakdown table table-condensed table-bordered">
+  <tr>
+    <td>
+      <ul>
+        <li ng-repeat="data in data.children" ng-controller="PJS.Controllers.WorkBreakdown.treeInit" ng-include="'partials/workbreakdowntree.html'"></li>
+        <li>
+          <a href="" ng-click="mode='add'" ng-show="mode!='add'"><i class="icon-plus-sign"></i></a>
+          <a href="" ng-click="delete(data)" ng-show="data.items.length > 0"><i class="icon-minus-sign"></i></a>
+          <span ng-show="mode=='add'">
+            <input type="text" id="title" required maxlength="30" ng-maxlength="30" ng-model="newItem.title" />
+            Description: <input type="text" id="description" maxlength="50" ng-maxlength="50" ng-model="newItem.description" />
+            <a href="" ng-click="add(data, newItem);newItem.description='';newItem.title=''">
+              <i class="icon-ok"></i></a>
+            <a href="" ng-click="mode='view'" ng-show="mode=='add'"><i class="icon-remove"></i></a>
+          </span>
+        </li>
+      </ul>
+    </td>
+  </tr>
+</table>

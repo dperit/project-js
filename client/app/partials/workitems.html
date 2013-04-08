@@ -11,7 +11,7 @@
     </form>
 
     <div ng-init="predicate = 'lastModifiedDate'; reverse=!reverse" class="pull-right sorting">
-      <span class="sorting-title">Sort:</span> 
+      <span class="sorting-title">Sort:</span>
       <button class="btn" href="" ng-click="predicate = 'title'; reverse=!reverse">Title</button>
       <button class="btn" href="" ng-click="predicate = 'completionPercentage'; reverse=!reverse">Completed</button>
       <button class="btn" href="" ng-click="predicate = 'lastModifiedBy'; reverse=!reverse">Modified</button>
@@ -41,7 +41,7 @@
                     <span>Assigned: </span>
                     <span ng-repeat="assignedUser in workItem.assignedUsers">
                       <a class="btn btn-mini" href="#/users/{{assignedUser._id}}">{{assignedUser.firstName}} {{assignedUser.lastName}}</a>
-                    </span> 
+                    </span>
                   </div>
                 </td>
                 <td class="span9">
@@ -50,19 +50,22 @@
                       <td class="span1">
                         <span class="label {{workItem.status.labelType}}">{{workItem.status.text}}</span>
                       </td>
+                      <td class="span1 info-small">
+                        {{workItem.completionPercentage | number:1}}%
+                      </td>
                       <td class="span8">
                         <div class="span8 progress"><div class="bar" style="width: {{workItem.completionPercentage}}%;"></div></div>
                       </td>
                     </tr>
                   </table>
-                  <span class="info-small time-info pull-right">
-                    <span ng-show="workItem.timeSpent != 0">Time spent: {{workItem.timeSpentStr}} |</span>
-                    <span ng-show="workItem.timeEstimate != 0">Estimated time: {{workItem.timeEstimateStr}}</span>
-                  </span>
                 </td>
               </tr>
             </table>
-            <div class="info-small">{{workItem.description}}</div>
+            <div class="info-small pull-left">{{workItem.description}}</div>
+            <span class="info-small time-info pull-right">
+              <span ng-show="workItem.timeSpent != 0">Time spent: {{workItem.timeSpentStr}} |</span>
+              <span ng-show="workItem.timeEstimate != 0">Estimated time: {{workItem.timeEstimateStr}}</span>
+            </span>
           </td>
         </tr>
         </tbody>

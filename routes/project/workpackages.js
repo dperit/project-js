@@ -30,7 +30,7 @@ module.exports = function(app) {
   // POST /project/:project/workpackages: create a project's work packages
   app.post(prefix + '/projects/:project/workpackages', function(req, res) {
     var project = req.project;
-    if (!(req.body.title && req.body.description)) {
+    if (!(req.body.title)) {
       res.send(500, 'Not enough data to create a new work package');
       res.end();
     }

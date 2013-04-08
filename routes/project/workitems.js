@@ -34,9 +34,7 @@ module.exports = function(app) {
   // POST /project/:project/workitem: create a project's work items
   app.post(prefix + '/projects/:project/workitems', function(req, res) {
     var project = req.project;
-    if (!(req.body.title
-         && req.body.description
-         && req.body.timeEstimate !== undefined)) {
+    if (!(req.body.title)) {
            res.send(500, 'Not enough data to create a new work item');
            res.end();
     }

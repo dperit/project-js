@@ -15,6 +15,24 @@ PJS.Controllers.Project = {
     });
   },
 
+  listUser: function($scope, $routeParams, Project, User, Role) {
+    $scope.hasProjects = true;
+    var userId = $routeParams.userId.toLowerCase();
+    Project.query(function(projects) {
+      $scope.hasProjects = !!projects.length;
+      $scope.projects = [];
+      projects.forEach(function(project) {
+        var userHasProject = false;
+        project.usersByRole = PJS.Controllers.ProjectUser.usersByRole(project.projectUsers);
+        project.projectUsers.forEach(function(user) {
+          if (!userHasProject && user.user._id === userId) {
+            $scope.projects.push(project);
+          }
+        });
+      });
+    });
+  },
+
   getMain: function($scope, $routeParams, Project, User, Role) {
     Project.get({id: $routeParams.projectId.toLowerCase()}, function(project) {
       project.usersByRole = PJS.Controllers.ProjectUser.usersByRole(project.projectUsers);
