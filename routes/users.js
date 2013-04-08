@@ -58,7 +58,6 @@ module.exports = function(app) {
   // POST /user/:user: update user information
   app.post(prefix + "/users/:user", function(req, res) {
     var user = req.theUser;
-    console.log(req.user);
     if(req.body.firstName) user.firstName = req.body.firstName;
     if(req.body.lastName) user.lastName = req.body.lastName;
     if(req.body.email) user.email = req.body.email;
