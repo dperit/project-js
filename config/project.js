@@ -21,10 +21,10 @@ module.exports = function(app)
 
   // use short logging
   app.use(express.logger('short'));
-  // enable express body parsing
-  app.use(express.bodyParser());
   // enable express cookie parsing
   app.use(express.cookieParser());
+  // enable express body parsing
+  app.use(express.bodyParser());
   // use MongoStore if in production mode
   if (app.get('env') === 'production') {
     app.use(express.session({ secret: 'lolcats',
@@ -46,5 +46,5 @@ module.exports = function(app)
   // initialize passport session
   app.use(passport.session());
   // serve client
-  app.use(express.static(__dirname + '/client/app'));
+  app.use(express.static(__dirname + '/../client/app'));
 }

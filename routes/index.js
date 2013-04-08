@@ -14,7 +14,7 @@ module.exports = function(app) {
              if(!user) {
                res.send(500, info);
              }
-             res.end();
+             console.log(user);
            })(req, res, next);
   });
 
