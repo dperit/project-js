@@ -1,5 +1,17 @@
 <form class="form-horizontal borderless" ng-controller="PJS.Controllers.User.add" ng-submit="register()">
   <div class="control-group">
+    <label class="control-label" for="inputUsername">Username:</label>
+    <div class="controls">
+      <input type="text" required id="inputUsername" ng-model="username" />
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputPassword">Password:</label>
+    <div class="controls">
+      <input type="password" required id="inputPassword" ng-model="password" />
+    </div>
+  </div>
+  <div class="control-group">
     <label class="control-label" for="inputEmail">E-mail:</label>
     <div class="controls">
       <input type="email" required id="inputEmail" ng-model="email" />

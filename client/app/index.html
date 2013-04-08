@@ -10,8 +10,15 @@
   <link href="css/app.css" rel="stylesheet"/>
 </head>
 <body>
-  <div ng-include src="'partials/navbar.html'"></div>
-  <div ng-view class="container"></div>
+  <div ng-controller="PJS.Controllers.all">
+    <div ng-show="loginLoaded">
+      <div ng-include src="'partials/navbar.html'"></div>
+      <div ng-show="isLoggedIn" ng-view class="container"></div>
+      <div ng-show="!isLoggedIn" class="container">
+        <div class="well login-page" ng-include src="'partials/login.html'"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>

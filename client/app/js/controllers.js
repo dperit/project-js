@@ -3,24 +3,32 @@
 'use strict';
 
 PJS.Controllers = {
-  all: function($scope, $routeParams, Login) {
-//    Login.get(function(user) {
-//      $scope.user = user;
-//      $scope.user.name = $scope.user._id;
-//      $scope.loggedIn = !!$scope.user;
-    $scope.loggedIn = false;
-//    });
+  all: function($scope, $routeParams, Login, $http) {
+    $scope.loginLoaded = false;
+    Login.get(function(user) {
+      $scope.loginLoaded = true;
+      $scope.loggedIn = user && user.id ? user : null;
+      $scope.isLoggedIn = !!$scope.loggedIn;
+
+      $scope.logout = function() {
+        $http({method: 'GET', url: '/api/logout'});
+        $scope.loggedIn = null;
+        $scope.isLoggedIn = false;
+      };
+
+    });
   },
 
   nav: function($scope, $routeParams, Login, Project) {
-    PJS.Controllers.all($scope, $routeParams, Login);
-    $scope.projectsList = Project.query({list: true});
+    if ($scope.isLoggedIn) {
+      $scope.projectsList = Project.query({list: true});
 
-    $scope.changeProject = function(id) {
-      if ($scope.projectChosen) {
-        window.location = '/#/projects/' + $scope.projectChosen;
-      }
-    };
+      $scope.changeProject = function(id) {
+        if ($scope.projectChosen) {
+          window.location = '/#/projects/' + $scope.projectChosen;
+        }
+      };
+    }
   },
 
   relations: function(controllerName, project, model) {

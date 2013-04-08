@@ -7,12 +7,12 @@
         <span class="icon-bar"></span>
       </a>
       <a class="brand" href="#">Project.js</a>
-      <div class="pull-right" ng-switch on="loggedIn">
+      <div class="pull-right" ng-switch on="isLoggedIn">
         <span ng-switch-when="true">
           <ul class="nav pull-right">
-            <li><a href="#/profile/{{user.name}}">Logged in as {{user.name}}</a></li>
+            <li><a href="#/users/{{loggedIn._id}}">Logged in as {{loggedIn.username}}</a></li>
             <li class="divider-vertical"></li>
-            <li><a href="#/users/logout">Log Out</a></li>
+            <li><a href="" ng-click="logout()">Log Out</a></li>
           </ul>
         </span>
         <span ng-switch-default>
@@ -33,7 +33,7 @@
           </ul>
         </span>
       </div>
-      <ul class="nav">
+      <ul class="nav" ng-show="isLoggedIn">
         <li>
           <a href="#/projects">Projects</a>
         </li>
