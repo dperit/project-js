@@ -8,9 +8,6 @@ module.exports = function(app) {
   app.post(prefix + '/login',
           passport.authenticate('local'),
           function(req, res, next) {
-            console.log(req.user);
-            console.log(req.session);
-            console.log(req.sessionID);
             res.send(req.user);
             res.end();
           }
