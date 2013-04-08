@@ -21,8 +21,8 @@ module.exports = function(app) {
   });
 
   app.get('/api/logout', function(req, res) {
+    req.logout();
     req.user = null;
-    req.session.reset();
     req.session.user = null;
     res.send(null);
   });
