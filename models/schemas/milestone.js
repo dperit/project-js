@@ -71,11 +71,10 @@ Milestone.methods = {
 
       if (amount) {
         completedDependencies = sum / amount;
-      } else {
-        completedDependencies = 100;
       }
 
       if (hasItems) {
+        if (!amount) completedDependencies = 100;
         this.completionPercentage = completionPercentage - (100 - completedDependencies) / ownWeight;
       } else {
         this.completionPercentage = completedDependencies;
