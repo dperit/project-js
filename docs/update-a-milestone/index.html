@@ -1,0 +1,31 @@
+<p>This method allows one to update a project milestone.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the milestone belongs to.</li>
+
+<li><strong>:milestone</strong>: The requested milestone&#8217;s ID.</li>
+</ul>
+
+<p><code>{
+  title: &#39;Complete jetpack designs&#39;,
+  description: &#39;Need to complete blueprints for my rocket pack!&#39;[,
+  dueDate: &lt;Date&gt;,
+  status: &#39;open&#39; | &#39;late&#39; | &#39;closed&#39; | &#39;deleted&#39;,
+  priority: &#39;low&#39; | &#39;medium&#39; | &#39;high&#39; | &#39;urgent&#39;,
+  wpDependencies: &lt;WorkPackage&gt; | &lt;WorkPackage&gt;._id
+  msDependencies: &lt;Milestone&gt; | &lt;Milestone&gt;._id ]
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Milestone updated, <code>Milestone</code> object returned.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: Milestone not found.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error while saving.</li>
+</ul>

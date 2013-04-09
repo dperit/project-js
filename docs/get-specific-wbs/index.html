@@ -1,0 +1,19 @@
+<p>This method will return a specific work breakdown item structure in the specified project.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work breakdown structure belongs to.</li>
+
+<li><strong>:workbreakdownitem</strong>: The ID of the work breakdown structure item requested.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the requested <code>WorkBreakdownItem</code> object.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: WorkBreakdownItem not found.</li>
+</ul>

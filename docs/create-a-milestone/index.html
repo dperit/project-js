@@ -1,0 +1,21 @@
+<p>This method allows one to create a new project milestone.</p>
+
+<h3 id='request'>Request</h3>
+
+<p><code>{
+  title: &#39;Complete jetpack designs&#39;,
+  description: &#39;Need to complete blueprints for my rocket pack!&#39;[,
+  dueDate: &lt;Date&gt;,
+  wpDependencies: &lt;WorkPackage&gt; | &lt;WorkPackage&gt;._id
+  msDependencies: &lt;Milestone&gt; | &lt;Milestone&gt;._id ]
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Milestone added to project, <code>Milestone</code> object returned.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error while saving.</li>
+</ul>

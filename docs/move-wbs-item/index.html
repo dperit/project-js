@@ -1,0 +1,24 @@
+<p>This method will move the specified <code>WorkBreakdownItem</code> around in the flat work breakdkown structure.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work breakdown structure belongs to.</li>
+</ul>
+
+<p><code>{
+  source: &lt;WorkBreakdownItem&gt;._id,
+  appendAfter: &lt;WorkBreakdownItem&gt;._id
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the newly arranged work breakdown structure.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: Required data not provided.</li>
+
+<li>500 Internal Server Error: Could not find specified WorkBreakdownItems.</li>
+</ul>

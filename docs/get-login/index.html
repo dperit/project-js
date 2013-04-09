@@ -1,0 +1,29 @@
+<p>This method attempts to verify that a user is logged in by checking for a valid session.</p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Session valid</li>
+</ul>
+
+<p><code>{
+  &quot;salt&quot;: &quot;&lt;user password salt&gt;&quot;,
+  &quot;hash&quot;: &quot;&lt;user password hash&gt;&quot;,
+  &quot;_id&quot;: &quot;5161b5283d993dd80d000009&quot;,
+  &quot;username&quot;: &quot;dale&quot;,
+  &quot;firstName&quot;: &quot;Dale&quot;,
+  &quot;lastName&quot;: &quot;Karp&quot;,
+  &quot;email&quot;: &quot;me@dale.io&quot;,
+  &quot;__v&quot;: 0,
+  &quot;registrationDate&quot;: &quot;2013-04-07T18:04:24.559Z&quot;,
+  &quot;siteAdmin&quot;: true,
+  &quot;resetMode&quot;: false
+}</code></p>
+
+<ul>
+<li>200 OK: Session not found</li>
+</ul>
+
+<p><code>{
+  null
+}</code></p>

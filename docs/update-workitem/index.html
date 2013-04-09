@@ -1,0 +1,34 @@
+<p>This method creates a new <code>WorkItem</code> and adds it to the project&#8217;s work item list.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work item belongs to.</li>
+
+<li><strong>:workitem</strong>: The ID of the work item one wishes to update.</li>
+</ul>
+
+<p><code>{
+  title: &#39;Buy rocket parts&#39;,
+  description: &#39;Buy rocket parts at Home Depot&#39;,
+  timeEstimate: &lt;Int&gt;
+  timeSpent: &lt;Int&gt;
+  status: &#39;open&#39; || &#39;closed&#39; || &#39;late&#39; || &#39;deleted&#39;,
+  ownCompletionPercentage: &lt;Int&gt;
+  dependencies: [&lt;WorkItem&gt;._id],
+  workPackages: [&lt;WorkPackage&gt;._id],
+  assignedUsers: [&lt;User&gt;._id],
+  comments: [&lt;Comment&gt;._id]
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the updated <code>WorkItem</code> object.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: Required data not provided.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error saving the project.</li>
+</ul>

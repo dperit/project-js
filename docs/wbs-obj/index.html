@@ -1,0 +1,18 @@
+<p>The Work Breakdown Structure Iterm object has the following properties:</p>
+
+<p><code>{
+  title: { type: String, trim: true, sparse: true },
+  description: { type: String, trim: true },
+  children: [{ type: ObjectId }],
+  status: { type: String, trim: true, default: &#39;open&#39; },
+  lastModifiedDate: { type: Date, default: Date.now },
+  lastModifiedBy: { type: ObjectId, ref: &#39;User&#39; }
+}</code></p>
+
+<p>The Work Breakdown Structure object has the following properties:</p>
+
+<p><code>{
+  items: [{ type: ObjectId }],
+  lastModifiedDate: { type: Date, default: Date.now },
+  lastModifiedBy: { type: ObjectId, ref: &#39;User&#39; }
+}</code></p>

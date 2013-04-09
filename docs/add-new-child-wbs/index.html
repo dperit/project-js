@@ -1,0 +1,23 @@
+<p>This method will add any <code>WorkBreakdownItem</code> IDs sent in the request as children to the specified <code>WorkBreakdownItem</code>.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work breakdown structure belongs to.</li>
+
+<li><strong>:workbreakdownitem</strong>: The ID of the work breakdown structure item requested.</li>
+</ul>
+
+<p><code>{
+  children: [&lt;WorkBreakdownItem&gt;._id]
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the updated <code>WorkBreakdownItem</code>.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: WorkBreakdownItem not found.</li>
+</ul>

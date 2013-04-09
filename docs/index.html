@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<head>
+  <title>Project.js API Documentation</title>
+  <meta charset='utf-8'/>
+  <meta name='description' content='Documentation website'/>
+  <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'/>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+  <link href='assets.css' rel='stylesheet' type='text/css'>
+</head>
+<body>  
+  <nav id='sidebar'>
+	<h1>Project.js API Documentation</h1>
+<ul id='links'>
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+  
+  <li><h2>Authentication</h2>
+    <ul>
+    
+              
+        <li class=''><a href='#'></a></li>
+      
+    
+              
+        <li class=''><a href='#cookie-auth'>Authenticating</a></li>
+              
+        <li class='POST'><a href='#logging-in'>Logging in</a></li>
+              
+        <li class='GET'><a href='#get-login'>Get login</a></li>
+              
+        <li class='GET'><a href='#logout'>Logout</a></li>
+      
+    
+    </ul>
+  </li>
+
+  <li><h2>Users</h2>
+    <ul>
+    
+              
+        <li class=''><a href='#'></a></li>
+      
+    
+              
+        <li class=''><a href='#user-obj'>User object</a></li>
+              
+        <li class='GET'><a href='#get-users'>Get users</a></li>
+              
+        <li class='POST'><a href='#create-a-user'>Create a user</a></li>
+              
+        <li class='GET'><a href='#get-a-user'>Get a specific user</a></li>
+              
+        <li class='POST'><a href='#update-a-user'>Update a specific user</a></li>
+      
+    
+    </ul>
+  </li>
+
+  <li><h2>Roles</h2>
+    <ul>
+    
+              
+        <li class=''><a href='#'></a></li>
+      
+    
+              
+        <li class=''><a href='#role-obj'>Role object</a></li>
+              
+        <li class='GET'><a href='#get-roles'>Get roles</a></li>
+              
+        <li class='POST'><a href='#create-a-role'>Create a role</a></li>
+              
+        <li class='GET'><a href='#get-a-role'>Get a specific role</a></li>
+              
+        <li class='PUT'><a href='#update-a-role'>Update a specific role</a></li>
+              
+        <li class='POST'><a href='#add-permissions-to-role'>Add permissions a specific role</a></li>
+              
+        <li class='DELETE'><a href='#delete-role'>Delete role or permissions</a></li>
+      
+    
+    </ul>
+  </li>
+
+  <li><h2>Projects</h2>
+    <ul>
+    
+              
+        <li class=''><a href='#'></a></li>
+      
+    
+              
+        <li class=''><a href='#project-obj'>Project object</a></li>
+              
+        <li class='GET'><a href='#get-projects'>Get projects</a></li>
+              
+        <li class='POST'><a href='#create-a-project'>Create a project</a></li>
+              
+        <li class='GET'><a href='#get-a-project'>Get a specific project</a></li>
+              
+        <li class='POST'><a href='#update-a-project'>Update a specific project</a></li>
+              
+        <li class='POST'><a href='#open-project'>Open a specific project</a></li>
+              
+        <li class='POST'><a href='#close-project'>Close a specific project</a></li>
+      
+    
+    </ul>
+  </li>
+
+  <li><h2>Milestones</h2>
+    <ul>
+    
+              
+        <li class=''><a href='#'></a></li>
+      
+    
+              
+        <li class=''><a href='#milestone-obj'>Milestone object</a></li>
+              
+        <li class='GET'><a href='#get-milestones'>Get project milestones</a></li>
+              
+        <li class='POST'><a href='#create-a-milestone'>Create a project milestone</a></li>
+              
+        <li class='GET'><a href='#get-a-milestone'>Get a specific project milestone</a></li>
+              
+        <li class='POST'><a href='#update-a-milestone'>Update a project milestone</a></li>
+      
+    
+    </ul>
+  </li>
+
+  <li><h2>Project Users</h2>
+    <ul>
+    
+              
+        <li class=''><a href='#'></a></li>
+      
+    
+              
+        <li class=''><a href='#project-user-obj'>Project User object</a></li>
+              
+        <li class='GET'><a href='#get-project-users'>Get project users</a></li>
+              
+        <li class='POST'><a href='#create-a-project-user'>Add user to project</a></li>
+              
+        <li class='POST'><a href='#update-a-project-user'>Update a user role in project</a></li>
+              
+        <li class='DELETE'><a href='#delete-a-project-user'>Remove a user from project</a></li>
+      
+    
+    </ul>
+  </li>
+
+  <li><h2>Work Breakdown Structure</h2>
+    <ul>
+    
+              
+        <li class=''><a href='#'></a></li>
+      
+    
+              
+        <li class=''><a href='#wbs-obj'>Work Breakdown Structure Item object</a></li>
+              
+        <li class='GET'><a href='#get-wbs'>Get the project work breakdown structure</a></li>
+              
+        <li class='DELETE'><a href='#delete-wbs'>Delete project work breakdown structure</a></li>
+              
+        <li class='POST'><a href='#create-or-update-parent-wbs-item'>Create or update project work breakdown structure item</a></li>
+              
+        <li class='GET'><a href='#get-specific-wbs'>Get a specific work breakdown structure item</a></li>
+              
+        <li class='POST'><a href='#move-wbs-item'>Move a work breakdown structure item</a></li>
+              
+        <li class='POST'><a href='#add-new-child-wbs'>Add a new child work breakdown structure item</a></li>
+              
+        <li class='POST'><a href='#delete-wbs-item'>Delete a work breakdown structure item</a></li>
+              
+        <li class='POST'><a href='#update-wbs-item'>Update a work breakdown structure item</a></li>
+      
+    
+    </ul>
+  </li>
+
+  <li><h2>Work Items</h2>
+    <ul>
+    
+              
+        <li class=''><a href='#'></a></li>
+      
+    
+              
+        <li class=''><a href='#workpackage-obj'>Work Item object</a></li>
+              
+        <li class=''><a href='#workitem-obj'>Work Item object</a></li>
+              
+        <li class='GET'><a href='#get-workitems'>Get work items</a></li>
+              
+        <li class='POST'><a href='#create-workitem'>Create work item</a></li>
+              
+        <li class='POST'><a href='#update-workitem'>Update work item</a></li>
+              
+        <li class='GET'><a href='#get-a-workitem'>Get a work item</a></li>
+      
+    
+    </ul>
+  </li>
+
+  <li><h2>Work Packages</h2>
+    <ul>
+    
+              
+        <li class=''><a href='#'></a></li>
+      
+    
+              
+        <li class='GET'><a href='#get-workpackages'>Get work packages</a></li>
+              
+        <li class='POST'><a href='#create-workpackage'>Create work package</a></li>
+              
+        <li class='POST'><a href='#update-workpackage'>Update work package</a></li>
+              
+        <li class='GET'><a href='#get-a-workpackage'>Get a work package</a></li>
+      
+    
+    </ul>
+  </li>
+
+</ul>
+</nav>
+
+<section id='content'>
+
+  <article class='GET'>
+    <a name='get-workpackages' href='#get-workpackages'><h2><code><b>GET</b> /projects/:project/workpackages</code> Get work packages</h2></a>
+    <section class='body'>
+      <p>This method returns all work packages within the specified project.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work package belongs to.</li>
+
+<li>If the query contains <code>list</code>, then only the work package titles are returned.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns an array of <code>WorkPackage</code> objects.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='create-workpackage' href='#create-workpackage'><h2><code><b>POST</b> /projects/:project/workpackages</code> Create work package</h2></a>
+    <section class='body'>
+      <p>This method creates a new <code>WorkPackage</code> and adds it to the project&#8217;s work package list.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work package belongs to.</li>
+</ul>
+
+<p><code>{
+  title: &#39;Create rocket jets&#39;,
+  description: &#39;Tasks required to create a rocket jet&#39;,
+  timeEstimate: &lt;Int&gt; || 0,
+  status: &#39;open&#39; || &#39;closed&#39; || &#39;late&#39; || &#39;deleted&#39;,
+  priority: &#39;low&#39; || &#39;medium&#39; || &#39;high&#39; || &#39;urgent&#39;,
+  dependencies: [&lt;WorkPackage&gt;&gt;._id]
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the new <code>WorkPackage</code> object.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: Required data not provided.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error saving the project.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class=''>
+    <a name='workpackage-obj' href='#workpackage-obj'><h2>Work Item object</h2></a>
+    <section class='body'>
+      <p>The Work Item object has the following properties:</p>
+
+<p><code>{
+  title: { type: String, required: true, unique: true, trim: true, sparse: true },
+  description: { type: String, trim: true },
+  priority: { type: String, trim: true },
+  timeEstimate: { type: Number, min: 0, default: 0 },
+  timeSpent: { type: Number, min: 0, default: 0 },
+  completionPercentage: { type: Number, min: 0, max: 100, default: 0 },
+  status: { type: String, trim: true, default: &#39;open&#39; },
+  dependencies: [{ type: ObjectId }],
+  lastModifiedDate: { type: Date, default: Date.now },
+  lastModifiedBy: { type: ObjectId, ref: &#39;User&#39; }
+}</code></p>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='update-workpackage' href='#update-workpackage'><h2><code><b>POST</b> /projects/:project/workpackages/:workpackage</code> Update work package</h2></a>
+    <section class='body'>
+      <p>This method updates the specified <code>WorkPackage</code>.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work package belongs to.</li>
+
+<li><strong>:workpackage</strong>: The ID of the work package one wishes to update.</li>
+</ul>
+
+<p><code>{
+  title: &#39;Buy rocket parts&#39;,
+  description: &#39;Buy rocket parts at Home Depot&#39;,
+  timeEstimate: &lt;Int&gt;
+  status: &#39;open&#39; || &#39;closed&#39; || &#39;late&#39; || &#39;deleted&#39;,
+  priority: &#39;low&#39; || &#39;medium&#39; || &#39;high&#39; || &#39;urgent&#39;,
+  dependencies: [&lt;WorkItem&gt;._id],
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the updated <code>WorkPackage</code> object.</li>
+
+<li>500 Internal Server Error: <code>Project</code> not found.</li>
+
+<li>500 Internal Server Error: <code>WorkPackage</code> not found.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error saving the project.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='GET'>
+    <a name='get-a-workpackage' href='#get-a-workpackage'><h2><code><b>GET</b> /projects/:project/workpackages/:workpackage</code> Get a work package</h2></a>
+    <section class='body'>
+      <p>This method returns the specified <code>WorkPackage</code>.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work package belongs to.</li>
+
+<li><strong>:workpackage</strong>: The ID of the work package one wishes to retrieve..</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the updated <code>WorkPackage</code> object.</li>
+
+<li>500 Internal Server Error: <code>Project</code> not found.</li>
+
+<li>500 Internal Server Error: <code>WorkPackage</code> not found.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class=''>
+    <a name='workitem-obj' href='#workitem-obj'><h2>Work Item object</h2></a>
+    <section class='body'>
+      <p>The Work Item object has the following properties:</p>
+
+<p><code>{
+  title: { type: String, required: true, unique: true, trim: true, sparse: true },
+  description: { type: String, trim: true },
+  workPackages: [{ type: ObjectId }],
+  assignedUsers: [{ type: ObjectId, ref: &#39;User&#39; }],
+  dependencies: [{ type: ObjectId }],
+  startDate: { type: Date, required: true },
+  timeEstimate: { type: Number, min: 0, default: 0 },
+  timeSpent: { type: Number, min: 0, default: 0, min: 0 },
+  ownCompletionPercentage: { type: Number, min: 0, max: 100, default: 0 },
+  completionPercentage: { type: Number, min: 0, max: 100, default: 0 },
+  status: { type: String, trim: true, default: &#39;open&#39; },
+  comments: [Comment],
+  lastModifiedDate: { type: Date, default: Date.now },
+  lastModifiedBy: { type: ObjectId, ref: &#39;User&#39; }
+}</code></p>
+    </section>
+  </article>
+
+  <article class='GET'>
+    <a name='get-workitems' href='#get-workitems'><h2><code><b>GET</b> /projects/:project/workitems</code> Get work items</h2></a>
+    <section class='body'>
+      <p>This method returns all work items within the specified project.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work item belongs to.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns an array of <code>WorkItem</code> objects.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='create-workitem' href='#create-workitem'><h2><code><b>POST</b> /projects/:project/workitems</code> Create work item</h2></a>
+    <section class='body'>
+      <p>This method creates a new <code>WorkItem</code> and adds it to the project&#8217;s work item list.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work breakdown structure belongs to.</li>
+</ul>
+
+<p><code>{
+  title: &#39;Buy rocket parts&#39;,
+  description: &#39;Buy rocket parts at Home Depot&#39;,
+  timeEstimate: &lt;Int&gt; || 0,
+  timeSpent: &lt;Int&gt; || 0,
+  status: &#39;open&#39; || &#39;closed&#39; || &#39;late&#39; || &#39;deleted&#39;,
+  ownCompletionPercentage: &lt;Int&gt; || 0
+  dependencies: [&lt;WorkItem&gt;._id],
+  workPackages: [&lt;WorkPackage&gt;._id],
+  assignedUsers: [&lt;User&gt;._id],
+  comments: [&lt;Comment&gt;._id]
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the new <code>WorkItem</code> object.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: Required data not provided.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error saving the project.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='update-workitem' href='#update-workitem'><h2><code><b>POST</b> /projects/:project/workitems/:workitem</code> Update work item</h2></a>
+    <section class='body'>
+      <p>This method creates a new <code>WorkItem</code> and adds it to the project&#8217;s work item list.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work item belongs to.</li>
+
+<li><strong>:workitem</strong>: The ID of the work item one wishes to update.</li>
+</ul>
+
+<p><code>{
+  title: &#39;Buy rocket parts&#39;,
+  description: &#39;Buy rocket parts at Home Depot&#39;,
+  timeEstimate: &lt;Int&gt;
+  timeSpent: &lt;Int&gt;
+  status: &#39;open&#39; || &#39;closed&#39; || &#39;late&#39; || &#39;deleted&#39;,
+  ownCompletionPercentage: &lt;Int&gt;
+  dependencies: [&lt;WorkItem&gt;._id],
+  workPackages: [&lt;WorkPackage&gt;._id],
+  assignedUsers: [&lt;User&gt;._id],
+  comments: [&lt;Comment&gt;._id]
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the updated <code>WorkItem</code> object.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: Required data not provided.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error saving the project.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='GET'>
+    <a name='get-a-workitem' href='#get-a-workitem'><h2><code><b>GET</b> /projects/:project/workitems/:workitem</code> Get a work item</h2></a>
+    <section class='body'>
+      <p>This method returns the specified work item.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work item belongs to.</li>
+
+<li><strong>:workitem</strong>: The ID of the work item one wishes to retrieve..</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the requested <code>WorkItem</code> object.</li>
+
+<li>500 Internal Server Error: <code>Project</code> not found.</li>
+
+<li>500 Internal Server Error: <code>WorkItem</code> not found.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class=''>
+    <a name='wbs-obj' href='#wbs-obj'><h2>Work Breakdown Structure Item object</h2></a>
+    <section class='body'>
+      <p>The Work Breakdown Structure Iterm object has the following properties:</p>
+
+<p><code>{
+  title: { type: String, trim: true, sparse: true },
+  description: { type: String, trim: true },
+  children: [{ type: ObjectId }],
+  status: { type: String, trim: true, default: &#39;open&#39; },
+  lastModifiedDate: { type: Date, default: Date.now },
+  lastModifiedBy: { type: ObjectId, ref: &#39;User&#39; }
+}</code></p>
+
+<p>The Work Breakdown Structure object has the following properties:</p>
+
+<p><code>{
+  items: [{ type: ObjectId }],
+  lastModifiedDate: { type: Date, default: Date.now },
+  lastModifiedBy: { type: ObjectId, ref: &#39;User&#39; }
+}</code></p>
+    </section>
+  </article>
+
+  <article class='GET'>
+    <a name='get-wbs' href='#get-wbs'><h2><code><b>GET</b> /projects/:project/workbreakdown</code> Get the project work breakdown structure</h2></a>
+    <section class='body'>
+      <p>This method returns a flat array of all work breakdown structure items in the project.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work breakdown structure belongs to.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns an array of <code>WorkBreakdownItem</code> objects.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='DELETE'>
+    <a name='delete-wbs' href='#delete-wbs'><h2><code><b>DELETE</b> /projects/:project/workbreakdown</code> Delete project work breakdown structure</h2></a>
+    <section class='body'>
+      <p>This method removes the specified work breakdown structure item from the specified project. Removes any child work breakdown items as well.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work breakdown structure belongs to.</li>
+</ul>
+
+<p><code>{
+  query: &lt;WorkBreakdownItem&gt;._id
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns an array of <code>WorkBreakdownItem</code> objects.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error saving the project.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='create-or-update-parent-wbs-item' href='#create-or-update-parent-wbs-item'><h2><code><b>POST</b> /projects/:project/workbreakdown</code> Create or update project work breakdown structure item</h2></a>
+    <section class='body'>
+      <p>This method will create a work breakdown structure in the project. If an <code>_id</code> is specified for an existing <code>WorkBreakdownItem</code>, that item is updated.</p>
+
+<p>One can include an array of <code>WorkBreakdownItem</code> IDs to add as children to the created or updated <code>WorkBreakdownItem</code>.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work breakdown structure belongs to.</li>
+</ul>
+
+<p><code>{
+  [_id: &lt;WorkBreakdownItem&gt;._id, ]
+  title: &quot;Conquer the world&quot;,
+  description: &quot;Outline for my plan to take over the world.&quot;,
+  [ children: [&lt;WorkBreakdownItem&gt;._id] ]
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns an array of <code>WorkBreakdownItem</code> objects.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error saving the project.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='GET'>
+    <a name='get-specific-wbs' href='#get-specific-wbs'><h2><code><b>GET</b> /projects/:project/workbreakdown/:workbreakdownitem</code> Get a specific work breakdown structure item</h2></a>
+    <section class='body'>
+      <p>This method will return a specific work breakdown item structure in the specified project.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work breakdown structure belongs to.</li>
+
+<li><strong>:workbreakdownitem</strong>: The ID of the work breakdown structure item requested.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the requested <code>WorkBreakdownItem</code> object.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: WorkBreakdownItem not found.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='move-wbs-item' href='#move-wbs-item'><h2><code><b>POST</b> /projects/:project/workbreakdown/move</code> Move a work breakdown structure item</h2></a>
+    <section class='body'>
+      <p>This method will move the specified <code>WorkBreakdownItem</code> around in the flat work breakdkown structure.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work breakdown structure belongs to.</li>
+</ul>
+
+<p><code>{
+  source: &lt;WorkBreakdownItem&gt;._id,
+  appendAfter: &lt;WorkBreakdownItem&gt;._id
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the newly arranged work breakdown structure.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: Required data not provided.</li>
+
+<li>500 Internal Server Error: Could not find specified WorkBreakdownItems.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='add-new-child-wbs' href='#add-new-child-wbs'><h2><code><b>POST</b> /projects/:project/workbreakdown/:workbreakdownitem</code> Add a new child work breakdown structure item</h2></a>
+    <section class='body'>
+      <p>This method will add any <code>WorkBreakdownItem</code> IDs sent in the request as children to the specified <code>WorkBreakdownItem</code>.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work breakdown structure belongs to.</li>
+
+<li><strong>:workbreakdownitem</strong>: The ID of the work breakdown structure item requested.</li>
+</ul>
+
+<p><code>{
+  children: [&lt;WorkBreakdownItem&gt;._id]
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the updated <code>WorkBreakdownItem</code>.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: WorkBreakdownItem not found.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='delete-wbs-item' href='#delete-wbs-item'><h2><code><b>POST</b> /projects/:project/workbreakdown/:workbreakdownitem</code> Delete a work breakdown structure item</h2></a>
+    <section class='body'>
+      <p>This method will remove the specified <code>WorkBreakdownItem</code> and any children that may belong to it.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work breakdown structure belongs to.</li>
+
+<li><strong>:workbreakdownitem</strong>: The ID of the work breakdown structure item requested.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the removed <code>WorkBreakdownItem</code>.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: WorkBreakdownItem not found.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='update-wbs-item' href='#update-wbs-item'><h2><code><b>POST</b> /projects/:project/workbreakdown/:workbreakdownitem</code> Update a work breakdown structure item</h2></a>
+    <section class='body'>
+      <p>This method will update the specified <code>WorkBreakdownItem</code>.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work breakdown structure belongs to.</li>
+
+<li><strong>:workbreakdownitem</strong>: The ID of the work breakdown structure item requested.</li>
+</ul>
+
+<p><code>{
+  title: &quot;Conquer the world&quot;,
+  description: &quot;Outline for my plan to take over the world.&quot;,
+  status: &#39;open&#39; | &#39;closed&#39; | &#39;late&#39; | &#39;deleted&#39;
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the updated <code>WorkBreakdownItem</code>.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: WorkBreakdownItem not found.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error saving the project.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class=''>
+    <a name='project-user-obj' href='#project-user-obj'><h2>Project User object</h2></a>
+    <section class='body'>
+      <p>The Project User object has the following properties:</p>
+
+<p><code>{
+  user: { type: ObjectId, ref: &#39;User&#39;},
+  role: { type: ObjectId, ref: &#39;Role&#39;}
+}</code></p>
+    </section>
+  </article>
+
+  <article class='GET'>
+    <a name='get-project-users' href='#get-project-users'><h2><code><b>GET</b> /projects/:project/users</code> Get project users</h2></a>
+    <section class='body'>
+      <p>This method returns all users that belong to a specified project.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the milestone belongs to.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns an array of <code>User</code> objects.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='create-a-project-user' href='#create-a-project-user'><h2><code><b>POST</b> /projects/:project/users</code> Add user to project</h2></a>
+    <section class='body'>
+      <p>This method allows one to add a user to the specified project.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the project user belongs to.</li>
+</ul>
+
+<p><code>{
+  userId: &lt;User&gt;._id,
+  roleId: &lt;Role&gt;._id
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: User added to project, <code>User</code> object returned.</li>
+
+<li>500 Internal Server Error: Required data not specified.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error while saving.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='update-a-project-user' href='#update-a-project-user'><h2><code><b>POST</b> /projects/:project/users/:projectUser</code> Update a user role in project</h2></a>
+    <section class='body'>
+      <p>This method allows one to update a specific user within the specified project.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the project user belongs to.</li>
+
+<li><strong>:projectUser</strong>: The ID of the user which one wishes to update.</li>
+</ul>
+
+<p><code>
+{
+  roleId: &lt;Role&gt;_id
+}
+</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the updated <code>User</code> object.</li>
+
+<li>500 Internal Server Error: Failed to find project.</li>
+
+<li>500 Internal Server Error: Failed to find user.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error updating the user.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='DELETE'>
+    <a name='delete-a-project-user' href='#delete-a-project-user'><h2><code><b>DELETE</b> /projects/:project/users/:projectUser</code> Remove a user from project</h2></a>
+    <section class='body'>
+      <p>This method allows one to remove a user from a project.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the project user belongs to.</li>
+
+<li><strong>:projectUser</strong>: The ID of the user which one wishes to update.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the removed <code>User</code> object.</li>
+
+<li>500 Internal Server Error: Failed to find user in project.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error updating the project.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class=''>
+    <a name='milestone-obj' href='#milestone-obj'><h2>Milestone object</h2></a>
+    <section class='body'>
+      <p>The Milestone object has the following properties:</p>
+
+<p><code>{
+  title: { type: String, required: true, unique: true },
+  description: { type: String, trim: true },
+  dueDate: { type: Date },
+  priority: { type: String, trim: true },
+  completionPercentage: { type: Number, min: 0, max: 100, default: 0 },
+  status: { type: String, trim: true, default: &#39;open&#39; },
+  wpDependencies: [Completion],
+  msDependencies: [{ type: ObjectId }],
+  lastModifiedDate: {type: Date, default: Date.now },
+  lastModifiedBy: { type: ObjectId, ref: &#39;User&#39; }
+}</code></p>
+    </section>
+  </article>
+
+  <article class='GET'>
+    <a name='get-milestones' href='#get-milestones'><h2><code><b>GET</b> /project/:project/milestones</code> Get project milestones</h2></a>
+    <section class='body'>
+      <p>This method returns all milestones in the specified project.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li>If the query contains list, only milestone titles are returned.</li>
+
+<li><strong>:project</strong>: The ID of the project which the milestone belongs to.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns an array of <code>Milestone</code> objects belonging to the specified project.</li>
+
+<li>500 Internal Server Error: Milestone not found.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='create-a-milestone' href='#create-a-milestone'><h2><code><b>POST</b> /project/:project/milestones</code> Create a project milestone</h2></a>
+    <section class='body'>
+      <p>This method allows one to create a new project milestone.</p>
+
+<h3 id='request'>Request</h3>
+
+<p><code>{
+  title: &#39;Complete jetpack designs&#39;,
+  description: &#39;Need to complete blueprints for my rocket pack!&#39;[,
+  dueDate: &lt;Date&gt;,
+  wpDependencies: &lt;WorkPackage&gt; | &lt;WorkPackage&gt;._id
+  msDependencies: &lt;Milestone&gt; | &lt;Milestone&gt;._id ]
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Milestone added to project, <code>Milestone</code> object returned.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error while saving.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='GET'>
+    <a name='get-a-milestone' href='#get-a-milestone'><h2><code><b>GET</b> /project/:project/milestones/:milestone</code> Get a specific project milestone</h2></a>
+    <section class='body'>
+      <p>This method returns the specified project milestone.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the milestone belongs to.</li>
+
+<li><strong>:milestone</strong>: The requested milestone&#8217;s ID.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the requested <code>Milestone</code> object.</li>
+
+<li>500 Internal Server Error: Failed to find project.</li>
+
+<li>500 Internal Server Error: Failed to find milestone.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='update-a-milestone' href='#update-a-milestone'><h2><code><b>POST</b> /project/:project/milestones/:milestone</code> Update a project milestone</h2></a>
+    <section class='body'>
+      <p>This method allows one to update a project milestone.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the milestone belongs to.</li>
+
+<li><strong>:milestone</strong>: The requested milestone&#8217;s ID.</li>
+</ul>
+
+<p><code>{
+  title: &#39;Complete jetpack designs&#39;,
+  description: &#39;Need to complete blueprints for my rocket pack!&#39;[,
+  dueDate: &lt;Date&gt;,
+  status: &#39;open&#39; | &#39;late&#39; | &#39;closed&#39; | &#39;deleted&#39;,
+  priority: &#39;low&#39; | &#39;medium&#39; | &#39;high&#39; | &#39;urgent&#39;,
+  wpDependencies: &lt;WorkPackage&gt; | &lt;WorkPackage&gt;._id
+  msDependencies: &lt;Milestone&gt; | &lt;Milestone&gt;._id ]
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Milestone updated, <code>Milestone</code> object returned.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: Milestone not found.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error while saving.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class=''>
+    <a name='project-obj' href='#project-obj'><h2>Project object</h2></a>
+    <section class='body'>
+      <p>The Project object has the following properties:</p>
+
+<p><code>{
+  title: { type: String, required: true },
+  description: { type: String, trim: true },
+  clientName: { type: String, trim: true },
+  projectDueDate: { type: Date },
+  completionPercentage: { type: Number, min: 0, max: 100, default: 0 },
+  status: { type: String, trim: true, default: &#39;open&#39; },
+  dateCreated: { type: Date, default: Date.now },
+  lastModifiedDate: { type: Date, default: Date.now },
+  dateCompleted: { type: Date },
+  projectUsers: [ProjectUser],
+  workBreakdownStructure: [WorkBreakdownItem],
+  milestones: [Milestone],
+  workPackages: [WorkPackage],
+  workItems: [WorkItem]
+}</code></p>
+    </section>
+  </article>
+
+  <article class='GET'>
+    <a name='get-projects' href='#get-projects'><h2><code><b>GET</b> /projects</code> Get projects</h2></a>
+    <section class='body'>
+      <p>This method returns all projects.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li>If the query contains <code>list</code>, only project titles are returned.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns an array of <code>Project</code> objects.</li>
+
+<li>500 Internal Server Error: Mongoose returned an error.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='create-a-project' href='#create-a-project'><h2><code><b>POST</b> /projects</code> Create a project</h2></a>
+    <section class='body'>
+      <p>This method allows one to create a new project.</p>
+
+<h3 id='request'>Request</h3>
+
+<p><code>{
+  title: &#39;My Project&#39;,
+  description: &#39;This is a description.&#39;,
+  clientName: &#39;John McGurk&#39;,
+  [ projectDueDate: &lt;Date&gt;, ]
+  status: &#39;open&#39; | &#39;closed&#39; | &#39;late&#39; | &#39;deleted&#39;
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Project created, <code>Project</code> object returned.</li>
+
+<li>500 Internal Server Error: Missing required data.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error while saving.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='GET'>
+    <a name='get-a-project' href='#get-a-project'><h2><code><b>GET</b> /projects/:project</code> Get a specific project</h2></a>
+    <section class='body'>
+      <p>This method returns the specificied project.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The requested project&#8217;s ID.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the requested <code>Project</code> object.</li>
+
+<li>500 Internal Server Error: Failed to find project.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='update-a-project' href='#update-a-project'><h2><code><b>POST</b> /project/:project</code> Update a specific project</h2></a>
+    <section class='body'>
+      <p>This method allows one to update a project&#8217;s information.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li>All of the following are optional</li>
+</ul>
+
+<p><code>
+{
+  title: &#39;My new project title&#39;
+  description: &#39;This is a new description.&#39;,
+  clientName: &#39;Brenden Small&#39;,
+  projectDueDate: &lt;Date&gt;,
+  completionPercentage: 42,
+  status: &#39;open&#39; | &#39;closed&#39; | &#39;late&#39; | &#39;deleted&#39;
+}
+</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the updated <code>Project</code> object.</li>
+
+<li>500 Internal Server Error: Failed to find project.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error updating the project.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='open-project' href='#open-project'><h2><code><b>POST</b> /projects/:project/open</code> Open a specific project</h2></a>
+    <section class='body'>
+      <p>This method opens the specificied project.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The requested project&#8217;s ID.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the opened <code>Project</code> object.</li>
+
+<li>500 Internal Server Error: Failed to find project.</li>
+
+<li>500 Internal Server Error: Failed to save project.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='close-project' href='#close-project'><h2><code><b>POST</b> /projects/:project/close</code> Close a specific project</h2></a>
+    <section class='body'>
+      <p>This method closes the specificied project.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The requested project&#8217;s ID.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the closed <code>Project</code> object.</li>
+
+<li>500 Internal Server Error: Failed to find project.</li>
+
+<li>500 Internal Server Error: Failed to save project.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class=''>
+    <a name='role-obj' href='#role-obj'><h2>Role object</h2></a>
+    <section class='body'>
+      <p>The Role object has the following properties:</p>
+
+<p><code>{
+  title: { type: String, required: true, unique: true, trim: true, sparse: true },
+  permissions: [{ type: String, required: true, trim: true }]
+}</code></p>
+    </section>
+  </article>
+
+  <article class='GET'>
+    <a name='get-roles' href='#get-roles'><h2><code><b>GET</b> /roles</code> Get roles</h2></a>
+    <section class='body'>
+      <p>This method returns all user roles.</p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns an array of <code>Role</code> objects.</li>
+
+<li>500 Internal Server Error: Mongoose returned an error.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='create-a-role' href='#create-a-role'><h2><code><b>POST</b> /roles</code> Create a role</h2></a>
+    <section class='body'>
+      <p>This method allows one to create a new role. Optionally, permissions can be included to add to the newly created role.</p>
+
+<h3 id='request'>Request</h3>
+
+<p><code>{
+  title: &#39;My Role&#39;[,
+  permissions: [Permission] ]
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Role created, <code>Role</code> object returned.</li>
+
+<li>500 Internal Server Error: Title not specified.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error while saving.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='GET'>
+    <a name='get-a-role' href='#get-a-role'><h2><code><b>GET</b> /roles/:role</code> Get a specific role</h2></a>
+    <section class='body'>
+      <p>This method returns the specificied role.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:role</strong>: The requested role&#8217;s ID.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the requested <code>Role</code> object.</li>
+
+<li>500 Internal Server Error: Failed to find role.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='PUT'>
+    <a name='update-a-role' href='#update-a-role'><h2><code><b>PUT</b> /roles/:role</code> Update a specific role</h2></a>
+    <section class='body'>
+      <p>This method allows one to update a role&#8217;s information.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li>All of the following are optional (but as there is only one parameter here, not sending it would make this pointless!)</li>
+</ul>
+
+<p><code>
+{
+  title: &#39;My new role title&#39;
+}
+</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the updated <code>Role</code> object.</li>
+
+<li>500 Internal Server Error: Failed to find role.</li>
+
+<li>500 Internal Server Error: Did not send the required parameters</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error updating the user.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='add-permissions-to-role' href='#add-permissions-to-role'><h2><code><b>POST</b> /roles/:role</code> Add permissions a specific role</h2></a>
+    <section class='body'>
+      <p>This method allows one add permissions to a specific role.</p>
+
+<h3 id='request'>Request</h3>
+
+<p><code>
+{
+  [Permission]
+}
+</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the updated <code>Role</code> object.</li>
+
+<li>500 Internal Server Error: Failed to find role.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error updating the user.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='DELETE'>
+    <a name='delete-role' href='#delete-role'><h2><code><b>DELETE</b> /roles/:role</code> Delete role or permissions</h2></a>
+    <section class='body'>
+      <p>This method allows one to delete a role. If the request body contains a <code>permissons</code> array of <code>Permission</code> object IDs, only the sent permissions will be deleted.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li>The following is optional</li>
+</ul>
+
+<p><code>
+{
+  [&quot;permissionID&quot;]
+}
+</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the updated <code>Role</code> object if only permissions deleted.</li>
+
+<li>200 OK: Returns an empty body if the entire role is deleted.</li>
+
+<li>500 Internal Server Error: Failed to find role.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error updating the role.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error deleting the user.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class=''>
+    <a name='user-obj' href='#user-obj'><h2>User object</h2></a>
+    <section class='body'>
+      <p>The User object has the following properties:</p>
+
+<p><code>{
+  firstName: { type: String, required: true, trim: true },
+  lastName: { type: String, required: true, trim: true },
+  email: { type: String, required: true, unique: true },
+  resetMode: { type: Boolean, default: false },
+  siteAdmin: { type: Boolean, default: false },
+  registrationDate: { type: Date, default: Date.now },
+  currentProject: { type: Schema.Types.ObjectId, ref: &#39;Project&#39; },
+  lastModifiedProject: { type: Schema.Types.ObjectId, ref: &#39;Project&#39; } 
+}</code></p>
+    </section>
+  </article>
+
+  <article class='GET'>
+    <a name='get-users' href='#get-users'><h2><code><b>GET</b> /users</code> Get users</h2></a>
+    <section class='body'>
+      <p>This method returns all users.</p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns an array of <code>User</code> objects.</li>
+
+<li>500 Internal Server Error: Mongoose returned an error.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='create-a-user' href='#create-a-user'><h2><code><b>POST</b> /users</code> Create a user</h2></a>
+    <section class='body'>
+      <p>This method allows one to create a new user.</p>
+
+<h3 id='request'>Request</h3>
+
+<p><code>{
+  username: &#39;lawman&#39;,
+  firstName: &#39;Bob&#39;,
+  lastName: &#39;Loblaw&#39;,
+  email: &#39;bob@loblaw.com&#39;,
+  password: &lt;password&gt; [,
+  siteAdmin: true|false ]
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: User created, <code>User</code> object returned.</li>
+
+<li>500 Internal Server Error: Required data not specified.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error while saving.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='GET'>
+    <a name='get-a-user' href='#get-a-user'><h2><code><b>GET</b> /users/:user</code> Get a specific user</h2></a>
+    <section class='body'>
+      <p>This method returns the specific user.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:user</strong>: The requested user&#8217;s ID.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the requested <code>User</code> object.</li>
+
+<li>500 Internal Server Error: Failed to find user.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='update-a-user' href='#update-a-user'><h2><code><b>POST</b> /users/:user</code> Update a specific user</h2></a>
+    <section class='body'>
+      <p>This method allows one to update a user&#8217;s information.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li>All of the following are optional</li>
+</ul>
+
+<p><code>
+{
+  firstName: &#39;Bob&#39;,
+  lastName: &#39;Loblaw&#39;,
+  email: &#39;bob@loblaw.com&#39;,
+  password: &lt;password&gt;,
+  siteAdmin: true|false
+}
+</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the updated <code>User</code> object.</li>
+
+<li>500 Internal Server Error: Failed to find user.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error updating the user.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class=''>
+    <a name='cookie-auth' href='#cookie-auth'><h2>Authenticating</h2></a>
+    <section class='body'>
+      <p>Project.js uses cookie-based authentication sessions. When a user does a POST request against the /login route, a cookie is generated with a sessionID. This cookie will be named connect.sid. The value of this cookie is the session ID. When a request is made, the sessionID in the cookie is compared against the sessionID on the server in order to authenticate that the session is valid.</p>
+    </section>
+  </article>
+
+  <article class='POST'>
+    <a name='logging-in' href='#logging-in'><h2><code><b>POST</b> /login</code> Logging in</h2></a>
+    <section class='body'>
+      <p>This method allows a user to log in.</p>
+
+<h3 id='request'>Request</h3>
+
+<p><code>{
+  username: &#39;myUser&#39;,
+  password: &#39;password&#39;
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Login accepted, session cookie generated.</li>
+
+<li>401 Unauthorized: Bad username and/or password.</li>
+</ul>
+    </section>
+  </article>
+
+  <article class='GET'>
+    <a name='get-login' href='#get-login'><h2><code><b>GET</b> /login</code> Get login</h2></a>
+    <section class='body'>
+      <p>This method attempts to verify that a user is logged in by checking for a valid session.</p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Session valid</li>
+</ul>
+
+<p><code>{
+  &quot;salt&quot;: &quot;&lt;user password salt&gt;&quot;,
+  &quot;hash&quot;: &quot;&lt;user password hash&gt;&quot;,
+  &quot;_id&quot;: &quot;5161b5283d993dd80d000009&quot;,
+  &quot;username&quot;: &quot;dale&quot;,
+  &quot;firstName&quot;: &quot;Dale&quot;,
+  &quot;lastName&quot;: &quot;Karp&quot;,
+  &quot;email&quot;: &quot;me@dale.io&quot;,
+  &quot;__v&quot;: 0,
+  &quot;registrationDate&quot;: &quot;2013-04-07T18:04:24.559Z&quot;,
+  &quot;siteAdmin&quot;: true,
+  &quot;resetMode&quot;: false
+}</code></p>
+
+<ul>
+<li>200 OK: Session not found</li>
+</ul>
+
+<p><code>{
+  null
+}</code></p>
+    </section>
+  </article>
+
+  <article class='GET'>
+    <a name='logout' href='#logout'><h2><code><b>GET</b> /logout</code> Logout</h2></a>
+    <section class='body'>
+      <p>This method deletes the user&#8217;s session.</p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK</li>
+</ul>
+
+<p><code>{
+  null
+}</code></p>
+    </section>
+  </article>
+
+</section>
+  
+  <!--[if lt IE 9]><script src='http://html5shim.googlecode.com/svn/trunk/html5.js'></script><![endif]-->
+  <script src='assets.js' type='text/javascript'></script>
+  <script>require('boot');</script>
+</body>
+</html>

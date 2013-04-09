@@ -1,0 +1,22 @@
+<p>This method allows one to add a user to the specified project.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the project user belongs to.</li>
+</ul>
+
+<p><code>{
+  userId: &lt;User&gt;._id,
+  roleId: &lt;Role&gt;._id
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: User added to project, <code>User</code> object returned.</li>
+
+<li>500 Internal Server Error: Required data not specified.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error while saving.</li>
+</ul>
