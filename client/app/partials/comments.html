@@ -1,3 +1,21 @@
+<div ng-show="workItem.comments.length != 0">
+  <h5>Comments</h5>
+  <div class="comments" ng-repeat="comment in workItem.comments">
+    <table class="comment table table-condensed table-bordered info-small">
+      <tr>
+        <td>
+            {{comment.title}} <hr />
+            {{comment.text}} <hr />
+            Posted on: {{comment.datePosted | date:'yy/MM/dd'}} <br />
+            by: <a href="#/users/{{comment.postedBy._id}}">{{comment.postedBy.firstName}} {{comment.postedBy.lastName}}</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<hr />
+
 <form class="add-comments info-small form-vertical" ng-submit="addComment()">
   <fieldset>
     <h5>Add Comment</h5>
@@ -17,21 +35,3 @@
     <button type="submit" class="btn">Add Comment</button>
   </fieldset>
 </form>
-
-<hr />
-
-<div ng-show="workItem.comments.length != 0">
-  <h5>Comments</h5>
-  <div class="comments" ng-repeat="comment in workItem.comments">
-    <table class="comment table table-condensed table-bordered info-small">
-      <tr>
-        <td>
-            {{comment.title}} <hr />
-            {{comment.text}} <hr />
-            Posted on: {{comment.datePosted | date:'yy/MM/dd'}} <br />
-            by: <a href="#/users/{{comment.postedBy._id}}">{{comment.postedBy.firstName}} {{comment.postedBy.lastName}}</a>
-        </td>
-      </tr>
-    </table>
-  </div>
-</div>
