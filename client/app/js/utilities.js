@@ -89,4 +89,12 @@ PJS.Utilities.filterByStatus = function(items, status) {
   return newItems;
 };
 
+PJS.Utilities.projectUsersToUserList = function(projectUsers) {
+  var users = [];
+  projectUsers.forEach(function(userObj) {
+    users.push(userObj.user);
+  });
+  return users;
+};
+
 })();

@@ -60,7 +60,7 @@ PJS.Controllers.WorkItem = {
       // TODO: filter these based on what's already chosen
       $scope.workPackagesList = WorkPackage.query({projectId: projectId, list: true});
       $scope.dependenciesList = WorkItem.query({projectId: projectId, list: true});
-      $scope.usersList = User.query({projectId: projectId, list: true});
+      $scope.usersList = PJS.Utilities.projectUsersToUserList(project.projectUsers);
 
       $scope.type = 'Add';
       $scope.submitType = 'Create';
@@ -91,7 +91,7 @@ PJS.Controllers.WorkItem = {
         // TODO: filter these based on what's already chosen
         $scope.workPackagesList = WorkPackage.query({projectId: projectId, list: true});
         $scope.dependenciesList = WorkItem.query({projectId: projectId, list: true});
-        $scope.usersList = User.query({projectId: projectId, list: true});
+        $scope.usersList = PJS.Utilities.projectUsersToUserList(project.projectUsers);
 
         $scope.type = 'Edit';
         $scope.submitType = 'Update';
