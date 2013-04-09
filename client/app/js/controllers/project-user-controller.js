@@ -29,31 +29,40 @@ PJS.Controllers.ProjectUser = {
 
           $scope.updateRole = function(userObj) {
             var role = userObj.role;
-            userObj.roleId = role.id;
-            userObj.$save({id: userObj.user.id, projectId: projectId}, function(updated) {
-              var index = projectUsers.indexOf(userObj);
-              if (index !== -1) {
-                projectUsers[index].user = PJS.ViewModels.User(updated.user);
-                projectUsers[index].role = PJS.ViewModels.Role(updated.role);
-                projectUsers[index].id = updated.user.id;
-              }
-            });
+            if (role && role.id) {
+              userObj.roleId = role.id;
+              userObj.$save({id: userObj.user.id, projectId: projectId}, function(updated) {
+                var index = projectUsers.indexOf(userObj);
+                if (index !== -1) {
+                  projectUsers[index].user = PJS.ViewModels.User(updated.user);
+                  projectUsers[index].role = PJS.ViewModels.Role(updated.role);
+                  projectUsers[index].id = updated.user.id;
+                }
+              });
+            }
           };
 
           $scope.addUser = function() {
-            var userId = $scope.addUserChosen._id;
-            var roleId = $scope.addRoleChosen._id;
-            var index = PJS.Utilities.findIndexInArray(projectUsers, userId);
-            if (index === -1) {
-              var projectUser = new ProjectUser({userId: userId, roleId: roleId});
-              projectUser.projectId = projectId;
-              projectUser.$save(projectUser, function(added) {
-                added.user = PJS.ViewModels.User(added.user);
-                added.role = PJS.ViewModels.Role(added.role);
-                added.id = added.user.id;
-                projectUsers.push(added);
-                $scope.hasUsers = !!projectUsers.length;
-              });
+            if ($scope.addUserChosen && $scope.addRoleChosen) {
+              var userId = $scope.addUserChosen._id;
+              var roleId = $scope.addRoleChosen._id;
+              var found = false;
+              for (var i=0, length=projectUsers.length; i<length; ++i) {
+                if (projectUsers[i].user._id === userId) {
+                  found = true;
+                }
+              }
+              if (!found) {
+                var projectUser = new ProjectUser({userId: userId, roleId: roleId});
+                projectUser.projectId = projectId;
+                projectUser.$save(projectUser, function(added) {
+                  added.user = PJS.ViewModels.User(added.user);
+                  added.role = PJS.ViewModels.Role(added.role);
+                  added.id = added.user.id;
+                  projectUsers.push(added);
+                  $scope.hasUsers = !!projectUsers.length;
+                });
+              }
             }
           };
 
