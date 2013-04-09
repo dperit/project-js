@@ -28,23 +28,6 @@
           </select>
         </div>
       </div>
-      <div class="control-group">
-        <label class="control-label span2" for="inputWorkPackages">Dependencies:</label>
-        <div class="nullable">
-          <select select2 data-placeholder="-- Add a Dependency --" id="{{dependencies + '-menu'}}" ng-change="dependenciesAdd(workPackage)"
-            ng-model="dependenciesAddChosen">
-            <option></option>
-            <option value="{{dependency._id}}" ng-repeat="dependency in workPackagesList">
-              {{dependency.title}}
-            </option>
-          </select>
-        </div>
-        <div class="info-small span3 pull-right workPackage" id="{{dependency.id}}" ng-repeat="dependency in workPackage.dependencies">
-          <a href="#/projects/{{project.id}}/work-packages/{{dependency.id}}">{{dependency.title}}
-          </a>
-          <a ng-click="dependenciesRemove(dependency)"><i class="icon-remove-circle"></i></a>
-        </div>
-      </div>
     </div>
 
     <div class="span5">
@@ -63,6 +46,40 @@
             <option value="closed">Closed</option>
             <option value="deleted">Deleted</option>
           </select>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label span2" for="inputWorkItems">Work Items:</label>
+        <div class="nullable">
+          <select select2 data-placeholder="-- Add a Work Item --" id="{{workItems + '-menu'}}" ng-change="workItemsAdd(workPackage)"
+            ng-model="workItemsAddChosen">
+            <option></option>
+            <option value="{{workItem._id}}" ng-repeat="workItem in workItemsList">
+              {{workItem.title}}
+            </option>
+          </select>
+        </div>
+        <div class="info-small span3 pull-right workItem" id="{{workItem.id}}" ng-repeat="workItem in workPackage.workItems">
+          <a href="#/projects/{{project.id}}/work-items/{{workItem.id}}">{{workItem.title}}
+          </a>
+          <a ng-click="workItemsRemove(workItem)"><i class="icon-remove-circle"></i></a>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label span2" for="inputWorkPackages">Dependencies:</label>
+        <div class="nullable">
+          <select select2 data-placeholder="-- Add a Dependency --" id="{{dependencies + '-menu'}}" ng-change="dependenciesAdd(workPackage)"
+            ng-model="dependenciesAddChosen">
+            <option></option>
+            <option value="{{dependency._id}}" ng-repeat="dependency in workPackagesList">
+              {{dependency.title}}
+            </option>
+          </select>
+        </div>
+        <div class="info-small span3 pull-right workPackage" id="{{dependency.id}}" ng-repeat="dependency in workPackage.dependencies">
+          <a href="#/projects/{{project.id}}/work-packages/{{dependency.id}}">{{dependency.title}}
+          </a>
+          <a ng-click="dependenciesRemove(dependency)"><i class="icon-remove-circle"></i></a>
         </div>
       </div>
     </div>

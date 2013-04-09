@@ -50,6 +50,10 @@ module.exports = function(app) {
       }
     }
 
+    if(req.body.workItems) {
+      wp.addWorkItems(project, req.body.workItems);
+    }
+
     project.workPackages.push(wp);
     project.save(function(err){
       if(err) {
@@ -79,6 +83,10 @@ module.exports = function(app) {
         var v = req.body.dependencies[i];
         if (v) wp.dependencies.push(v._id || v);
       }
+    }
+
+    if(req.body.workItems) {
+      wp.addWorkItems(project, req.body.workItems);
     }
 
     project.save(function(err){

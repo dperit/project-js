@@ -33,13 +33,14 @@ PJS.Controllers.WorkPackage = {
     });
   },
 
-  add: function($scope, $routeParams, Project, WorkPackage, User) {
+  add: function($scope, $routeParams, Project, WorkPackage, WorkItem, User) {
     var projectId = $routeParams.projectId.toLowerCase();
 
     Project.get({id: projectId}, function(project) {
       $scope.project = project;
       $scope.workPackage = {
         dependencies: [],
+        workItems: [],
         completionPercentage: 0,
         status: 'open',
         priority: 'low',
@@ -47,9 +48,11 @@ PJS.Controllers.WorkPackage = {
       };
 
       PJS.Controllers.updateRelations($scope, $scope.workPackage, 'dependencies', WorkPackage);
+      PJS.Controllers.updateRelations($scope, $scope.workPackage, 'workItems', WorkItem);
 
       // TODO: filter these based on what's already chosen
       $scope.workPackagesList = WorkPackage.query({projectId: projectId, list: true});
+      $scope.workItemsList = WorkItem.query({projectId: projectId, list: true});
 
       $scope.type = 'Add';
       $scope.submitType = 'Create';
@@ -64,7 +67,7 @@ PJS.Controllers.WorkPackage = {
     });
   },
 
-  update: function($scope, $routeParams, Project, WorkPackage, User) {
+  update: function($scope, $routeParams, Project, WorkPackage, WorkItem, User) {
     var projectId = $routeParams.projectId.toLowerCase();
     var workPackageId = $routeParams.workPackageId.toLowerCase();
     Project.get({id: projectId}, function(project) {
@@ -74,9 +77,11 @@ PJS.Controllers.WorkPackage = {
         PJS.Controllers.relations('WorkPackage', project, workPackage);
 
         PJS.Controllers.updateRelations($scope, workPackage, 'dependencies', WorkPackage);
+        PJS.Controllers.updateRelations($scope, $scope.workPackage, 'workItems', WorkItem);
 
         // TODO: filter these based on what's already chosen
         $scope.workPackagesList = WorkPackage.query({projectId: projectId, list: true});
+        $scope.workItemsList = WorkItem.query({projectId: projectId, list: true});
 
         $scope.type = 'Edit';
         $scope.submitType = 'Update';
@@ -91,6 +96,7 @@ PJS.Controllers.WorkPackage = {
           workPackage.priority = $scope.workPackage.priority;
           workPackage.timeEstimate = $scope.workPackage.timeEstimate;
           workPackage.projectId = projectId;
+          workPackage.workItems = $scope.workPackage.workItems;
           workPackage.$save(workPackage, function(workPackage) {
             window.location = '/#/projects/' + projectId + '/work-packages/' + workPackage._id;
           });

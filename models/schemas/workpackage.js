@@ -24,6 +24,17 @@ WorkPackage.methods = {
     return Utilities.getPriorityWeight(this.priority);
   },
 
+  addWorkItems: function(project, workItems) {
+    this.clearWorkItems(project);
+    workItems.forEach(function(workItem) {
+      var id = workItem._id || workItem;
+      workItem = project.hasWorkItemAndRetrieve(id);
+      if (workItem && !Utilities.findInArray(workItem.workPackages, this._id)) {
+        workItem.workPackages.push(this._id);
+      }
+    }, this);
+  },
+
   getWorkItems: function(project) {
     var workItems = [];
     project.workItems.forEach(function(workItem) {
@@ -32,6 +43,16 @@ WorkPackage.methods = {
       }
     }, this);
     return workItems;
+  },
+
+  clearWorkItems: function(project) {
+    var workItems = this.getWorkItems(project);
+    workItems.forEach(function(workItem) {
+      var index = Utilities.findIndexInArray(workItem.workPackages, this._id);
+      if (index !== -1) {
+        workItem.workPackages.splice(index, 1);
+      }
+    }, this);
   },
 
   getCompletion: function(ids, project) {
@@ -90,6 +111,8 @@ WorkPackage.methods = {
       if (this.completionPercentage > 100) {
         this.completionPercentage = 100;
       }
+
+      console.log(this.completionPercentage);
     }
     return this.completionPercentage;
   }
