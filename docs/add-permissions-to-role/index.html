@@ -1,0 +1,19 @@
+<p>This method allows one add permissions to a specific role.</p>
+
+<h3 id='request'>Request</h3>
+
+<p><code>
+{
+  [Permission]
+}
+</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the updated <code>Role</code> object.</li>
+
+<li>500 Internal Server Error: Failed to find role.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error updating the user.</li>
+</ul>

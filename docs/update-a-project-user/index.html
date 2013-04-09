@@ -1,0 +1,27 @@
+<p>This method allows one to update a specific user within the specified project.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the project user belongs to.</li>
+
+<li><strong>:projectUser</strong>: The ID of the user which one wishes to update.</li>
+</ul>
+
+<p><code>
+{
+  roleId: &lt;Role&gt;_id
+}
+</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the updated <code>User</code> object.</li>
+
+<li>500 Internal Server Error: Failed to find project.</li>
+
+<li>500 Internal Server Error: Failed to find user.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error updating the user.</li>
+</ul>

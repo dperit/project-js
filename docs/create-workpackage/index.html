@@ -1,0 +1,28 @@
+<p>This method creates a new <code>WorkPackage</code> and adds it to the project&#8217;s work package list.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work package belongs to.</li>
+</ul>
+
+<p><code>{
+  title: &#39;Create rocket jets&#39;,
+  description: &#39;Tasks required to create a rocket jet&#39;,
+  timeEstimate: &lt;Int&gt; || 0,
+  status: &#39;open&#39; || &#39;closed&#39; || &#39;late&#39; || &#39;deleted&#39;,
+  priority: &#39;low&#39; || &#39;medium&#39; || &#39;high&#39; || &#39;urgent&#39;,
+  dependencies: [&lt;WorkPackage&gt;&gt;._id]
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the new <code>WorkPackage</code> object.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: Required data not provided.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error saving the project.</li>
+</ul>

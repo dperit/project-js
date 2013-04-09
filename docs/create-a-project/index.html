@@ -1,0 +1,21 @@
+<p>This method allows one to create a new project.</p>
+
+<h3 id='request'>Request</h3>
+
+<p><code>{
+  title: &#39;My Project&#39;,
+  description: &#39;This is a description.&#39;,
+  clientName: &#39;John McGurk&#39;,
+  [ projectDueDate: &lt;Date&gt;, ]
+  status: &#39;open&#39; | &#39;closed&#39; | &#39;late&#39; | &#39;deleted&#39;
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Project created, <code>Project</code> object returned.</li>
+
+<li>500 Internal Server Error: Missing required data.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error while saving.</li>
+</ul>

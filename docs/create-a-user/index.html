@@ -1,0 +1,22 @@
+<p>This method allows one to create a new user.</p>
+
+<h3 id='request'>Request</h3>
+
+<p><code>{
+  username: &#39;lawman&#39;,
+  firstName: &#39;Bob&#39;,
+  lastName: &#39;Loblaw&#39;,
+  email: &#39;bob@loblaw.com&#39;,
+  password: &lt;password&gt; [,
+  siteAdmin: true|false ]
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: User created, <code>User</code> object returned.</li>
+
+<li>500 Internal Server Error: Required data not specified.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error while saving.</li>
+</ul>

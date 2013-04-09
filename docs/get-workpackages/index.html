@@ -1,0 +1,17 @@
+<p>This method returns all work packages within the specified project.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work package belongs to.</li>
+
+<li>If the query contains <code>list</code>, then only the work package titles are returned.</li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns an array of <code>WorkPackage</code> objects.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+</ul>

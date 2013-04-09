@@ -1,0 +1,25 @@
+<p>This method allows one to update a role&#8217;s information.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li>All of the following are optional (but as there is only one parameter here, not sending it would make this pointless!)</li>
+</ul>
+
+<p><code>
+{
+  title: &#39;My new role title&#39;
+}
+</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns the updated <code>Role</code> object.</li>
+
+<li>500 Internal Server Error: Failed to find role.</li>
+
+<li>500 Internal Server Error: Did not send the required parameters</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error updating the user.</li>
+</ul>

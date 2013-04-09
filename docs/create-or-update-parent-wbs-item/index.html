@@ -1,0 +1,26 @@
+<p>This method will create a work breakdown structure in the project. If an <code>_id</code> is specified for an existing <code>WorkBreakdownItem</code>, that item is updated.</p>
+
+<p>One can include an array of <code>WorkBreakdownItem</code> IDs to add as children to the created or updated <code>WorkBreakdownItem</code>.</p>
+
+<h3 id='request'>Request</h3>
+
+<ul>
+<li><strong>:project</strong>: The ID of the project which the work breakdown structure belongs to.</li>
+</ul>
+
+<p><code>{
+  [_id: &lt;WorkBreakdownItem&gt;._id, ]
+  title: &quot;Conquer the world&quot;,
+  description: &quot;Outline for my plan to take over the world.&quot;,
+  [ children: [&lt;WorkBreakdownItem&gt;._id] ]
+}</code></p>
+
+<h3 id='response'>Response</h3>
+
+<ul>
+<li>200 OK: Returns an array of <code>WorkBreakdownItem</code> objects.</li>
+
+<li>500 Internal Server Error: Project not found.</li>
+
+<li>500 Internal Server Error: Mongoose encountered an error saving the project.</li>
+</ul>

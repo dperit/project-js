@@ -1,0 +1,12 @@
+<p>The User object has the following properties:</p>
+
+<p><code>{
+  firstName: { type: String, required: true, trim: true },
+  lastName: { type: String, required: true, trim: true },
+  email: { type: String, required: true, unique: true },
+  resetMode: { type: Boolean, default: false },
+  siteAdmin: { type: Boolean, default: false },
+  registrationDate: { type: Date, default: Date.now },
+  currentProject: { type: Schema.Types.ObjectId, ref: &#39;Project&#39; },
+  lastModifiedProject: { type: Schema.Types.ObjectId, ref: &#39;Project&#39; } 
+}</code></p>
