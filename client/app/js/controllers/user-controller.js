@@ -36,6 +36,7 @@ PJS.Controllers.User = {
         email: $scope.email
       });
       user.$save(function(loggedInUser) {
+        PJS.Utilities.popupModalDialog('Registration Completed');
         $scope.loggedIn = loggedInUser && loggedInUser._id ? loggedInUser : null;
         $scope.isLoggedIn = !!$scope.loggedIn;
       });

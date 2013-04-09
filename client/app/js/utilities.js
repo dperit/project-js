@@ -97,4 +97,17 @@ PJS.Utilities.projectUsersToUserList = function(projectUsers) {
   return users;
 };
 
+PJS.Utilities.popupModalDialog = function(body) {
+  var html =
+    '<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">' +
+      '<div class="modal-body">' +
+        '<p>' + body + '</p>' +
+      '</div>' +
+      '<div class="modal-footer">' +
+        '<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>' +
+      '</div>' +
+    '</div>'
+  $(html).modal();
+};
+
 })();
