@@ -5,6 +5,9 @@ var express = require("express")
   , app = express();
 
 // configuration
+// PLEASE SEE ./config/project.js
+// TO SET OPTIONS SUCH AS PORT AND
+// API PREFIX
 require('./config/project')(app);
 
 // connect to mongoDB
