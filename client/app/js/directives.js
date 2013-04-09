@@ -11,3 +11,25 @@ directives.directive('select2', function() {
       });
    }
 });
+
+directives.directive('slider', function() {
+  return {
+    require: '^ngModel',
+    link: function(scope, element, attrs, model) {
+      var update = function(ev) {
+        model.$setViewValue(ev.value);
+      };
+      var slider = element.slider();
+      slider.on('slide', update);
+      slider.on('slideStop', update);
+
+      model.$render = function() {
+        slider.slider('setValue', model.$viewValue);
+      };
+
+      scope.modelValue = function() {
+        return model.$viewValue;
+      };
+    }
+  };
+});
