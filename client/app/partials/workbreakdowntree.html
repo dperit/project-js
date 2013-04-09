@@ -32,7 +32,7 @@
   <li ng-show="mode=='add'">
     <input type="text" id="title" required maxlength="30" ng-maxlength="30" ng-model="newItem.title" />
     Description: <input type="text" id="description" maxlength="50" ng-maxlength="50" ng-model="newItem.description" />
-    <a href="" ng-click="addChildren(data, newItem);newItem.description='';newItem.title=''">
+    <a href="" ng-click="addChildren(data, newItem);newItem.description='';newItem.title='';mode='view'">
       <i class="icon-ok"></i></a>
     <a href="" ng-click="mode='view'"><i class="icon-remove"></i></a>
   </li>
