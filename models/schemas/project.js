@@ -44,11 +44,20 @@ Project.methods = {
           amount += weight;
           sum += milestone.getCompletion(ids, this) * weight;
         }, this);
+        this.workPackages.forEach(function(workPackage) {
+          workPackage.getCompletion(ids, this);
+        }, this);
+        this.workItems.forEach(function(workItem) {
+          workItem.getCompletion(ids, this);
+        }, this);
       } else if (this.workPackages.length) {
         this.workPackages.forEach(function(workPackage) {
           var weight = workPackage.getWeight();
           amount += weight;
           sum += workPackage.getCompletion(ids, this) * weight;
+        }, this);
+        this.workItems.forEach(function(workItem) {
+          workItem.getCompletion(ids, this);
         }, this);
       } else {
         this.workItems.forEach(function(workItem) {
