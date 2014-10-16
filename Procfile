@@ -1,2 +1,2 @@
-web: mongod --dbpath db
+db: mongod --dbpath db
 web: node app
