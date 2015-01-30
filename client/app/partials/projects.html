@@ -20,7 +20,7 @@
     <a href="#/projects/{{project.id}}/edit"><i class="icon icon-edit"></i></a></h4>
     <p>{{project.description}}</p>
     <p ng-show="project.projectUsers.length != 0"><b>Project Manager:</b>
-      <span ng-repeat="user in project.usersByRole['project manager']">
+      <span ng-repeat="user in project.usersByRole['Project Manager']">
         <a class="btn btn-mini" href="#/users/{{user._id}}"> {{user.firstName}} {{user.lastName}} </a>
       </span>
     </p>
