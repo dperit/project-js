@@ -1,19 +1,29 @@
 <form class="form-horizontal borderless" ng-controller="PJS.Controllers.User.login" ng-submit="login()">
-  <div class="control-group">
-    <label class="control-label" for="inputUsername">Username:</label>
-    <div class="controls">
-      <input type="text" id="inputUsername" ng-model="username" />
+    <div>
+        <p>
+            Feel free to use "Bob" and "Bob" as your username and password.
+        </p>
     </div>
-  </div>
-  <div class="control-group">
-    <label class="control-label" for="inputPassword">Password:</label>
-    <div class="controls">
-      <input type="password" id="inputPassword" ng-model="password" />
+    <div class="control-group">
+        <label class="control-label" for="inputUsername">Username:</label>
+        <div class="controls">
+            <input type="text" id="inputUsername" ng-model="username" />
+        </div>
     </div>
-  </div>
-  <div class="control-group">
-    <div class="controls">
-      <button type="submit" class="btn">Sign in</button>
+    <div class="control-group">
+        <label class="control-label" for="inputPassword">Password:</label>
+        <div class="controls">
+            <input type="password" id="inputPassword" ng-model="password" />
+        </div>
     </div>
-  </div>
-</font>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">Sign in</button>
+        </div>
+    </div>
+    <div class="alert alert-danger" role="alert" ng-show="loginFailed">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        You have entered an incorrect username or password! Please try again
+    </div>
+</form>

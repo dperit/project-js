@@ -14,7 +14,11 @@ PJS.Controllers.User = {
       login.$save({username: $scope.username, password: $scope.password}, function(user) {
         $scope.loggedIn = user && user.id ? user : null;
         $scope.isLoggedIn = !!$scope.loggedIn;
+        $scope.loginFailed = false;
         window.location.reload(true);
+      },
+      function(){
+          $scope.loginFailed = true;
       });
     };
   },
