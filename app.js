@@ -11,7 +11,7 @@ var express = require("express")
 require('./config/project')(app);
 
 // connect to mongoDB
-mongoose.connect("mongodb://heroku_app30754304:35n3n98tba935ocnjbs8scbalo@ds045970.mongolab.com:45970/heroku_app30754304");
+mongoose.connect("mongodb://heroku_app30754304:35n3n98tba935ocnjbs8scbalo@ds045970.mlab.com:45970/heroku_app30754304");
 
 // initialize models & routes
 var models = require('./models/index');
